@@ -1,0 +1,64 @@
+; %name: work_settings.cmm %
+; Developed by TechM
+; (c) Copyright 2020  - PowerTrain
+; platform specialization
+if rcl.port(0)!=0 ; Remote controlled
+(
+)
+if system.instance()!=1. ; Continue only on Lauterbach's first interface
+	enddo
+if cpufamily()=="TRICORE"
+	system.option resetbehavior RestoreGo
+else if cpufamily()=="POWERPC"
+(
+	system.option resetbehavior ResetStart
+	if powernexus()
+	(
+		nexus.htm ON
+		nexus.otm ON
+		if (practice.command.available(trace.clock))&&("&coreclock"!="")
+		(		; Extract cpu clock from nexus clock
+			if !run()
+			(
+				PRIVATE &clock_set
+				&clock_set="core0_main"  ; appl.'s clocks initializations done
+				if !symbol.exist(&clock_set)
+				(
+					&clock_set="start" ; boot's clocks initializations done
+					if !symbol.exist(&clock_set)
+					(
+						print %warning "'core0_main' and 'start' missing: clocks settings avoided"
+						GOTO NO_CLOCK
+					)
+				)
+				go &clock_set
+				ON TIME 10.s GOTO
+				(
+					break.delete &clock_set
+					print %warning "timeout on clocks settings update"
+					GOTO NO_CLOCK
+				)
+				wait !STATE.RUN()
+				go   			; Restart
+			)
+			count.select MCKO
+			count.mode Frequency
+			count.gate 0.1s
+			count.go
+			&coreclock=nexus.portmode()
+			&coreclock=convert.hextoint(count.value())/(1.0*&coreclock)
+			intercom.execute ALL trace.clock &coreclock
+			print "cores clock set to &coreclock"
+		)
+NO_CLOCK:
+	)
+)
+else if cpufamily()=="C166"
+(				; Eventual use of standby mode
+	GLOBALON POWERUP gosub	; in case of a following powerdown
+	(
+		system.attach
+		return
+	)
+)
+enddo

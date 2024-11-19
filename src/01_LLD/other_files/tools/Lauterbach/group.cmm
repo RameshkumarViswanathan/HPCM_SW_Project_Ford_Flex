@@ -1,0 +1,21 @@
+group.reset
+;group.merge "other"
+group.color "other" purple
+enddo
+
+GROUP_SYMBOL:
+	PARAMETERS &module &sym
+	if symbol.exist(\&sym)
+		group.create "&module" \&sym
+	else
+	(
+		LOCAL &pwd &file
+		&file=practice.caller.file(0.)
+		&pwd=os.pwd()
+		&file=string.replace("&file","&pwd/","",1)
+		print %error "Module ""&sym"" without debug info, "
+		print %error %continue "not grouped. Required at line "
+		print %error %continue format.Decimal(0.,practice.caller.line(1.))
+		print %error %continue " of file ""&file"""
+	)
+	return

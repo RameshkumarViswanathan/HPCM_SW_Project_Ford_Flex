@@ -1,0 +1,16 @@
+﻿08 Jan 2024 14:36:15 - Saving file AdminDataTemplates.xml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\Developer\AdminDataTemplates.xml)
+08 Jan 2024 14:36:15 - Saving file DemoUpd.dcf (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\Developer\DemoUpd.dcf)
+08 Jan 2024 14:36:15 - Start import
+08 Jan 2024 14:36:15 - Importing file (C:\Program Files\Vector DaVinci Developer Classic 4.11 (SP3)\Bin\Predefines\StandardPackages_AR4.arxml).
+08 Jan 2024 14:36:17 - Importing file (C:\Program Files\Vector DaVinci Developer Classic 4.11 (SP3)\Bin\Predefines\ServicePortInterfaces_4.7.0.arxml).
+08 Jan 2024 14:36:17 - Importing file (C:\Program Files\Vector DaVinci Developer Classic 4.11 (SP3)\Bin\Predefines\ApplicationPortInterfaces_4.7.0.arxml).
+08 Jan 2024 14:36:17 - Importing file (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\AUTOSAR\MemMap_SwAddrMethods.arxml).
+08 Jan 2024 14:36:17 - Importing file (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\AUTOSAR\PlatformTypes_AR4.arxml).
+08 Jan 2024 14:36:17 - Merging imported data
+08 Jan 2024 14:36:18 - Finished import
+08 Jan 2024 14:36:18 - Saving file ProfileSettings.xml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\Developer\ProfileSettings.xml)
+08 Jan 2024 14:36:18 - Saving file Packages.arxml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\Developer\Packages.arxml)
+08 Jan 2024 14:36:18 - Saving file DataTypes.arxml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\Developer\DataTypes.arxml)
+08 Jan 2024 14:36:18 - Saving file PortInterfaces.arxml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\Developer\PortInterfaces.arxml)
+08 Jan 2024 14:36:18 - Saving file DemoUpd.arxml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\Developer\ECUProjects\DemoUpd.arxml)
+08 Jan 2024 14:36:18 - Saving file DemoUpd.dcf (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoUpdater\Config\Developer\DemoUpd.dcf)

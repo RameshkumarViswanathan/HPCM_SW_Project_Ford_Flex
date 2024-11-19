@@ -1,0 +1,14 @@
+// T32_1000004 Thu Sep 28 16:06:29 2023
+
+B::
+
+Break.RESet
+Break.CONFIG.VarConvert OFF
+Break.CONFIG.InexactData ON
+Break.CONFIG.InexactTrigger OFF
+Break.CONFIG.InexactResume ON
+Break.CONFIG.InexactAddress ON
+Break.CONFIG.AlwaysAlive OFF
+Break.Set     FblBmState_CheckFblValidity\24 /Program
+
+ENDDO

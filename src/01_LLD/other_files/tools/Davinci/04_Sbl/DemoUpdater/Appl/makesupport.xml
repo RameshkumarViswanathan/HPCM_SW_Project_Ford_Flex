@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<makesupport>
+<controller name='AURIX' derivative='TC37x' />
+ <devtoolinfo>
+    <tool type='Compiler' manufacturer='GCCHIGHTEC'>
+      <entry type='Version'></entry>
+      <entry type='VectorDefaultOptions'>-mtc162 -g -ffunction-sections -fno-common -O1 -fomit-frame-pointer</entry>
+      <entry type='VectorBuildEnvironmentOptions'>-DBRS_PLATFORM_AURIX -DDemoFbl -DBRS_COMP_GCCHIGHTEC -c -o -error-file=err/.err -save-temps=obj</entry>
+
+
+
+
+    </tool>
+    <tool type='Assembler' manufacturer='GCCHIGHTEC'>
+      <entry type='Version'></entry>
+      <entry type='VectorDefaultOptions'>-mtc162 -g -ffunction-sections -fno-common -O1 -fomit-frame-pointer -c -nostartfiles -Wa,--gdwarf2</entry>
+      <entry type='VectorBuildEnvironmentOptions'>-c -o -x assembler</entry>
+    </tool>
+    <tool type='Linker' manufacturer='GCCHIGHTEC'>
+      <entry type='Version'></entry>
+      <entry type='VectorDefaultOptions'>-Wl,--mcpu=tc162 -Wl,--cref -Wl,--gc-sections -Wl,-n -Wl,--allow-multiple-definition -lgcc -los </entry>
+      <entry type='VectorBuildEnvironmentOptions'>-o DemoFbl.elf -Wl,-Map,DemoFbl.map,--extmap=a -TSource/vLinkGen_Template_DemoFbl.ld -eStartupEntry -nostartfiles</entry>
+    </tool>
+ </devtoolinfo>
+</makesupport>

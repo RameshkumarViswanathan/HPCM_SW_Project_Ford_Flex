@@ -1,0 +1,1500 @@
+/**********************************************************************************************************************
+ *  COPYRIGHT
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  \verbatim
+ *
+ *                 This software is copyright protected and proprietary to Vector Informatik GmbH.
+ *                 Vector Informatik GmbH grants to you only those rights as set out in the license conditions.
+ *                 All other rights remain with Vector Informatik GmbH.
+ *  \endverbatim
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  LICENSE
+ *  -------------------------------------------------------------------------------------------------------------------
+ *            Module: Os
+ *           Program: MSR_Vector_SLP4
+ *          Customer: 
+ *       Expiry Date: 2022-12-31
+ *  Ordered Derivat.: Aurix 2G/TC3x7
+ *    License Scope : The usage is restricted to CBD2000756_D00
+ *
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  FILE DESCRIPTION
+ *  -------------------------------------------------------------------------------------------------------------------
+ *              File: Os_Trace.ORT
+ *   Generation Time: 2021-06-25 11:40:24
+ *           Project: myecu - Version 1.0
+ *          Delivery: CBD2000756_D00
+ *      Tool Version: DaVinci Configurator (beta) 5.22.35 SP1
+ *
+ *
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ ! BETA VERSION                                                                                                       !
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ ! This version of DaVinci Configurator Pro and/or the related Basic Software Package is BETA software.               !
+ ! BETA Software is basically operable, but not sufficiently tested, verified and/or qualified for use in series      !
+ ! production and/or in vehicles operating on public or non-public roads.                                             !
+ ! In particular, without limitation, BETA Software may cause unpredictable ECU behavior, may not provide all         !
+ ! functions necessary for use in series production and/or may not comply with quality requirements which are         !
+ ! necessary according to the state of the art. BETA Software must not be used in series production.                  !
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+**********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ *  Declaration Section
+ *********************************************************************************************************************/
+
+VERSION {
+  KOIL = "2.3";
+  OSSEMANTICS = "ORTI", "2.3";
+}; /* VERSION */
+
+IMPLEMENTATION Vector_ORTI {
+
+  OS {
+    CTYPE "int" vs_SMP_NUMCPU, "Number of CPUs";
+    ENUM "CoreIdType" [
+      "OS_CORE_ID_0" = 0,
+      "OS_CORE_ID_1" = 1,
+      "OS_CORE_ID_2" = 2
+    ] vs_COREID[], "Current Core ID";
+    TOTRACE ENUM "void *" [
+      "BSW_QMCore0_Task" = "&OsCfg_Trace_BSW_QMCore0_Task",
+      "BSW_QMCore1_Task" = "&OsCfg_Trace_BSW_QMCore1_Task",
+      "BSW_QMCore2_Task" = "&OsCfg_Trace_BSW_QMCore2_Task",
+      "CDD_QMCore0_Task" = "&OsCfg_Trace_CDD_QMCore0_Task",
+      "CDD_QMCore1_Task" = "&OsCfg_Trace_CDD_QMCore1_Task",
+      "CDD_QMCore2_Task" = "&OsCfg_Trace_CDD_QMCore2_Task",
+      "Default_Init_Task" = "&OsCfg_Trace_Default_Init_Task",
+      "Default_Init_Task_Core1" = "&OsCfg_Trace_Default_Init_Task_Core1",
+      "Default_Init_Task_Core1_Trusted" = "&OsCfg_Trace_Default_Init_Task_Core1_Trusted",
+      "Default_Init_Task_Core2" = "&OsCfg_Trace_Default_Init_Task_Core2",
+      "Default_Init_Task_Core2_Trusted" = "&OsCfg_Trace_Default_Init_Task_Core2_Trusted",
+      "Default_Init_Task_Trusted" = "&OsCfg_Trace_Default_Init_Task_Trusted",
+      "IdleTask_OsCore0" = "&OsCfg_Trace_IdleTask_OsCore0",
+      "IdleTask_OsCore1" = "&OsCfg_Trace_IdleTask_OsCore1",
+      "IdleTask_OsCore2" = "&OsCfg_Trace_IdleTask_OsCore2",
+      "RTE_Mode_switch_QMCore0_Task" = "&OsCfg_Trace_RTE_Mode_switch_QMCore0_Task",
+      "Task_MemoryMainFunctions_Core0" = "&OsCfg_Trace_Task_MemoryMainFunctions_Core0",
+      "Task_PowerOff_Core0" = "&OsCfg_Trace_Task_PowerOff_Core0",
+      "Task_PowerOff_Core1" = "&OsCfg_Trace_Task_PowerOff_Core1",
+      "Task_PowerOff_Core2" = "&OsCfg_Trace_Task_PowerOff_Core2",
+      "INVALID_TASK" = "0x0"
+    ] RUNNINGTASK[], "Running Task Identification";
+    ENUM "unsigned short" [
+      "1000000" = 0,
+      "1000" = 1,
+      "500" = 2,
+      "400" = 3,
+      "50" = 4,
+      "4294967295" = 5
+    ] RUNNINGTASKPRIORITY[], "Running Task Priority";
+    TOTRACE ENUM "void *" [
+      "CanIsr_0" = "&OsCfg_Trace_CanIsr_0",
+      "CanIsr_3" = "&OsCfg_Trace_CanIsr_3",
+      "CounterIsr_SystemTimer_Core0" = "&OsCfg_Trace_CounterIsr_SystemTimer_Core0",
+      "CounterIsr_SystemTimer_Core1" = "&OsCfg_Trace_CounterIsr_SystemTimer_Core1",
+      "CounterIsr_SystemTimer_Core2" = "&OsCfg_Trace_CounterIsr_SystemTimer_Core2",
+      "ISR_SYS" = "&OsCfg_Trace_ISR_SYS",
+      "ISR_SYS1" = "&OsCfg_Trace_ISR_SYS1",
+      "ISR_SYS2" = "&OsCfg_Trace_ISR_SYS2",
+      "XSignalIsr_OsCore0" = "&OsCfg_Trace_XSignalIsr_OsCore0",
+      "XSignalIsr_OsCore1" = "&OsCfg_Trace_XSignalIsr_OsCore1",
+      "XSignalIsr_OsCore2" = "&OsCfg_Trace_XSignalIsr_OsCore2",
+      "INVALID_ISR" = "0x0"
+    ] RUNNINGISR2[], "Running ISR Identification";
+    TOTRACE ENUM "unsigned char" [
+      "GetApplicationID"= "0x02",  /*!< GetApplicationID() */
+      "GetISRID"= "0x04",  /*!< GetISRID() */
+      "CallTrustedFunction"= "0x06",  /*!< CallTrustedFunction() */
+      "CheckISRMemoryAccess"= "0x08",  /*!< CheckISRMemoryAccess() */
+      "CheckTaskMemoryAccess"= "0x0A",  /*!< CheckTaskMemoryAccess() */
+      "CheckObjectAccess"= "0x0C",  /*!< CheckObjectAccess() */
+      "CheckObjectOwnership"= "0x0E",  /*!< CheckObjectOwnership() */
+      "StartScheduleTableRel"= "0x10",  /*!< StartScheduleTableRel() */
+      "StartScheduleTableAbs"= "0x12",  /*!< StartScheduleTableAbs() */
+      "StopScheduleTable"= "0x14",  /*!< StopScheduleTable() */
+      "NextScheduleTable"= "0x16",  /*!< NextScheduleTable() */
+      "StartScheduleTableSynchron"= "0x18",  /*!< StartScheduleTableSynchron() */
+      "SyncScheduleTable"= "0x1A",  /*!< SyncScheduleTable() */
+      "SetScheduleTableAsync"= "0x1C",  /*!< SetScheduleTableAsync() */
+      "GetScheduleTableStatus"= "0x1E",  /*!< GetScheduleTableStatus() */
+      "IncrementCounter"= "0x20",  /*!< IncrementCounter() */
+      "GetCounterValue"= "0x22",  /*!< GetCounterValue() */
+      "GetElapsedValue"= "0x24",  /*!< GetElapsedValue() */
+      "TerminateApplication"= "0x26",  /*!< TerminateApplication() */
+      "AllowAccess"= "0x28",  /*!< AllowAccess() */
+      "GetApplicationState"= "0x2A",  /*!< GetApplicationState() */
+      "GetNumberOfActivatedCores"= "0x2C",  /*!< GetNumberOfActivatedCores() */
+      "GetCoreID"= "0x2E",  /*!< GetCoreID() */
+      "StartCore"= "0x30",  /*!< StartCore() */
+      "StartNonAutosarCore"= "0x32",  /*!< StartNonAutosarCore() */
+      "GetSpinlock"= "0x34",  /*!< GetSpinlock() */
+      "ReleaseSpinlock"= "0x36",  /*!< ReleaseSpinlock() */
+      "TryToGetSpinlock"= "0x38",  /*!< TryToGetSpinlock() */
+      "ShutdownAllCores"= "0x3A",  /*!< ShutdownAllCores() */
+      "ControlIdle"= "0x3C",  /*!< ControlIdle() */
+      "IocSend"= "0x3E",  /*!< IocSend() */
+      "IocWrite"= "0x40",  /*!< IocWrite() */
+      "IocSendGroup"= "0x42",  /*!< IocSendGroup() */
+      "IocWriteGroup"= "0x44",  /*!< IocWriteGroup() */
+      "IocReceive"= "0x46",  /*!< IocReceive() */
+      "IocRead"= "0x48",  /*!< IocRead() */
+      "IocReceiveGroup"= "0x4A",  /*!< IocReceiveGroup() */
+      "IocReadGroup"= "0x4C",  /*!< IocReadGroup() */
+      "IocEmptyQueue"= "0x4E",  /*!< IocEmptyQueue() */
+      "GetCurrentApplicationID"= "0x50",  /*!< GetCurrentApplicationID() */
+      "CallNonTrustedFunction"= "0x52",  /*!< CallNonTrustedFunction() */
+      "GetTaskStackUsage"= "0x54",  /*!< Os_GetTaskStackUsage() */
+      "GetISRStackUsage"= "0x56",  /*!< Os_GetISRStackUsage() */
+      "GetKernelStackUsage"= "0x58",  /*!< Os_GetKernelStackUsage() */
+      "GetStartupHookStackUsage"= "0x5A",  /*!< Os_GetStartupHookStackUsage() */
+      "GetErrorHookStackUsage"= "0x5C",  /*!< Os_GetErrorHookStackUsage() */
+      "GetShutdownHookStackUsage"= "0x5E",  /*!< Os_GetShutdownHookStackUsage() */
+      "GetProtectionHookStackUsage"= "0x60",  /*!< Os_GetProtectionHookStackUsage() */
+      "GetSemaphore"= "0x62",  /*!< GetSemaphore() */
+      "ReleaseSemaphore"= "0x64",  /*!< ReleaseSemaphore() */
+      "StartOS"= "0x66",  /*!< StartOS() */
+      "GetActiveApplicationMode"= "0x68",  /*!< GetActiveApplicationMode() */
+      "DisableAllInterrupts"= "0x6A",  /*!< DisableAllInterrupts() */
+      "EnableAllInterrupts"= "0x6C",  /*!< EnableAllInterrupts() */
+      "SuspendAllInterrupts"= "0x6E",  /*!< SuspendAllInterrupts() */
+      "ResumeAllInterrupts"= "0x70",  /*!< ResumeAllInterrupts() */
+      "SuspendOSInterrupts"= "0x72",  /*!< SuspendOSInterrupts() */
+      "ResumeOSInterrupts"= "0x74",  /*!< ResumeOSInterrupts() */
+      "ActivateTask"= "0x76",  /*!< ActivateTask() */
+      "TerminateTask"= "0x78",  /*!< TerminateTask() */
+      "ChainTask"= "0x7A",  /*!< ChainTask() */
+      "GetTaskID"= "0x7C",  /*!< GetTaskID() */
+      "GetTaskState"= "0x7E",  /*!< GetTaskState() */
+      "Schedule"= "0x80",  /*!< Schedule() */
+      "SetEvent"= "0x82",  /*!< SetEvent() */
+      "ClearEvent"= "0x84",  /*!< ClearEvent() */
+      "GetEvent"= "0x86",  /*!< GetEvent() */
+      "WaitEvent"= "0x88",  /*!< WaitEvent() */
+      "GetAlarmBase"= "0x8A",  /*!< GetAlarmBase() */
+      "GetAlarm"= "0x8C",  /*!< GetAlarm() */
+      "SetRelAlarm"= "0x8E",  /*!< SetRelAlarm() */
+      "SetAbsAlarm"= "0x90",  /*!< SetAbsAlarm() */
+      "CancelAlarm"= "0x92",  /*!< CancelAlarm() */
+      "GetResource"= "0x94",  /*!< GetResource() */
+      "ReleaseResource"= "0x96",  /*!< ReleaseResource() */
+      "GetVersionInfo"= "0x98",  /*!< GetVersionInfo() */
+      "EnterPreStartTask"= "0x9E",  /*!< EnterPreStartTask() */
+      "ShutdownOS"= "0xA0",  /*!< ShutdownOS() */
+      "GetUnhandledIrq"= "0xA2",  /*!< GetUnhandledIrq() */
+      "GetUnhandledExc"= "0xA4",  /*!< GetUnhandledExc() */
+      "DisableOSInterrupts"= "0xA6",  /*!< DisableOSInterrupts() */
+      "EnableOSInterrupts"= "0xA8",  /*!< EnableOSInterrupts() */
+      "ReadPeripheral8"= "0xAA",  /*!< osReadPeripheral8() */
+      "ReadPeripheral16"= "0xAC",  /*!< osReadPeripheral16() */
+      "ReadPeripheral32"= "0xAE",  /*!< osReadPeripheral32() */
+      "WritePeripheral8"= "0xB0",  /*!< osWritePeripheral8() */
+      "WritePeripheral16"= "0xB2",  /*!< osWritePeripheral16() */
+      "WritePeripheral32"= "0xB4",  /*!< osWritePeripheral32() */
+      "ModifyPeripheral8"= "0xB6",  /*!< osModifyPeripheral8() */
+      "ModifyPeripheral16"= "0xB8",  /*!< osModifyPeripheral16() */
+      "ModifyPeripheral32"= "0xBA",  /*!< osModifyPeripheral32() */
+      "GetDetailedError"= "0xBC",  /*!< GetDetailedError() */
+      "OSErrorGetServiceId"= "0xBE",  /*!< OSErrorGetServiceId() */
+      "DisableInterruptSource"= "0xC0",  /*!< Os_DisableInterruptSource() */
+      "EnableInterruptSource"= "0xC2",  /*!< Os_EnableInterruptSource() */
+      "ClearPendingInterrupt"= "0xC4",  /*!< Os_ClearPendingInterrupt() */
+      "IsInterruptSourceEnabled"= "0xC6",  /*!< Os_IsInterruptSourceEnabled() */
+      "IsInterruptPending"= "0xC8"   /*!< Os_IsInterruptPending() */
+    ] SERVICETRACE[], "OS Services Watch";
+    ENUM "unsigned char" [
+      "E_OK" = "0x00",
+      "E_OS_ACCESS" = "0x01",
+      "E_OS_CALLEVEL" = "0x02",
+      "E_OS_ID" = "0x03",
+      "E_OS_LIMIT" = "0x04",
+      "E_OS_NOFUNC" = "0x05",
+      "E_OS_RESOURCE" = "0x06",
+      "E_OS_STATE" = "0x07",
+      "E_OS_VALUE" = "0x08",
+      "E_OS_SERVICEID" = "0x09",
+      "E_OS_ILLEGAL_ADDRESS" = "0x0A",
+      "E_OS_MISSINGEND" = "0x0B",
+      "E_OS_DISABLEDINT" = "0x0C",
+      "E_OS_STACKFAULT" = "0x0D",
+      "E_OS_PROTECTION_MEMORY" = "0x0E",
+      "E_OS_PROTECTION_TIME" = "0x0F",
+      "E_OS_PROTECTION_ARRIVAL" = "0x10",
+      "E_OS_PROTECTION_LOCKED" = "0x11",
+      "E_OS_PROTECTION_EXCEPTION" = "0x12",
+      "E_OS_INTERFERENCE_DEADLOCK" = "0x13",
+      "E_OS_NESTING_DEADLOCK" = "0x14",
+      "E_OS_SPINLOCK" = "0x15",
+      "E_OS_CORE" = "0x16",
+      "E_OS_PARAM_POINTER" = "0x17",
+      "E_OS_SYS_OVERFLOW" = "0xF5",
+      "E_OS_SYS_KILL_KERNEL_OBJ" = "0xF6",
+      "E_OS_SYS_NO_RESTARTTASK" = "0xF7",
+      "E_OS_SYS_CALL_NOT_ALLOWED" = "0xF8",
+      "E_OS_SYS_FUNCTION_UNAVAILABLE "= "0xF9",
+      "E_OS_SYS_PROTECTION_SYSCALL" = "0xFA",
+      "E_OS_SYS_PROTECTION_IRQ" = "0xFB",
+      "E_OS_SYS_API_ERROR" = "0xFC",
+      "E_OS_SYS_ASSERTION" = "0xFD",
+      "E_OS_SYS_OVERLOAD" = "0xFE",
+      "E_OS_SYS_CROSS_CORE_REQUESTED"= "0xFF" 
+    ] LASTERROR[], "Last OSEK Error";
+    ENUM "unsigned char" [
+      "OS_APPMODE_NONE" = 0,
+      "OSDEFAULTAPPMODE" = 1,
+      "OS_APPMODE_ANY" = 255
+    ] CURRENTAPPMODE[], "Current Application Mode";
+  }, "OS"; /* OS */
+
+  TASK {
+    ENUM "unsigned long" [
+      "1000000" = 0,
+      "1000" = 1,
+      "500" = 2,
+      "400" = 3,
+      "50" = 4,
+      "4294967295" = 5
+    ] PRIORITY, "Actual Prio";
+    ENUM "unsigned long" [
+      "1000000" = 0,
+      "1000" = 1,
+      "500" = 2,
+      "400" = 3,
+      "50" = 4,
+      "4294967295" = 5
+    ] vs_HomePriority, "Home Prio";
+    CTYPE "Os_TaskPrioType" vs_HomePriorityInt, "Home Prio Internal";
+    ENUM "TaskStateType" [
+      "RUNNING" = 0,
+      "READY" = 1,
+      "WAITING" = 2,
+      "SUSPENDED" = 3,
+      "UNKNOWN" = 0xFF
+    ] STATE, "State";
+    ENUM "Os_Hal_StackType *" [
+      "OsCfg_Stack_BSW_QMCore0_Task" : OsCfg_Stack_BSW_QMCore0_Task = "&OsCfg_Stack_BSW_QMCore0_Task",
+      "OsCfg_Stack_OsCore1_Task_Prio500" : OsCfg_Stack_OsCore1_Task_Prio500 = "&OsCfg_Stack_OsCore1_Task_Prio500",
+      "OsCfg_Stack_OsCore2_Task_Prio500" : OsCfg_Stack_OsCore2_Task_Prio500 = "&OsCfg_Stack_OsCore2_Task_Prio500",
+      "OsCfg_Stack_CDD_QMCore0_Task" : OsCfg_Stack_CDD_QMCore0_Task = "&OsCfg_Stack_CDD_QMCore0_Task",
+      "OsCfg_Stack_CDD_QMCore1_Task" : OsCfg_Stack_CDD_QMCore1_Task = "&OsCfg_Stack_CDD_QMCore1_Task",
+      "OsCfg_Stack_CDD_QMCore2_Task" : OsCfg_Stack_CDD_QMCore2_Task = "&OsCfg_Stack_CDD_QMCore2_Task",
+      "OsCfg_Stack_Default_Init_Task" : OsCfg_Stack_Default_Init_Task = "&OsCfg_Stack_Default_Init_Task",
+      "OsCfg_Stack_Default_Init_Task_Core1" : OsCfg_Stack_Default_Init_Task_Core1 = "&OsCfg_Stack_Default_Init_Task_Core1",
+      "OsCfg_Stack_OsCore1_Task_Prio1000000" : OsCfg_Stack_OsCore1_Task_Prio1000000 = "&OsCfg_Stack_OsCore1_Task_Prio1000000",
+      "OsCfg_Stack_Default_Init_Task_Core2" : OsCfg_Stack_Default_Init_Task_Core2 = "&OsCfg_Stack_Default_Init_Task_Core2",
+      "OsCfg_Stack_OsCore2_Task_Prio1000000" : OsCfg_Stack_OsCore2_Task_Prio1000000 = "&OsCfg_Stack_OsCore2_Task_Prio1000000",
+      "OsCfg_Stack_OsCore0_Task_Prio1000000" : OsCfg_Stack_OsCore0_Task_Prio1000000 = "&OsCfg_Stack_OsCore0_Task_Prio1000000",
+      "OsCfg_Stack_OsCore0_Task_Prio4294967295" : OsCfg_Stack_OsCore0_Task_Prio4294967295 = "&OsCfg_Stack_OsCore0_Task_Prio4294967295",
+      "OsCfg_Stack_OsCore1_Task_Prio4294967295" : OsCfg_Stack_OsCore1_Task_Prio4294967295 = "&OsCfg_Stack_OsCore1_Task_Prio4294967295",
+      "OsCfg_Stack_OsCore2_Task_Prio4294967295" : OsCfg_Stack_OsCore2_Task_Prio4294967295 = "&OsCfg_Stack_OsCore2_Task_Prio4294967295",
+      "OsCfg_Stack_OsCore0_Task_Prio50" : OsCfg_Stack_OsCore0_Task_Prio50 = "&OsCfg_Stack_OsCore0_Task_Prio50",
+      "OsCfg_Stack_Task_MemoryMainFunctions_Core0" : OsCfg_Stack_Task_MemoryMainFunctions_Core0 = "&OsCfg_Stack_Task_MemoryMainFunctions_Core0",
+      "OsCfg_Stack_OsCore0_Task_NonPreemptiveBasic" : OsCfg_Stack_OsCore0_Task_NonPreemptiveBasic = "&OsCfg_Stack_OsCore0_Task_NonPreemptiveBasic",
+      "OsCfg_Stack_OsCore1_Task_NonPreemptiveBasic" : OsCfg_Stack_OsCore1_Task_NonPreemptiveBasic = "&OsCfg_Stack_OsCore1_Task_NonPreemptiveBasic",
+      "OsCfg_Stack_OsCore2_Task_NonPreemptiveBasic" : OsCfg_Stack_OsCore2_Task_NonPreemptiveBasic = "&OsCfg_Stack_OsCore2_Task_NonPreemptiveBasic"
+    ] STACK, "Stack";
+    ENUM "unsigned char" [
+      "BASIC" = 0,
+      "EXTENDED" = 1
+    ] vs_TaskType, "Type";
+    STRING vs_Schedule, "Schedule";
+    CTYPE "EventMaskType" vs_WaitMask, "Wait Mask";
+    CTYPE "EventMaskType" vs_EventFlag, "Event Flag";
+    CTYPE "Os_ActivationCntType" CURRENTACTIVATIONS, "Activations";
+    CTYPE "Os_ActivationCntType" vs_MaxActivations, "Max. Activations";
+    ENUM "Os_LockConfigType *" [
+      "-" = "0x0",
+      "OsResource" = "&OsCfg_Resource_OsResource.Lock",
+      "OsResourceCore1" = "&OsCfg_Resource_OsResourceCore1.Lock",
+      "OsResourceCore2" = "&OsCfg_Resource_OsResourceCore2.Lock",
+      "-" = "~((Os_Hal_AddressType)0)"
+    ] vs_LOCKED, "locked resource/spinlock";
+  }, "Tasks"; /* TASK */
+
+  STACK {
+    CTYPE "unsigned long" SIZE, "Stack Size (Byte)";
+    CTYPE "Os_Hal_StackType *" BASEADDRESS, "Stack Start Address";
+    STRING STACKDIRECTION, "Stack Direction";
+    CTYPE "Os_Hal_StackType" FILLPATTERN, "Stack Fill Pattern";
+  }, "Stacks"; /* STACK */
+
+  ALARM {
+    ENUM "Os_AlarmStateType" [
+      "STOPPED" = 0,
+      "RUNNING" = 1
+    ] STATE, "Alarm State";
+    CTYPE "Os_TickType" CYCLETIME, "Cycle Time (Ticks)";
+    CTYPE "Os_TickType" vs_CycleTime_ms, "Cycle Time (ms)";
+    CTYPE "Os_TickType" ALARMTIME, "Alarm Time (Ticks)";
+    CTYPE "Os_TickType" vs_AlarmTime_ms, "Alarm Time (ms)";
+    STRING ACTION, "Action";
+    STRING COUNTER, "Counter";
+  }, "Alarms"; /* ALARM */
+  
+  RESOURCE {
+    ENUM "unsigned char" [
+      "LOCKED" = 1,
+      "UNLOCKED" = 0
+     ] STATE, "Resource State";
+    ENUM "Os_LockConfigType *" [
+      "Not evaluated" = "0x0",
+      "Not evaluated" = "~((Os_Hal_AddressType)0)"
+    ] LOCKER, "Resource Locker";
+    ENUM "Os_LockConfigType *" [
+      "-" = "0x0",
+      "OsResource" = "&OsCfg_Resource_OsResource.Lock",
+      "OsResourceCore1" = "&OsCfg_Resource_OsResourceCore1.Lock",
+      "OsResourceCore2" = "&OsCfg_Resource_OsResourceCore2.Lock",
+      "-" = "~((Os_Hal_AddressType)0)"
+    ] vs_LOCKED, "Nested Resource/Spinlock";
+    STRING PRIORITY, "Ceiling Priority";
+  }, "Resources";  /* RESOURCE */
+  
+  /* Vector extensions */
+  
+  vs_ISR {
+    CTYPE "unsigned long" vs_PRIORITY, "Priority";
+    ENUM "Os_Hal_StackType *" [
+      "OsCfg_Stack_OsCore0_Isr_Core" : OsCfg_Stack_OsCore0_Isr_Core = "&OsCfg_Stack_OsCore0_Isr_Core",
+      "OsCfg_Stack_OsCore0_Isr_Core" : OsCfg_Stack_OsCore0_Isr_Core = "&OsCfg_Stack_OsCore0_Isr_Core",
+      "OsCfg_Stack_OsCore0_Isr_Core" : OsCfg_Stack_OsCore0_Isr_Core = "&OsCfg_Stack_OsCore0_Isr_Core",
+      "OsCfg_Stack_OsCore1_Isr_Core" : OsCfg_Stack_OsCore1_Isr_Core = "&OsCfg_Stack_OsCore1_Isr_Core",
+      "OsCfg_Stack_OsCore2_Isr_Core" : OsCfg_Stack_OsCore2_Isr_Core = "&OsCfg_Stack_OsCore2_Isr_Core",
+      "OsCfg_Stack_OsCore0_Isr_Core" : OsCfg_Stack_OsCore0_Isr_Core = "&OsCfg_Stack_OsCore0_Isr_Core",
+      "OsCfg_Stack_OsCore1_Isr_Core" : OsCfg_Stack_OsCore1_Isr_Core = "&OsCfg_Stack_OsCore1_Isr_Core",
+      "OsCfg_Stack_OsCore2_Isr_Core" : OsCfg_Stack_OsCore2_Isr_Core = "&OsCfg_Stack_OsCore2_Isr_Core",
+      "OsCfg_Stack_OsCore0_Isr_Core" : OsCfg_Stack_OsCore0_Isr_Core = "&OsCfg_Stack_OsCore0_Isr_Core",
+      "OsCfg_Stack_OsCore1_Isr_Core" : OsCfg_Stack_OsCore1_Isr_Core = "&OsCfg_Stack_OsCore1_Isr_Core",
+      "OsCfg_Stack_OsCore2_Isr_Core" : OsCfg_Stack_OsCore2_Isr_Core = "&OsCfg_Stack_OsCore2_Isr_Core"
+    ] STACK, "Stack";
+    ENUM "Os_LockConfigType *" [
+      "-" = "0x0",
+      "OsResource" = "&OsCfg_Resource_OsResource.Lock",
+      "OsResourceCore1" = "&OsCfg_Resource_OsResourceCore1.Lock",
+      "OsResourceCore2" = "&OsCfg_Resource_OsResourceCore2.Lock",
+      "-" = "~((Os_Hal_AddressType)0)"
+    ] vs_LOCKED, "Locked Resource/Spinlock";
+    STRING vs_TYPE, "ISR Type";
+  }, "Isrs"; /* ISR */
+
+  vs_SCHEDULETABLE {
+    ENUM "ScheduleTableStatusType" [
+      "STOPPED" = 0,
+      "NEXT" = 1,
+      "WAITING" = 2,
+      "RUNNING" = 3,
+      "RUNNING_AND_SYNCHRONOUS" = 4
+    ] vs_STATE, "State";
+    ENUM "void *" [
+      "-" = "0x0"
+    ] vs_ScheduleTableNext, "Next ScheduleTable";
+    ENUM "void *" [
+      "-" = "0x0"
+    ] vs_ExpiryPointNext, "Next Expiry Point";
+  }, "ScheduleTables"; /* SCHEDULETABLE */
+
+  vs_EVENT {
+    CTYPE "EventMaskType" vs_EventMask, "Event Mask";
+  }, "Events"; /* EVENT */
+
+  vs_SPINLOCK {
+    ENUM "unsigned char" [
+      "LOCKED" = 1,
+      "UNLOCKED" = 0
+     ] vs_STATE, "Spinlock State";
+    ENUM "Os_LockConfigType *" [
+      "-" = "0x0",
+      "OsResource" = "&OsCfg_Resource_OsResource.Lock",
+      "OsResourceCore1" = "&OsCfg_Resource_OsResourceCore1.Lock",
+      "OsResourceCore2" = "&OsCfg_Resource_OsResourceCore2.Lock",
+      "-" = "~((Os_Hal_AddressType)0)"
+    ] vs_LOCKED, "Nested Resource/Spinlock";
+    ENUM "Os_ThreadConfigType *" [
+      "CanIsr_0" : CanIsr_0 = "&OsCfg_Isr_CanIsr_0",
+      "CanIsr_3" : CanIsr_3 = "&OsCfg_Isr_CanIsr_3",
+      "CounterIsr_SystemTimer_Core0" : CounterIsr_SystemTimer_Core0 = "&OsCfg_Isr_CounterIsr_SystemTimer_Core0",
+      "CounterIsr_SystemTimer_Core1" : CounterIsr_SystemTimer_Core1 = "&OsCfg_Isr_CounterIsr_SystemTimer_Core1",
+      "CounterIsr_SystemTimer_Core2" : CounterIsr_SystemTimer_Core2 = "&OsCfg_Isr_CounterIsr_SystemTimer_Core2",
+      "ISR_SYS" : ISR_SYS = "&OsCfg_Isr_ISR_SYS",
+      "ISR_SYS1" : ISR_SYS1 = "&OsCfg_Isr_ISR_SYS1",
+      "ISR_SYS2" : ISR_SYS2 = "&OsCfg_Isr_ISR_SYS2",
+      "XSignalIsr_OsCore0" : XSignalIsr_OsCore0 = "&OsCfg_Isr_XSignalIsr_OsCore0",
+      "XSignalIsr_OsCore1" : XSignalIsr_OsCore1 = "&OsCfg_Isr_XSignalIsr_OsCore1",
+      "XSignalIsr_OsCore2" : XSignalIsr_OsCore2 = "&OsCfg_Isr_XSignalIsr_OsCore2",
+      "BSW_QMCore0_Task" : BSW_QMCore0_Task = "&OsCfg_Task_BSW_QMCore0_Task",
+      "BSW_QMCore1_Task" : BSW_QMCore1_Task = "&OsCfg_Task_BSW_QMCore1_Task",
+      "BSW_QMCore2_Task" : BSW_QMCore2_Task = "&OsCfg_Task_BSW_QMCore2_Task",
+      "CDD_QMCore0_Task" : CDD_QMCore0_Task = "&OsCfg_Task_CDD_QMCore0_Task",
+      "CDD_QMCore1_Task" : CDD_QMCore1_Task = "&OsCfg_Task_CDD_QMCore1_Task",
+      "CDD_QMCore2_Task" : CDD_QMCore2_Task = "&OsCfg_Task_CDD_QMCore2_Task",
+      "Default_Init_Task" : Default_Init_Task = "&OsCfg_Task_Default_Init_Task",
+      "Default_Init_Task_Core1" : Default_Init_Task_Core1 = "&OsCfg_Task_Default_Init_Task_Core1",
+      "Default_Init_Task_Core1_Trusted" : Default_Init_Task_Core1_Trusted = "&OsCfg_Task_Default_Init_Task_Core1_Trusted",
+      "Default_Init_Task_Core2" : Default_Init_Task_Core2 = "&OsCfg_Task_Default_Init_Task_Core2",
+      "Default_Init_Task_Core2_Trusted" : Default_Init_Task_Core2_Trusted = "&OsCfg_Task_Default_Init_Task_Core2_Trusted",
+      "Default_Init_Task_Trusted" : Default_Init_Task_Trusted = "&OsCfg_Task_Default_Init_Task_Trusted",
+      "IdleTask_OsCore0" : IdleTask_OsCore0 = "&OsCfg_Task_IdleTask_OsCore0",
+      "IdleTask_OsCore1" : IdleTask_OsCore1 = "&OsCfg_Task_IdleTask_OsCore1",
+      "IdleTask_OsCore2" : IdleTask_OsCore2 = "&OsCfg_Task_IdleTask_OsCore2",
+      "RTE_Mode_switch_QMCore0_Task" : RTE_Mode_switch_QMCore0_Task = "&OsCfg_Task_RTE_Mode_switch_QMCore0_Task",
+      "Task_MemoryMainFunctions_Core0" : Task_MemoryMainFunctions_Core0 = "&OsCfg_Task_Task_MemoryMainFunctions_Core0",
+      "Task_PowerOff_Core0" : Task_PowerOff_Core0 = "&OsCfg_Task_Task_PowerOff_Core0",
+      "Task_PowerOff_Core1" : Task_PowerOff_Core1 = "&OsCfg_Task_Task_PowerOff_Core1",
+      "Task_PowerOff_Core2" : Task_PowerOff_Core2 = "&OsCfg_Task_Task_PowerOff_Core2",
+      "-" = "0x0"
+    ] vs_OWNER, "Owner";
+    STRING vs_TYPE, "Spinlock Type"; 
+    STRING vs_LOCK_METHOD, "Lock Method";
+  }, "Spinlocks";  /* SPINLOCK */
+
+  vs_OS_CONFIG {
+    STRING vs_ScalabilityClass, "Scalability Class";
+    STRING vs_StatusLevel, "Status Level";
+    CTYPE "unsigned char" vs_SwMajorVersion, "Software Major Version";
+    CTYPE "unsigned char" vs_SwMinorVersion, "Software Minor Version";
+  }, "OS Configuration"; /* OS_CONFIG */
+}; /* IMPLEMENTATION */
+
+/**********************************************************************************************************************
+ *  Information Section
+ *********************************************************************************************************************/
+
+OS TC39x {
+  vs_SMP_NUMCPU = "3";
+  /* OS information for AUTOSAR core OsCore0 */
+  vs_COREID[0] = "OsCfg_Core_OsCore0.Core.Id";
+  RUNNINGTASK[0] = "OsCfg_Trace_OsCore0_Dyn.CurrentTask";
+  RUNNINGTASKPRIORITY[0] = "OsCfg_Scheduler_OsCore0_Dyn.CurrentPriority";
+  RUNNINGISR2[0] = "OsCfg_Trace_OsCore0_Dyn.CurrentIsr";
+  SERVICETRACE[0] = "OsCfg_Trace_OsCore0_Dyn.OrtiCurrentServiceId";
+  LASTERROR[0] = "OsCfg_Core_OsCore0_Dyn.LastError.ErrorDetails.DetailedError";
+  CURRENTAPPMODE[0] = "OsCfg_Core_OsCore0_Status_Dyn.OsState == 2 ? OsCfg_Core_OsCore0_Status_Dyn.ApplicationMode : 0";
+
+  /* OS information for AUTOSAR core OsCore1 */
+  vs_COREID[1] = "OsCfg_Core_OsCore1.Core.Id";
+  RUNNINGTASK[1] = "OsCfg_Trace_OsCore1_Dyn.CurrentTask";
+  RUNNINGTASKPRIORITY[1] = "OsCfg_Scheduler_OsCore1_Dyn.CurrentPriority";
+  RUNNINGISR2[1] = "OsCfg_Trace_OsCore1_Dyn.CurrentIsr";
+  SERVICETRACE[1] = "OsCfg_Trace_OsCore1_Dyn.OrtiCurrentServiceId";
+  LASTERROR[1] = "OsCfg_Core_OsCore1_Dyn.LastError.ErrorDetails.DetailedError";
+  CURRENTAPPMODE[1] = "OsCfg_Core_OsCore1_Status_Dyn.OsState == 2 ? OsCfg_Core_OsCore1_Status_Dyn.ApplicationMode : 0";
+
+  /* OS information for AUTOSAR core OsCore2 */
+  vs_COREID[2] = "OsCfg_Core_OsCore2.Core.Id";
+  RUNNINGTASK[2] = "OsCfg_Trace_OsCore2_Dyn.CurrentTask";
+  RUNNINGTASKPRIORITY[2] = "OsCfg_Scheduler_OsCore2_Dyn.CurrentPriority";
+  RUNNINGISR2[2] = "OsCfg_Trace_OsCore2_Dyn.CurrentIsr";
+  SERVICETRACE[2] = "OsCfg_Trace_OsCore2_Dyn.OrtiCurrentServiceId";
+  LASTERROR[2] = "OsCfg_Core_OsCore2_Dyn.LastError.ErrorDetails.DetailedError";
+  CURRENTAPPMODE[2] = "OsCfg_Core_OsCore2_Status_Dyn.OsState == 2 ? OsCfg_Core_OsCore2_Status_Dyn.ApplicationMode : 0";
+
+}; /* OS */
+
+
+TASK BSW_QMCore0_Task {
+  PRIORITY = "OsCfg_Task_BSW_QMCore0_Task_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_BSW_QMCore0_Task.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_BSW_QMCore0_Task.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore0_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore0_Dyn.CurrentTask == &OsCfg_Trace_BSW_QMCore0_Task ? 0 : OsCfg_Task_BSW_QMCore0_Task_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_BSW_QMCore0_Task";
+  vs_TaskType = "OsCfg_Task_BSW_QMCore0_Task.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_BSW_QMCore0_Task_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_BSW_QMCore0_Task_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_BSW_QMCore0_Task_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_BSW_QMCore0_Task.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_BSW_QMCore0_Task_Dyn.Thread.Locks";
+}; /* BSW_QMCore0_Task */
+
+TASK BSW_QMCore1_Task {
+  PRIORITY = "OsCfg_Task_BSW_QMCore1_Task_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_BSW_QMCore1_Task.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_BSW_QMCore1_Task.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore1_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore1_Dyn.CurrentTask == &OsCfg_Trace_BSW_QMCore1_Task ? 0 : OsCfg_Task_BSW_QMCore1_Task_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore1_Task_Prio500";
+  vs_TaskType = "OsCfg_Task_BSW_QMCore1_Task.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_BSW_QMCore1_Task_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_BSW_QMCore1_Task_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_BSW_QMCore1_Task_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_BSW_QMCore1_Task.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_BSW_QMCore1_Task_Dyn.Thread.Locks";
+}; /* BSW_QMCore1_Task */
+
+TASK BSW_QMCore2_Task {
+  PRIORITY = "OsCfg_Task_BSW_QMCore2_Task_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_BSW_QMCore2_Task.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_BSW_QMCore2_Task.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore2_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore2_Dyn.CurrentTask == &OsCfg_Trace_BSW_QMCore2_Task ? 0 : OsCfg_Task_BSW_QMCore2_Task_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore2_Task_Prio500";
+  vs_TaskType = "OsCfg_Task_BSW_QMCore2_Task.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_BSW_QMCore2_Task_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_BSW_QMCore2_Task_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_BSW_QMCore2_Task_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_BSW_QMCore2_Task.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_BSW_QMCore2_Task_Dyn.Thread.Locks";
+}; /* BSW_QMCore2_Task */
+
+TASK CDD_QMCore0_Task {
+  PRIORITY = "OsCfg_Task_CDD_QMCore0_Task_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_CDD_QMCore0_Task.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_CDD_QMCore0_Task.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore0_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore0_Dyn.CurrentTask == &OsCfg_Trace_CDD_QMCore0_Task ? 0 : OsCfg_Task_CDD_QMCore0_Task_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_CDD_QMCore0_Task";
+  vs_TaskType = "OsCfg_Task_CDD_QMCore0_Task.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_CDD_QMCore0_Task_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_CDD_QMCore0_Task_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_CDD_QMCore0_Task_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_CDD_QMCore0_Task.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_CDD_QMCore0_Task_Dyn.Thread.Locks";
+}; /* CDD_QMCore0_Task */
+
+TASK CDD_QMCore1_Task {
+  PRIORITY = "OsCfg_Task_CDD_QMCore1_Task_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_CDD_QMCore1_Task.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_CDD_QMCore1_Task.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore1_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore1_Dyn.CurrentTask == &OsCfg_Trace_CDD_QMCore1_Task ? 0 : OsCfg_Task_CDD_QMCore1_Task_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_CDD_QMCore1_Task";
+  vs_TaskType = "OsCfg_Task_CDD_QMCore1_Task.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_CDD_QMCore1_Task_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_CDD_QMCore1_Task_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_CDD_QMCore1_Task_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_CDD_QMCore1_Task.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_CDD_QMCore1_Task_Dyn.Thread.Locks";
+}; /* CDD_QMCore1_Task */
+
+TASK CDD_QMCore2_Task {
+  PRIORITY = "OsCfg_Task_CDD_QMCore2_Task_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_CDD_QMCore2_Task.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_CDD_QMCore2_Task.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore2_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore2_Dyn.CurrentTask == &OsCfg_Trace_CDD_QMCore2_Task ? 0 : OsCfg_Task_CDD_QMCore2_Task_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_CDD_QMCore2_Task";
+  vs_TaskType = "OsCfg_Task_CDD_QMCore2_Task.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_CDD_QMCore2_Task_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_CDD_QMCore2_Task_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_CDD_QMCore2_Task_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_CDD_QMCore2_Task.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_CDD_QMCore2_Task_Dyn.Thread.Locks";
+}; /* CDD_QMCore2_Task */
+
+TASK Default_Init_Task {
+  PRIORITY = "OsCfg_Task_Default_Init_Task_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Default_Init_Task.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Default_Init_Task.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore0_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore0_Dyn.CurrentTask == &OsCfg_Trace_Default_Init_Task ? 0 : OsCfg_Task_Default_Init_Task_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_Default_Init_Task";
+  vs_TaskType = "OsCfg_Task_Default_Init_Task.IsExtended";
+  vs_Schedule = "NON";
+  vs_WaitMask = "OsCfg_Task_Default_Init_Task_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Default_Init_Task_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Default_Init_Task_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Default_Init_Task.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Default_Init_Task_Dyn.Thread.Locks";
+}; /* Default_Init_Task */
+
+TASK Default_Init_Task_Core1 {
+  PRIORITY = "OsCfg_Task_Default_Init_Task_Core1_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Default_Init_Task_Core1.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Default_Init_Task_Core1.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore1_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore1_Dyn.CurrentTask == &OsCfg_Trace_Default_Init_Task_Core1 ? 0 : OsCfg_Task_Default_Init_Task_Core1_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_Default_Init_Task_Core1";
+  vs_TaskType = "OsCfg_Task_Default_Init_Task_Core1.IsExtended";
+  vs_Schedule = "NON";
+  vs_WaitMask = "OsCfg_Task_Default_Init_Task_Core1_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Default_Init_Task_Core1_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Default_Init_Task_Core1_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Default_Init_Task_Core1.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Default_Init_Task_Core1_Dyn.Thread.Locks";
+}; /* Default_Init_Task_Core1 */
+
+TASK Default_Init_Task_Core1_Trusted {
+  PRIORITY = "OsCfg_Task_Default_Init_Task_Core1_Trusted_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Default_Init_Task_Core1_Trusted.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Default_Init_Task_Core1_Trusted.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore1_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore1_Dyn.CurrentTask == &OsCfg_Trace_Default_Init_Task_Core1_Trusted ? 0 : OsCfg_Task_Default_Init_Task_Core1_Trusted_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore1_Task_Prio1000000";
+  vs_TaskType = "OsCfg_Task_Default_Init_Task_Core1_Trusted.IsExtended";
+  vs_Schedule = "NON";
+  vs_WaitMask = "OsCfg_Task_Default_Init_Task_Core1_Trusted_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Default_Init_Task_Core1_Trusted_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Default_Init_Task_Core1_Trusted_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Default_Init_Task_Core1_Trusted.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Default_Init_Task_Core1_Trusted_Dyn.Thread.Locks";
+}; /* Default_Init_Task_Core1_Trusted */
+
+TASK Default_Init_Task_Core2 {
+  PRIORITY = "OsCfg_Task_Default_Init_Task_Core2_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Default_Init_Task_Core2.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Default_Init_Task_Core2.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore2_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore2_Dyn.CurrentTask == &OsCfg_Trace_Default_Init_Task_Core2 ? 0 : OsCfg_Task_Default_Init_Task_Core2_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_Default_Init_Task_Core2";
+  vs_TaskType = "OsCfg_Task_Default_Init_Task_Core2.IsExtended";
+  vs_Schedule = "NON";
+  vs_WaitMask = "OsCfg_Task_Default_Init_Task_Core2_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Default_Init_Task_Core2_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Default_Init_Task_Core2_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Default_Init_Task_Core2.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Default_Init_Task_Core2_Dyn.Thread.Locks";
+}; /* Default_Init_Task_Core2 */
+
+TASK Default_Init_Task_Core2_Trusted {
+  PRIORITY = "OsCfg_Task_Default_Init_Task_Core2_Trusted_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Default_Init_Task_Core2_Trusted.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Default_Init_Task_Core2_Trusted.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore2_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore2_Dyn.CurrentTask == &OsCfg_Trace_Default_Init_Task_Core2_Trusted ? 0 : OsCfg_Task_Default_Init_Task_Core2_Trusted_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore2_Task_Prio1000000";
+  vs_TaskType = "OsCfg_Task_Default_Init_Task_Core2_Trusted.IsExtended";
+  vs_Schedule = "NON";
+  vs_WaitMask = "OsCfg_Task_Default_Init_Task_Core2_Trusted_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Default_Init_Task_Core2_Trusted_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Default_Init_Task_Core2_Trusted_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Default_Init_Task_Core2_Trusted.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Default_Init_Task_Core2_Trusted_Dyn.Thread.Locks";
+}; /* Default_Init_Task_Core2_Trusted */
+
+TASK Default_Init_Task_Trusted {
+  PRIORITY = "OsCfg_Task_Default_Init_Task_Trusted_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Default_Init_Task_Trusted.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Default_Init_Task_Trusted.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore0_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore0_Dyn.CurrentTask == &OsCfg_Trace_Default_Init_Task_Trusted ? 0 : OsCfg_Task_Default_Init_Task_Trusted_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore0_Task_Prio1000000";
+  vs_TaskType = "OsCfg_Task_Default_Init_Task_Trusted.IsExtended";
+  vs_Schedule = "NON";
+  vs_WaitMask = "OsCfg_Task_Default_Init_Task_Trusted_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Default_Init_Task_Trusted_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Default_Init_Task_Trusted_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Default_Init_Task_Trusted.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Default_Init_Task_Trusted_Dyn.Thread.Locks";
+}; /* Default_Init_Task_Trusted */
+
+TASK IdleTask_OsCore0 {
+  PRIORITY = "OsCfg_Task_IdleTask_OsCore0_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_IdleTask_OsCore0.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_IdleTask_OsCore0.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore0_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore0_Dyn.CurrentTask == &OsCfg_Trace_IdleTask_OsCore0 ? 0 : OsCfg_Task_IdleTask_OsCore0_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore0_Task_Prio4294967295";
+  vs_TaskType = "OsCfg_Task_IdleTask_OsCore0.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_IdleTask_OsCore0_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_IdleTask_OsCore0_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_IdleTask_OsCore0_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_IdleTask_OsCore0.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_IdleTask_OsCore0_Dyn.Thread.Locks";
+}; /* IdleTask_OsCore0 */
+
+TASK IdleTask_OsCore1 {
+  PRIORITY = "OsCfg_Task_IdleTask_OsCore1_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_IdleTask_OsCore1.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_IdleTask_OsCore1.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore1_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore1_Dyn.CurrentTask == &OsCfg_Trace_IdleTask_OsCore1 ? 0 : OsCfg_Task_IdleTask_OsCore1_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore1_Task_Prio4294967295";
+  vs_TaskType = "OsCfg_Task_IdleTask_OsCore1.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_IdleTask_OsCore1_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_IdleTask_OsCore1_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_IdleTask_OsCore1_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_IdleTask_OsCore1.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_IdleTask_OsCore1_Dyn.Thread.Locks";
+}; /* IdleTask_OsCore1 */
+
+TASK IdleTask_OsCore2 {
+  PRIORITY = "OsCfg_Task_IdleTask_OsCore2_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_IdleTask_OsCore2.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_IdleTask_OsCore2.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore2_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore2_Dyn.CurrentTask == &OsCfg_Trace_IdleTask_OsCore2 ? 0 : OsCfg_Task_IdleTask_OsCore2_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore2_Task_Prio4294967295";
+  vs_TaskType = "OsCfg_Task_IdleTask_OsCore2.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_IdleTask_OsCore2_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_IdleTask_OsCore2_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_IdleTask_OsCore2_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_IdleTask_OsCore2.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_IdleTask_OsCore2_Dyn.Thread.Locks";
+}; /* IdleTask_OsCore2 */
+
+TASK RTE_Mode_switch_QMCore0_Task {
+  PRIORITY = "OsCfg_Task_RTE_Mode_switch_QMCore0_Task_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_RTE_Mode_switch_QMCore0_Task.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_RTE_Mode_switch_QMCore0_Task.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore0_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore0_Dyn.CurrentTask == &OsCfg_Trace_RTE_Mode_switch_QMCore0_Task ? 0 : OsCfg_Task_RTE_Mode_switch_QMCore0_Task_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore0_Task_Prio50";
+  vs_TaskType = "OsCfg_Task_RTE_Mode_switch_QMCore0_Task.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_RTE_Mode_switch_QMCore0_Task_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_RTE_Mode_switch_QMCore0_Task_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_RTE_Mode_switch_QMCore0_Task_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_RTE_Mode_switch_QMCore0_Task.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_RTE_Mode_switch_QMCore0_Task_Dyn.Thread.Locks";
+}; /* RTE_Mode_switch_QMCore0_Task */
+
+TASK Task_MemoryMainFunctions_Core0 {
+  PRIORITY = "OsCfg_Task_Task_MemoryMainFunctions_Core0_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Task_MemoryMainFunctions_Core0.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Task_MemoryMainFunctions_Core0.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore0_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore0_Dyn.CurrentTask == &OsCfg_Trace_Task_MemoryMainFunctions_Core0 ? 0 : OsCfg_Task_Task_MemoryMainFunctions_Core0_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_Task_MemoryMainFunctions_Core0";
+  vs_TaskType = "OsCfg_Task_Task_MemoryMainFunctions_Core0.IsExtended";
+  vs_Schedule = "FULL";
+  vs_WaitMask = "OsCfg_Task_Task_MemoryMainFunctions_Core0_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Task_MemoryMainFunctions_Core0_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Task_MemoryMainFunctions_Core0_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Task_MemoryMainFunctions_Core0.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Task_MemoryMainFunctions_Core0_Dyn.Thread.Locks";
+}; /* Task_MemoryMainFunctions_Core0 */
+
+TASK Task_PowerOff_Core0 {
+  PRIORITY = "OsCfg_Task_Task_PowerOff_Core0_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Task_PowerOff_Core0.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Task_PowerOff_Core0.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore0_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore0_Dyn.CurrentTask == &OsCfg_Trace_Task_PowerOff_Core0 ? 0 : OsCfg_Task_Task_PowerOff_Core0_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore0_Task_NonPreemptiveBasic";
+  vs_TaskType = "OsCfg_Task_Task_PowerOff_Core0.IsExtended";
+  vs_Schedule = "NON";
+  vs_WaitMask = "OsCfg_Task_Task_PowerOff_Core0_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Task_PowerOff_Core0_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Task_PowerOff_Core0_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Task_PowerOff_Core0.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Task_PowerOff_Core0_Dyn.Thread.Locks";
+}; /* Task_PowerOff_Core0 */
+
+TASK Task_PowerOff_Core1 {
+  PRIORITY = "OsCfg_Task_Task_PowerOff_Core1_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Task_PowerOff_Core1.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Task_PowerOff_Core1.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore1_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore1_Dyn.CurrentTask == &OsCfg_Trace_Task_PowerOff_Core1 ? 0 : OsCfg_Task_Task_PowerOff_Core1_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore1_Task_NonPreemptiveBasic";
+  vs_TaskType = "OsCfg_Task_Task_PowerOff_Core1.IsExtended";
+  vs_Schedule = "NON";
+  vs_WaitMask = "OsCfg_Task_Task_PowerOff_Core1_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Task_PowerOff_Core1_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Task_PowerOff_Core1_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Task_PowerOff_Core1.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Task_PowerOff_Core1_Dyn.Thread.Locks";
+}; /* Task_PowerOff_Core1 */
+
+TASK Task_PowerOff_Core2 {
+  PRIORITY = "OsCfg_Task_Task_PowerOff_Core2_Dyn.Priority";
+  vs_HomePriority = "OsCfg_Task_Task_PowerOff_Core2.HomePriority";
+  vs_HomePriorityInt = "OsCfg_Task_Task_PowerOff_Core2.HomePriority";
+  /* Evaluate the state of the task if the core is started and if it is not currently running. */
+  STATE = "OsCfg_Core_OsCore2_Status_Dyn.OsState == 2 ? ( OsCfg_Trace_OsCore2_Dyn.CurrentTask == &OsCfg_Trace_Task_PowerOff_Core2 ? 0 : OsCfg_Task_Task_PowerOff_Core2_Dyn.State ) : 0xFF";
+  STACK = "&OsCfg_Stack_OsCore2_Task_NonPreemptiveBasic";
+  vs_TaskType = "OsCfg_Task_Task_PowerOff_Core2.IsExtended";
+  vs_Schedule = "NON";
+  vs_WaitMask = "OsCfg_Task_Task_PowerOff_Core2_Dyn.Events.Waiting";
+  vs_EventFlag = "OsCfg_Task_Task_PowerOff_Core2_Dyn.Events.Triggered";
+  CURRENTACTIVATIONS = "OsCfg_Task_Task_PowerOff_Core2_Dyn.ActivationsAllowed";
+  vs_MaxActivations = "OsCfg_Task_Task_PowerOff_Core2.MaxActivations";
+  vs_LOCKED = "OsCfg_Task_Task_PowerOff_Core2_Dyn.Thread.Locks";
+}; /* Task_PowerOff_Core2 */
+
+
+STACK OsCfg_Stack_BSW_QMCore0_Task {
+  SIZE = "sizeof(OsCfg_Stack_BSW_QMCore0_Task_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_BSW_QMCore0_Task.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* BSW_QMCore0_Task */
+
+STACK OsCfg_Stack_CDD_QMCore0_Task {
+  SIZE = "sizeof(OsCfg_Stack_CDD_QMCore0_Task_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_CDD_QMCore0_Task.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* CDD_QMCore0_Task */
+
+STACK OsCfg_Stack_CDD_QMCore1_Task {
+  SIZE = "sizeof(OsCfg_Stack_CDD_QMCore1_Task_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_CDD_QMCore1_Task.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* CDD_QMCore1_Task */
+
+STACK OsCfg_Stack_CDD_QMCore2_Task {
+  SIZE = "sizeof(OsCfg_Stack_CDD_QMCore2_Task_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_CDD_QMCore2_Task.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* CDD_QMCore2_Task */
+
+STACK OsCfg_Stack_Default_Init_Task {
+  SIZE = "sizeof(OsCfg_Stack_Default_Init_Task_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_Default_Init_Task.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* Default_Init_Task */
+
+STACK OsCfg_Stack_Default_Init_Task_Core1 {
+  SIZE = "sizeof(OsCfg_Stack_Default_Init_Task_Core1_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_Default_Init_Task_Core1.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* Default_Init_Task_Core1 */
+
+STACK OsCfg_Stack_Default_Init_Task_Core2 {
+  SIZE = "sizeof(OsCfg_Stack_Default_Init_Task_Core2_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_Default_Init_Task_Core2.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* Default_Init_Task_Core2 */
+
+STACK OsCfg_Stack_OsCore0_Error {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Error_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Error.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Error */
+
+STACK OsCfg_Stack_OsCore0_Init {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Init_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Init.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Init */
+
+STACK OsCfg_Stack_OsCore0_Isr_Core {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Isr_Core_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Isr_Core.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Isr_Core */
+
+STACK OsCfg_Stack_OsCore0_Kernel {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Kernel_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Kernel.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Kernel */
+
+STACK OsCfg_Stack_OsCore0_Shutdown {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Shutdown_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Shutdown.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Shutdown */
+
+STACK OsCfg_Stack_OsCore0_Startup {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Startup_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Startup.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Startup */
+
+STACK OsCfg_Stack_OsCore0_Task_NonPreemptiveBasic {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Task_NonPreemptiveBasic_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Task_NonPreemptiveBasic.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Task_NonPreemptiveBasic */
+
+STACK OsCfg_Stack_OsCore0_Task_Prio1000000 {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Task_Prio1000000_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Task_Prio1000000.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Task_Prio1000000 */
+
+STACK OsCfg_Stack_OsCore0_Task_Prio4294967295 {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Task_Prio4294967295_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Task_Prio4294967295.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Task_Prio4294967295 */
+
+STACK OsCfg_Stack_OsCore0_Task_Prio50 {
+  SIZE = "sizeof(OsCfg_Stack_OsCore0_Task_Prio50_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore0_Task_Prio50.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore0_Task_Prio50 */
+
+STACK OsCfg_Stack_OsCore1_Error {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Error_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Error.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Error */
+
+STACK OsCfg_Stack_OsCore1_Init {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Init_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Init.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Init */
+
+STACK OsCfg_Stack_OsCore1_Isr_Core {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Isr_Core_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Isr_Core.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Isr_Core */
+
+STACK OsCfg_Stack_OsCore1_Kernel {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Kernel_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Kernel.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Kernel */
+
+STACK OsCfg_Stack_OsCore1_Shutdown {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Shutdown_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Shutdown.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Shutdown */
+
+STACK OsCfg_Stack_OsCore1_Startup {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Startup_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Startup.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Startup */
+
+STACK OsCfg_Stack_OsCore1_Task_NonPreemptiveBasic {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Task_NonPreemptiveBasic_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Task_NonPreemptiveBasic.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Task_NonPreemptiveBasic */
+
+STACK OsCfg_Stack_OsCore1_Task_Prio1000000 {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Task_Prio1000000_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Task_Prio1000000.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Task_Prio1000000 */
+
+STACK OsCfg_Stack_OsCore1_Task_Prio4294967295 {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Task_Prio4294967295_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Task_Prio4294967295.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Task_Prio4294967295 */
+
+STACK OsCfg_Stack_OsCore1_Task_Prio500 {
+  SIZE = "sizeof(OsCfg_Stack_OsCore1_Task_Prio500_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore1_Task_Prio500.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore1_Task_Prio500 */
+
+STACK OsCfg_Stack_OsCore2_Error {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Error_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Error.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Error */
+
+STACK OsCfg_Stack_OsCore2_Init {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Init_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Init.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Init */
+
+STACK OsCfg_Stack_OsCore2_Isr_Core {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Isr_Core_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Isr_Core.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Isr_Core */
+
+STACK OsCfg_Stack_OsCore2_Kernel {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Kernel_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Kernel.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Kernel */
+
+STACK OsCfg_Stack_OsCore2_Shutdown {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Shutdown_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Shutdown.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Shutdown */
+
+STACK OsCfg_Stack_OsCore2_Startup {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Startup_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Startup.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Startup */
+
+STACK OsCfg_Stack_OsCore2_Task_NonPreemptiveBasic {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Task_NonPreemptiveBasic_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Task_NonPreemptiveBasic.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Task_NonPreemptiveBasic */
+
+STACK OsCfg_Stack_OsCore2_Task_Prio1000000 {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Task_Prio1000000_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Task_Prio1000000.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Task_Prio1000000 */
+
+STACK OsCfg_Stack_OsCore2_Task_Prio4294967295 {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Task_Prio4294967295_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Task_Prio4294967295.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Task_Prio4294967295 */
+
+STACK OsCfg_Stack_OsCore2_Task_Prio500 {
+  SIZE = "sizeof(OsCfg_Stack_OsCore2_Task_Prio500_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_OsCore2_Task_Prio500.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* OsCore2_Task_Prio500 */
+
+STACK OsCfg_Stack_Task_MemoryMainFunctions_Core0 {
+  SIZE = "sizeof(OsCfg_Stack_Task_MemoryMainFunctions_Core0_Dyn)";
+  BASEADDRESS = "OsCfg_Stack_Task_MemoryMainFunctions_Core0.LowAddress";
+  STACKDIRECTION = "DOWN";
+  FILLPATTERN = "0xAAAAAAAA";
+}; /* Task_MemoryMainFunctions_Core0 */
+
+
+
+ALARM Rte_Al_TE2_BSW_QMCore0_Task_0_10ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT BSW_QMCore0_Task Rte_Ev_Cyclic2_BSW_QMCore0_Task_0_10ms";
+  COUNTER = "SystemTimer";
+  STATE = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_10ms_Dyn.State";
+}; /* Rte_Al_TE2_BSW_QMCore0_Task_0_10ms */
+
+
+ALARM Rte_Al_TE2_BSW_QMCore0_Task_0_20ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT BSW_QMCore0_Task Rte_Ev_Cyclic2_BSW_QMCore0_Task_0_20ms";
+  COUNTER = "SystemTimer";
+  STATE = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_20ms_Dyn.State";
+}; /* Rte_Al_TE2_BSW_QMCore0_Task_0_20ms */
+
+
+ALARM Rte_Al_TE2_BSW_QMCore0_Task_0_5ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT BSW_QMCore0_Task Rte_Ev_Cyclic2_BSW_QMCore0_Task_0_5ms";
+  COUNTER = "SystemTimer";
+  STATE = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore0_Task_0_5ms_Dyn.State";
+}; /* Rte_Al_TE2_BSW_QMCore0_Task_0_5ms */
+
+
+ALARM Rte_Al_TE2_BSW_QMCore1_Task_0_10ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "ACTIVATE_TASK BSW_QMCore1_Task ";
+  COUNTER = "SystemTimer_1";
+  STATE = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore1_Task_0_10ms_Dyn.State";
+}; /* Rte_Al_TE2_BSW_QMCore1_Task_0_10ms */
+
+
+ALARM Rte_Al_TE2_BSW_QMCore2_Task_0_10ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "ACTIVATE_TASK BSW_QMCore2_Task ";
+  COUNTER = "SystemTimer_2";
+  STATE = "OsCfg_Alarm_Rte_Al_TE2_BSW_QMCore2_Task_0_10ms_Dyn.State";
+}; /* Rte_Al_TE2_BSW_QMCore2_Task_0_10ms */
+
+
+ALARM Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT Task_MemoryMainFunctions_Core0 Rte_Ev_Cyclic2_Task_MemoryMainFunctions_Core0_0_10ms";
+  COUNTER = "SystemTimer";
+  STATE = "OsCfg_Alarm_Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms_Dyn.State";
+}; /* Rte_Al_TE2_Task_MemoryMainFunctions_Core0_0_10ms */
+
+
+ALARM Rte_Al_TE_cdd_core0_cdd_core0_100ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore0_Task Rte_Ev_Run_cdd_core0_cdd_core0_100ms";
+  COUNTER = "SystemTimer";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_100ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core0_cdd_core0_100ms */
+
+
+ALARM Rte_Al_TE_cdd_core0_cdd_core0_10ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore0_Task Rte_Ev_Run_cdd_core0_cdd_core0_10ms";
+  COUNTER = "SystemTimer";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_10ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core0_cdd_core0_10ms */
+
+
+ALARM Rte_Al_TE_cdd_core0_cdd_core0_1ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore0_Task Rte_Ev_Run_cdd_core0_cdd_core0_1ms";
+  COUNTER = "SystemTimer";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_1ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core0_cdd_core0_1ms */
+
+
+ALARM Rte_Al_TE_cdd_core0_cdd_core0_5ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value : OsCfg_Counter_SystemTimer.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore0_Task Rte_Ev_Run_cdd_core0_cdd_core0_5ms";
+  COUNTER = "SystemTimer";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_5ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core0_cdd_core0_5ms */
+
+
+ALARM Rte_Al_TE_cdd_core0_cdd_core0_PowerOff {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.Cycle * 10000000 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_ZOsDummyCounter_Core0_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core0_Dyn.Value : OsCfg_Counter_ZOsDummyCounter_Core0.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core0_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_ZOsDummyCounter_Core0_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core0_Dyn.Value : OsCfg_Counter_ZOsDummyCounter_Core0.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core0_Dyn.Value + 1 ) * 10000000 / 1000000 : 0";
+  ACTION = "ACTIVATE_TASK Task_PowerOff_Core0 ";
+  COUNTER = "ZOsDummyCounter_Core0";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core0_cdd_core0_PowerOff_Dyn.State";
+}; /* Rte_Al_TE_cdd_core0_cdd_core0_PowerOff */
+
+
+ALARM Rte_Al_TE_cdd_core1_cdd_core1_100ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore1_Task Rte_Ev_Run_cdd_core1_cdd_core1_100ms";
+  COUNTER = "SystemTimer_1";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_100ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core1_cdd_core1_100ms */
+
+
+ALARM Rte_Al_TE_cdd_core1_cdd_core1_10ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore1_Task Rte_Ev_Run_cdd_core1_cdd_core1_10ms";
+  COUNTER = "SystemTimer_1";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_10ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core1_cdd_core1_10ms */
+
+
+ALARM Rte_Al_TE_cdd_core1_cdd_core1_1ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore1_Task Rte_Ev_Run_cdd_core1_cdd_core1_1ms";
+  COUNTER = "SystemTimer_1";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_1ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core1_cdd_core1_1ms */
+
+
+ALARM Rte_Al_TE_cdd_core1_cdd_core1_5ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value : OsCfg_Counter_SystemTimer_1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_1_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore1_Task Rte_Ev_Run_cdd_core1_cdd_core1_5ms";
+  COUNTER = "SystemTimer_1";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_5ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core1_cdd_core1_5ms */
+
+
+ALARM Rte_Al_TE_cdd_core1_cdd_core1_PowerOff {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.Cycle * 10000000 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_ZOsDummyCounter_Core1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core1_Dyn.Value : OsCfg_Counter_ZOsDummyCounter_Core1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core1_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_ZOsDummyCounter_Core1_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core1_Dyn.Value : OsCfg_Counter_ZOsDummyCounter_Core1.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core1_Dyn.Value + 1 ) * 10000000 / 1000000 : 0";
+  ACTION = "ACTIVATE_TASK Task_PowerOff_Core1 ";
+  COUNTER = "ZOsDummyCounter_Core1";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core1_cdd_core1_PowerOff_Dyn.State";
+}; /* Rte_Al_TE_cdd_core1_cdd_core1_PowerOff */
+
+
+ALARM Rte_Al_TE_cdd_core2_cdd_core2_100ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore2_Task Rte_Ev_Run_cdd_core2_cdd_core2_100ms";
+  COUNTER = "SystemTimer_2";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_100ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core2_cdd_core2_100ms */
+
+
+ALARM Rte_Al_TE_cdd_core2_cdd_core2_10ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore2_Task Rte_Ev_Run_cdd_core2_cdd_core2_10ms";
+  COUNTER = "SystemTimer_2";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_10ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core2_cdd_core2_10ms */
+
+
+ALARM Rte_Al_TE_cdd_core2_cdd_core2_1ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore2_Task Rte_Ev_Run_cdd_core2_cdd_core2_1ms";
+  COUNTER = "SystemTimer_2";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_1ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core2_cdd_core2_1ms */
+
+
+ALARM Rte_Al_TE_cdd_core2_cdd_core2_5ms {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.Cycle * 10 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_SystemTimer_2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value : OsCfg_Counter_SystemTimer_2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_SystemTimer_2_Dyn.Value + 1 ) * 10 / 1000000 : 0";
+  ACTION = "SET_EVENT CDD_QMCore2_Task Rte_Ev_Run_cdd_core2_cdd_core2_5ms";
+  COUNTER = "SystemTimer_2";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_5ms_Dyn.State";
+}; /* Rte_Al_TE_cdd_core2_cdd_core2_5ms */
+
+
+ALARM Rte_Al_TE_cdd_core2_cdd_core2_PowerOff {
+  CYCLETIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.Cycle";
+  vs_CycleTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.Cycle * 10000000 / 1000000";
+  ALARMTIME = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_ZOsDummyCounter_Core2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core2_Dyn.Value : OsCfg_Counter_ZOsDummyCounter_Core2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core2_Dyn.Value + 1 ) : 0";
+  vs_AlarmTime_ms = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.State == 1 ? ( OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.Job.ExpirationTimestamp > OsCfg_Counter_ZOsDummyCounter_Core2_Dyn.Value ? OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core2_Dyn.Value : OsCfg_Counter_ZOsDummyCounter_Core2.Characteristics.MaxAllowedValue + OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.Job.ExpirationTimestamp - OsCfg_Counter_ZOsDummyCounter_Core2_Dyn.Value + 1 ) * 10000000 / 1000000 : 0";
+  ACTION = "ACTIVATE_TASK Task_PowerOff_Core2 ";
+  COUNTER = "ZOsDummyCounter_Core2";
+  STATE = "OsCfg_Alarm_Rte_Al_TE_cdd_core2_cdd_core2_PowerOff_Dyn.State";
+}; /* Rte_Al_TE_cdd_core2_cdd_core2_PowerOff */
+
+
+RESOURCE OsResource {
+  STATE = "((OsCfg_Resource_OsResource_Dyn.Lock.Next >= ~((Os_Hal_AddressType)0)) && (OsCfg_Resource_OsResource_Dyn.Lock.Next <= ~((Os_Hal_AddressType)0)) || (OsCfg_Core_OsCore0_Status_Dyn.OsState != 2) ) ? 0 : 1";
+  LOCKER  = "0"; /* Not evaluated */
+  vs_LOCKED = "OsCfg_Resource_OsResource_Dyn.Lock.Next";
+  PRIORITY = "STANDARD: 0";
+}; /* OsResource */
+
+RESOURCE OsResourceCore1 {
+  STATE = "((OsCfg_Resource_OsResourceCore1_Dyn.Lock.Next >= ~((Os_Hal_AddressType)0)) && (OsCfg_Resource_OsResourceCore1_Dyn.Lock.Next <= ~((Os_Hal_AddressType)0)) || (OsCfg_Core_OsCore1_Status_Dyn.OsState != 2) ) ? 0 : 1";
+  LOCKER  = "0"; /* Not evaluated */
+  vs_LOCKED = "OsCfg_Resource_OsResourceCore1_Dyn.Lock.Next";
+  PRIORITY = "STANDARD: 0";
+}; /* OsResourceCore1 */
+
+RESOURCE OsResourceCore2 {
+  STATE = "((OsCfg_Resource_OsResourceCore2_Dyn.Lock.Next >= ~((Os_Hal_AddressType)0)) && (OsCfg_Resource_OsResourceCore2_Dyn.Lock.Next <= ~((Os_Hal_AddressType)0)) || (OsCfg_Core_OsCore2_Status_Dyn.OsState != 2) ) ? 0 : 1";
+  LOCKER  = "0"; /* Not evaluated */
+  vs_LOCKED = "OsCfg_Resource_OsResourceCore2_Dyn.Lock.Next";
+  PRIORITY = "STANDARD: 0";
+}; /* OsResourceCore2 */
+
+
+vs_ISR CanIsr_0 {
+  vs_PRIORITY = "15";
+  STACK = "&OsCfg_Stack_OsCore0_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_CanIsr_0_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* CanIsr_0 */
+
+vs_ISR CanIsr_3 {
+  vs_PRIORITY = "14";
+  STACK = "&OsCfg_Stack_OsCore0_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_CanIsr_3_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* CanIsr_3 */
+
+vs_ISR CounterIsr_SystemTimer_Core0 {
+  vs_PRIORITY = "4";
+  STACK = "&OsCfg_Stack_OsCore0_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_CounterIsr_SystemTimer_Core0_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* CounterIsr_SystemTimer_Core0 */
+
+vs_ISR CounterIsr_SystemTimer_Core1 {
+  vs_PRIORITY = "4";
+  STACK = "&OsCfg_Stack_OsCore1_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_CounterIsr_SystemTimer_Core1_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* CounterIsr_SystemTimer_Core1 */
+
+vs_ISR CounterIsr_SystemTimer_Core2 {
+  vs_PRIORITY = "4";
+  STACK = "&OsCfg_Stack_OsCore2_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_CounterIsr_SystemTimer_Core2_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* CounterIsr_SystemTimer_Core2 */
+
+vs_ISR ISR_SYS {
+  vs_PRIORITY = "2";
+  STACK = "&OsCfg_Stack_OsCore0_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_ISR_SYS_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* ISR_SYS */
+
+vs_ISR ISR_SYS1 {
+  vs_PRIORITY = "2";
+  STACK = "&OsCfg_Stack_OsCore1_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_ISR_SYS1_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* ISR_SYS1 */
+
+vs_ISR ISR_SYS2 {
+  vs_PRIORITY = "2";
+  STACK = "&OsCfg_Stack_OsCore2_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_ISR_SYS2_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* ISR_SYS2 */
+
+vs_ISR XSignalIsr_OsCore0 {
+  vs_PRIORITY = "5";
+  STACK = "&OsCfg_Stack_OsCore0_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_XSignalIsr_OsCore0_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* XSignalIsr_OsCore0 */
+
+vs_ISR XSignalIsr_OsCore1 {
+  vs_PRIORITY = "5";
+  STACK = "&OsCfg_Stack_OsCore1_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_XSignalIsr_OsCore1_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* XSignalIsr_OsCore1 */
+
+vs_ISR XSignalIsr_OsCore2 {
+  vs_PRIORITY = "5";
+  STACK = "&OsCfg_Stack_OsCore2_Isr_Core";
+  vs_LOCKED = "OsCfg_Isr_XSignalIsr_OsCore2_Dyn.Thread.Locks";
+  vs_TYPE = "EXTERNAL";
+}; /* XSignalIsr_OsCore2 */
+
+
+
+vs_EVENT Rte_Ev_Cyclic2_BSW_QMCore0_Task_0_10ms {
+  vs_EventMask = "1";
+}; /* Rte_Ev_Cyclic2_BSW_QMCore0_Task_0_10ms */
+
+vs_EVENT Rte_Ev_Cyclic2_BSW_QMCore0_Task_0_20ms {
+  vs_EventMask = "2";
+}; /* Rte_Ev_Cyclic2_BSW_QMCore0_Task_0_20ms */
+
+vs_EVENT Rte_Ev_Cyclic2_BSW_QMCore0_Task_0_5ms {
+  vs_EventMask = "4";
+}; /* Rte_Ev_Cyclic2_BSW_QMCore0_Task_0_5ms */
+
+vs_EVENT Rte_Ev_Cyclic2_Task_MemoryMainFunctions_Core0_0_10ms {
+  vs_EventMask = "1";
+}; /* Rte_Ev_Cyclic2_Task_MemoryMainFunctions_Core0_0_10ms */
+
+vs_EVENT Rte_Ev_Default_Init_Task {
+  vs_EventMask = "1";
+}; /* Rte_Ev_Default_Init_Task */
+
+vs_EVENT Rte_Ev_Default_Init_Task_Core1 {
+  vs_EventMask = "1";
+}; /* Rte_Ev_Default_Init_Task_Core1 */
+
+vs_EVENT Rte_Ev_Default_Init_Task_Core2 {
+  vs_EventMask = "1";
+}; /* Rte_Ev_Default_Init_Task_Core2 */
+
+vs_EVENT Rte_Ev_Run_cdd_core0_cdd_core0_100ms {
+  vs_EventMask = "1";
+}; /* Rte_Ev_Run_cdd_core0_cdd_core0_100ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core0_cdd_core0_10ms {
+  vs_EventMask = "2";
+}; /* Rte_Ev_Run_cdd_core0_cdd_core0_10ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core0_cdd_core0_1ms {
+  vs_EventMask = "4";
+}; /* Rte_Ev_Run_cdd_core0_cdd_core0_1ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core0_cdd_core0_5ms {
+  vs_EventMask = "8";
+}; /* Rte_Ev_Run_cdd_core0_cdd_core0_5ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core1_cdd_core1_100ms {
+  vs_EventMask = "1";
+}; /* Rte_Ev_Run_cdd_core1_cdd_core1_100ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core1_cdd_core1_10ms {
+  vs_EventMask = "2";
+}; /* Rte_Ev_Run_cdd_core1_cdd_core1_10ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core1_cdd_core1_1ms {
+  vs_EventMask = "4";
+}; /* Rte_Ev_Run_cdd_core1_cdd_core1_1ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core1_cdd_core1_5ms {
+  vs_EventMask = "8";
+}; /* Rte_Ev_Run_cdd_core1_cdd_core1_5ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core2_cdd_core2_100ms {
+  vs_EventMask = "1";
+}; /* Rte_Ev_Run_cdd_core2_cdd_core2_100ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core2_cdd_core2_10ms {
+  vs_EventMask = "2";
+}; /* Rte_Ev_Run_cdd_core2_cdd_core2_10ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core2_cdd_core2_1ms {
+  vs_EventMask = "4";
+}; /* Rte_Ev_Run_cdd_core2_cdd_core2_1ms */
+
+vs_EVENT Rte_Ev_Run_cdd_core2_cdd_core2_5ms {
+  vs_EventMask = "8";
+}; /* Rte_Ev_Run_cdd_core2_cdd_core2_5ms */
+
+
+
+vs_OS_CONFIG TC39x {
+  vs_ScalabilityClass = "SC1";
+  vs_StatusLevel = "EXTENDED";
+  vs_SwMajorVersion = "OsCfg_System.VersionInfo.sw_major_version";
+  vs_SwMinorVersion = "OsCfg_System.VersionInfo.sw_minor_version";
+}; /* OS Config TC39x */
