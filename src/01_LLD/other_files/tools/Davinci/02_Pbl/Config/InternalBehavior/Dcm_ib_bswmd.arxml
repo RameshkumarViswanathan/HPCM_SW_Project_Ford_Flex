@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-0-3.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE UUID="2e83f445-6582-4070-922e-cd2fec8bf60a">
+      <SHORT-NAME>MICROSARFBL</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE UUID="06c23f05-d6b1-43a9-8fa1-f300ed83206e">
+          <SHORT-NAME>Dcm_ib_bswmd</SHORT-NAME>
+          <AR-PACKAGES>
+            <AR-PACKAGE UUID="ce4fee44-477b-4085-8718-1fc59540eac0">
+              <SHORT-NAME>BswModuleDescriptions</SHORT-NAME>
+              <ELEMENTS>
+                <BSW-MODULE-DESCRIPTION UUID="7939953b-3b58-489c-ac1c-7a5189420cb3">
+                  <SHORT-NAME>Dcm</SHORT-NAME>
+                  <INTERNAL-BEHAVIORS>
+                    <BSW-INTERNAL-BEHAVIOR UUID="02f7b909-184d-4fe9-8a9d-a01d884ff9be">
+                      <SHORT-NAME>DcmBehavior</SHORT-NAME>
+                    </BSW-INTERNAL-BEHAVIOR>
+                  </INTERNAL-BEHAVIORS>
+                </BSW-MODULE-DESCRIPTION>
+              </ELEMENTS>
+            </AR-PACKAGE>
+          </AR-PACKAGES>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

@@ -1,0 +1,203 @@
+#!/usr/bin/perl -w
+# % name:			erika %
+# Description:	Evidence Rt-Druid CLI for erika 2 and 3 interface 
+# Eventual system.orti file will be put into -e <file>
+use 5.010001;
+use strict;
+use warnings FATAL => 'all';
+use autodie;
+use English;
+use POSIX;
+use File::Basename;
+use File::Copy qw(cp);
+use File::Path 'remove_tree';
+use File::Spec;
+use File::Temp 'tempdir';	# 'use' is incompatible with POSIX
+
+our $opt_branch;	# for multicore
+our $opt_config;	# oil file
+our $opt_emul;		# Eventual directory for Lauterbach's file
+our $opt_erika2;	# erika2 source repository
+BEGIN
+{
+alarm 600;
+my $version = '%version: 16 %';		# Special string updated by synergy
+$version =~ s/^.*? | %//g;
+our $VERSION = $version;
+use FindBin;
+push (@INC, $FindBin::RealBin);
+our $opt_output_is_dir=1;
+require MM_common;
+Getopt::Long::Configure(qw(require_order no_pass_through));
+Getopt::Long::GetOptions(
+	'branch|b=s',	# eventual multicore branch
+	'config|c=s',	# oil file
+	'Lauterbach|e=s',	# directory for Lauterbach
+	'erika2|i=s'	# erika2 source repository (obsolete, use argv)
+) or MM_common::help();
+}
+#-- main
+die ("unspecified configuration$RS") unless defined $opt_config;
+die ("unspecified output dir$RS") unless defined $MM_common::opt_output;
+$opt_erika2 //= pop;
+die ("too much arguments$RS") if $#ARGV>=0;
+#-- Run Rt_Druid
+my $erika_tmp_dir;
+if (!$MM_common::opt_keep)
+{
+	$erika_tmp_dir = tempdir(CLEANUP => 1)
+}
+else
+{
+	$erika_tmp_dir = tempdir();
+	warn("directory '$erika_tmp_dir' won't be removed$RS")
+}
+$ENV{ECLIPSE_HOME} = $ENV{RTDRUID_ECLIPSE_HOME};
+$ENV{EE_DISABLE_RULES} = 'true';	# Don't build (for erika2)
+my $evidence_cmd;
+if ($^O =~ /dos|MSWin32/)
+{
+	$evidence_cmd = File::Spec->catfile(($ENV{RTDRUID_ECLIPSE_HOME},
+					'evidence'), 'generate_code.bat')
+}
+else
+{
+	$evidence_cmd = File::Spec->catfile(($ENV{RTDRUID_ECLIPSE_HOME},
+					'evidence'), 'generate_code.sh')
+}
+$evidence_cmd .= " $ENV{RTDRUID_ECLIPSE_HOME} $opt_config $erika_tmp_dir";
+warn("${evidence_cmd}$RS") if $Carp::Verbose;
+my $child_name = "Rt-Druid's generate_code.sh";
+$SIG{CHLD} = sub {MM_common::check_child_error(eval '$child_name')};
+my $err = system $evidence_cmd;
+	# SIG{CHLD} may not works on ms
+MM_common::check_child_error($child_name, $err);
+$child_name = '';
+my $dir_handle;
+my @erika_files;
+my $files_dir;
+my @file_list;
+delete $ENV{MAKEFLAGS} if exists $ENV{MAKEFLAGS};
+if (defined $opt_erika2)	# Erika2
+{
+	die ("No directory '$opt_erika2'$RS") unless -d $opt_erika2;
+	$opt_branch //= '';	# Default single core
+	$files_dir = File::Spec->catdir(($erika_tmp_dir, $opt_branch));
+		# Lists RT-Druid selected files
+			# absolute path required by Evidence's makefile
+	$opt_erika2 = File::Spec->rel2abs($opt_erika2);
+	$ENV{ERIKA_FILES} = $opt_erika2;
+		# Make erika files
+	my $erika_make = File::Spec->catfile(($opt_erika2), 'ee_cfg.mk');
+	$evidence_cmd = 'make';
+	$evidence_cmd .= ' --no-print-directory -s' if $Carp::Verbose<2;
+	$evidence_cmd .= " -f $erika_make -C $files_dir" .
+		" CPU_NUMID=$opt_branch ERIKA_CFG_DIR=$files_dir echo_ee_srcs";
+	warn("${evidence_cmd}$RS") if $Carp::Verbose;
+	$child_name = 'Rt-Druid\'s make mk';
+	$_ = `$evidence_cmd`;
+	$child_name = '';
+		# Lists erika sources files
+	@erika_files = map {File::Spec->catfile(($opt_erika2), $_)} split;
+		# Extracts erika headers files
+	opendir $dir_handle, $opt_erika2;
+	@file_list = grep /\.h$/, readdir $dir_handle;
+	@file_list = map {File::Spec->catfile(($opt_erika2), $_)} @file_list;
+	push @erika_files, @file_list;
+	closedir $dir_handle
+		# Will lists RT-Druid generated files from $files_dir
+}
+else				# Erika3
+{
+	warn("branch ($opt_branch) is not used in erika3$RS")
+							if defined $opt_branch;
+	delete $ENV{ERIKA_FILES} if exists $ENV{ERIKA_FILES};
+	my $erika_dir = File::Spec->catdir(($erika_tmp_dir, 'erika'));
+		# Make erika files
+	$evidence_cmd = "make -C $erika_dir";
+	$evidence_cmd .= ' --no-print-directory -s' if $Carp::Verbose<2;
+	$evidence_cmd .=' mk';
+	warn("${evidence_cmd}$RS") if $Carp::Verbose;
+	$child_name = "Rt-Druid's make mk";
+	my $err = system $evidence_cmd;
+		# SIG{CHLD} couldn't works on ms
+	MM_common::check_child_error($child_name, $err);
+	$child_name = '';
+		# Lists erika sources files
+	$files_dir = File::Spec->catdir(($erika_dir, 'src'));
+	opendir $dir_handle, $files_dir;
+	@file_list = readdir $dir_handle;
+	@erika_files = map {File::Spec->catfile(($files_dir), $_)} @file_list;
+	closedir $dir_handle;
+		# Lists erika header files
+	$files_dir = File::Spec->catdir(($erika_dir, 'inc'));
+	opendir $dir_handle, $files_dir;
+	@file_list = readdir $dir_handle;
+	@file_list = map {File::Spec->catfile(($files_dir), $_)} @file_list;
+	push @erika_files, @file_list;
+	closedir $dir_handle;
+		# Prepare to lists RT-Druid generated files
+	$files_dir = File::Spec->catdir(($erika_tmp_dir, 'out'))
+}
+		# List RT-Druid generated files
+opendir $dir_handle, $files_dir;
+@file_list = readdir $dir_handle;
+closedir $dir_handle;
+@file_list = map {File::Spec->catfile(($files_dir), $_)} @file_list;
+push @erika_files, @file_list;
+@erika_files = grep /\.[chsS]$/, @erika_files;
+#-- Move all suitables files to their final destination
+chomp @erika_files;
+foreach (@erika_files)
+{
+	cp($_, $MM_common::opt_output) or
+	do
+	{
+		my ($volume,$directories,$file) = File::Spec->splitpath($_);
+		die("copy '$file' failed ${OS_ERROR}$RS")
+	}
+}
+if (defined $opt_emul)		# Eventual Rt-Druit generated orti file
+{
+	my $orti_file = File::Spec->catfile(($files_dir), 'system.orti');
+	cp($orti_file, $opt_emul) or
+				die("cp $orti_file $opt_emul: ${OS_ERROR}$RS")
+}
+__END__
+
+=head1 NAME
+
+erika - Evidence Rt-Druid CLI for erika 2 and 3 interfaces 
+Eventual system.orti file will be put into -e <file>
+
+=head1 SYNOPSIS
+
+erika [options] [erika2 source repository (default is stdin)]
+
+=head1 DESCRIPTION
+
+Put erika2 or erika3 files into the output directory
+
+erika2's Rt-Druid is run if erika2 source repository is specified,
+otherwise erika3's Rt-Druid is run
+
+system.orti file will be put into Lauterbach dir, if specified
+
+=head1 NOTES
+
+-i option is obsolesnt; imput dir should be specified after the parameters.
+
+=head1 OPTIONS
+
+ -b --branch #		eventual erika 2 multicore branch
+ -c --config file	oil file
+ -e --Lauterbach dir		directory for Lauterbach
+ -i --erika2 dir	erika2 source repository (obsolete, use argument)
+
+=head1 AUTOR
+
+TechM
+
+=head1 COPYRIGHT
+
+(c) Copyright 2022 

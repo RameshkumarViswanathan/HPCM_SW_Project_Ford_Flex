@@ -1,0 +1,118 @@
+#!/usr/bin/perl -nw
+# Description:	compose group.ccm for later Lauterbach use
+use 5.010001;
+use strict;
+use warnings FATAL => 'all';
+use autodie;
+use English;
+use POSIX;
+use Getopt::Long;
+use File::Basename;
+
+our $opt_merge;
+
+BEGIN
+{
+alarm 5;
+my $version = '%version: 8 %';	# Special string updated by synergy
+$version =~ s/^.*? | %//g;
+our $VERSION = $version;
+use FindBin;
+push (@INC, $FindBin::RealBin);
+require MM_common;
+Getopt::Long::Configure(qw(require_order no_pass_through));
+GetOptions(
+	'merge|m!'		# Activate merge
+) or MM_common::help();
+$opt_merge //= 0;		# Default don't merge
+$OUTPUT_RECORD_SEPARATOR=$INPUT_RECORD_SEPARATOR
+}
+
+our %module;
+#--- main
+	# Scan up to a final record, linker dependent (Hightec or WindRiver)
+exit if m/^(?:Discarded input sections|\s+\.debug)/;
+	# Extract archive+object name, linker dependent (Hightec or WindRiver)
+next unless m/[\w\.]+[([].*?[])]/;
+	# Split archive and object name
+my ($library, $name) = split(qr/[][()]/, $MATCH, 3);
+$library = fileparse($library, qr/(?:\..*)?/);
+$name = fileparse($name, qr/(?:\..*)?/);
+$module{$library}{$name}='';
+#--- Print the data
+END
+{
+print 'group.reset';
+my @colors =
+(		# Group's colors available since Lauterbach version 201509
+	"white", "silver", "gray", "black", "red",
+	"maroon", "yellow", "olive", "lime", "green",
+	"aqua", "teal", "blue", "navy", "fuchsia", "purple"
+);
+my $color_index = $#colors;
+foreach my $library (keys %module)
+{
+	print "gosub GROUP_SYMBOL \"$library\" \"$_\""
+				foreach (sort keys %{$module{$library}});
+	printf ';' unless $opt_merge;
+	print "group.merge \"$library\"";
+	if ($color_index<=0)
+	{
+		print ";group.color \"$library\""
+	}
+	else
+	{
+		print "group.color \"$library\" $colors[$color_index]";
+		$color_index--
+	}
+}
+printf ';' unless $opt_merge;
+print 'group.merge "other"';
+if ($color_index<=0)
+	{print ';group.color "other" '}
+else	{print "group.color \"other\" $colors[$color_index]"}
+print 'enddo';
+print '';
+print 'GROUP_SYMBOL:';
+print '	PARAMETERS &module &sym';
+print '	if symbol.exist(\&sym)';
+print '		group.create "&module" \&sym';
+print '	else';
+print '	(';
+print '		LOCAL &pwd &file';
+print '		&file=practice.caller.file(0.)';
+print '		&pwd=os.pwd()';
+print '		&file=string.replace("&file","&pwd/","",1)';
+print '		print %error "Module ""&sym"" without debug info, "';
+print '		print %error %continue "not grouped. Required at line "';
+print '		print %error %continue format.Decimal(0.,practice.caller.line(1.))';
+print '		print %error %continue " of file ""&file"""';
+print '	)';
+print '	return'
+}
+
+=head1 NAME
+
+asam2drs - compose group.ccm for Lauterbach
+
+=head1 SYNOPSIS
+
+group [options] [map file] (default is stdin)
+
+=head1 DESCRIPTION
+
+compose Luaterbach group.ccm from the given Hightec or WindRiver map file(s)
+
+If the map file is not specified data are expected from stdin
+
+=head1 OPTIONS
+
+ -m --merge		Merge groups
+
+=head1 AUTOR
+
+TechM
+
+=head1 COPYRIGHT
+
+(c) Copyright 2022 

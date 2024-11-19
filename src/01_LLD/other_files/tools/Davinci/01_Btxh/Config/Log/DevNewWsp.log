@@ -1,0 +1,16 @@
+﻿19 Jul 2023 13:34:58 - Saving file AdminDataTemplates.xml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\Developer\AdminDataTemplates.xml)
+19 Jul 2023 13:34:58 - Saving file DemoBm.dcf (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\Developer\DemoBm.dcf)
+19 Jul 2023 13:34:58 - Start import
+19 Jul 2023 13:34:58 - Importing file (C:\Program Files (x86)\Vector DaVinci Developer 4.9 (SP2)\Bin\Predefines\StandardPackages_AR4.arxml).
+19 Jul 2023 13:34:59 - Importing file (C:\Program Files (x86)\Vector DaVinci Developer 4.9 (SP2)\Bin\Predefines\ServicePortInterfaces_4.6.0.arxml).
+19 Jul 2023 13:34:59 - Importing file (C:\Program Files (x86)\Vector DaVinci Developer 4.9 (SP2)\Bin\Predefines\ApplicationPortInterfaces_4.6.0.arxml).
+19 Jul 2023 13:34:59 - Importing file (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\AUTOSAR\MemMap_SwAddrMethods.arxml).
+19 Jul 2023 13:34:59 - Importing file (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\AUTOSAR\PlatformTypes_AR4.arxml).
+19 Jul 2023 13:34:59 - Merging imported data
+19 Jul 2023 13:35:00 - Finished import
+19 Jul 2023 13:35:00 - Saving file ProfileSettings.xml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\Developer\ProfileSettings.xml)
+19 Jul 2023 13:35:00 - Saving file Packages.arxml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\Developer\Packages.arxml)
+19 Jul 2023 13:35:01 - Saving file DataTypes.arxml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\Developer\DataTypes.arxml)
+19 Jul 2023 13:35:01 - Saving file PortInterfaces.arxml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\Developer\PortInterfaces.arxml)
+19 Jul 2023 13:35:01 - Saving file DemoBm.arxml (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\Developer\ECUProjects\DemoBm.arxml)
+19 Jul 2023 13:35:01 - Saving file DemoBm.dcf (D:\usr\usage\Delivery\CBD23x\CBD2300515\D00\external\Demo\DemoBm\Config\Developer\DemoBm.dcf)
