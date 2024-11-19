@@ -1,0 +1,52 @@
+#!/usr/bin/ksh -e
+#
+#  Script %name:	dep_attr %
+#  Description:	# Dislodge old make_macros attributes.
+		# Free initial variables
+typeset +r BASENAME='' errno=''
+unset BASENAME errno
+typeset -r BASENAME=${0##*/}
+# -------------------------
+# Remove outputs, decode errno and terminate
+# ${1} is the LINENO of error
+function Errors_message
+{
+if [[ errno -ge 128 ]]
+then	let errno=${errno}-128
+	print -u2 "${BASENAME}: signal ${errno}"
+else	print -u2 "${BASENAME}: error ${errno}"
+fi
+terminate ${1}
+}
+trap 'errno=${?}; Errors_message ${LINENO}; exit 1' \
+				ERR ILL TRAP FPE BUS SEGV PIPE PWR XCPU XFSZ
+# -------------------------
+typeset -r TMP_FILE=/tmp/${BASENAME}_${$}$(date +%s)
+# Remove outputs before exit
+# ${1} is the LINENO of error
+function terminate
+{
+rm -f ${TMP_FILE}
+print -u2 "${BASENAME}: interrupted while at line ${1}"
+}
+		# Interrupt (^C) trap
+trap 'terminate ${LINENO}; exit 1' TERM HUP INT QUIT
+# -------------------------
+# Free variables, so test them are not read-only
+typeset -r PROJECT=${1}
+typeset +r DEP=''
+if ccm attribute -show dependency_index -project ${PROJECT} 2>&- >| ${TMP_FILE}
+then		# Remove previous dependencies attributes
+	for DEP in $(cut -d: -f2 ${TMP_FILE})
+	do
+		if [[ ${DEP} != dep_+([[:digit:]]) ]]
+		then
+			print -u2 "${BASENAME}: wrong attribute ${DEP}"
+		else
+			ccm attribute -delete ${DEP} -project ${PROJECT} || \
+			print -u2 "${BASENAME}: attribute ${DEP} not deleted"
+		fi
+	done
+	ccm attribute -delete dependency_index -project ${PROJECT}
+fi
+rm -f ${TMP_FILE}

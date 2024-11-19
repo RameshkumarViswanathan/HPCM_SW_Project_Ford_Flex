@@ -1,0 +1,2656 @@
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 1
+
+
+   1              		.file	"AllowAccess.c"
+   2              	.section .text,"ax",@progbits
+   3              	.Ltext0:
+   4              	.section .text.Os_AllowAccess,"ax",@progbits
+   5              		.align 1
+   6              		.global	Os_AllowAccess
+   7              		.type	Os_AllowAccess, @function
+   8              	Os_AllowAccess:
+   9              	.LFB0:
+  10              		.file 1 "C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\AllowAccess
+  11              		.loc 1 1366 0
+  12              	.LVL0:
+  13 0000 2008     		sub.a	%SP, 8
+  14              	.LCFI0:
+  15              	.LBB2:
+  16              		.loc 1 1369 0
+  17              	#APP
+  18              		# 1369 "C:\Users\user1\AppData\Local\Temp\rta_RTAOS_638388406317960277_1736001\AllowAccess.c" 1
+  19 0002 4DC0E1FF 		mfcr %d15,0xfe1c
+  20              		# 0 "" 2
+  21              	.LVL1:
+  22              	#NO_APP
+  23              	.LBE2:
+  24              		.loc 1 1370 0
+  25 0006 91000020 		movh.a	%a2, hi:Os_const_coreconfiguration
+  26 000a 8023     		mov.d	%d3, %a2
+  27 000c 1B030020 		addi	%d2, %d3, lo:Os_const_coreconfiguration
+  28 0010 138F2132 		madd	%d3, %d2, %d15, 24
+  29 0014 6032     		mov.a	%a2, %d3
+  30 0016 CC20     		ld.a	%a15, [%a2]0
+  31              	.LVL2:
+  32              		.loc 1 1371 0
+  33 0018 992C0400 		ld.a	%a12, [%a2] 4
+  34              	.LVL3:
+  35              	.LBB3:
+  36              		.loc 1 1372 0
+  37              	#APP
+  38              		# 1372 "C:\Users\user1\AppData\Local\Temp\rta_RTAOS_638388406317960277_1736001\AllowAccess.c" 1
+  39 001c 4D40E0FF 		mfcr %d15,0xfe04
+  40              		# 0 "" 2
+  41              	.LVL4:
+  42              	#NO_APP
+  43              	.LBE3:
+  44              		.loc 1 1373 0
+  45 0020 AEB3     		jnz.t	%d15, 11, .L2
+  46              		.loc 1 1373 0 is_stmt 0 discriminator 1
+  47              	#APP
+  48              		# 1373 "C:\Users\user1\AppData\Local\Temp\rta_RTAOS_638388406317960277_1736001\AllowAccess.c" 1
+  49 0022 AD008000 		syscall 0
+  50              		# 0 "" 2
+  51              	#NO_APP
+  52              	.L2:
+  53              		.loc 1 1374 0 is_stmt 1
+  54 0026 3BF0FAFF 		mov	%d15, -81
+  55              	.LVL5:
+  56 002a E9CF1800 		st.b	[%a12] 24, %d15
+  57              		.loc 1 1376 0
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 2
+
+
+  58 002e 4CF8     		ld.w	%d15, [%a15] 32
+  59 0030 6E21     		jz	%d15, .L3
+  60              		.loc 1 1376 0 is_stmt 0 discriminator 1
+  61 0032 C88F     		ld.a	%a15, [%a15] 32
+  62              	.LVL6:
+  63 0034 39FF1500 		ld.bu	%d15, [%a15] 21
+  64              	.L4:
+  65              	.LVL7:
+  66              		.loc 1 1377 0 is_stmt 1 discriminator 8
+  67 0038 910000F0 		movh.a	%a15, hi:Os_dyn_appstate
+  68 003c D9FF0000 		lea	%a15, [%a15] lo:Os_dyn_appstate
+  69 0040 10FF     		addsc.a	%a15, %a15, %d15, 0
+  70 0042 0CF0     		ld.bu	%d15, [%a15]0
+  71              	.LVL8:
+  72 0044 1E1F     		jeq	%d15, 1, .L5
+  73              	.L6:
+  74              	.LVL9:
+  75              	.LDL1:
+  76              		.loc 1 1381 0 discriminator 1
+  77 0046 820F     		mov	%d15, 0
+  78 0048 7800     		st.w	[%SP]0, %d15
+  79 004a 8274     		mov	%d4, 7
+  80 004c 3B700550 		mov	%d5, 87
+  81 0050 D206     		mov	%e6, 0
+  82 0052 6D000000 		call	Os_ErrorLog
+****  Notice:Expanding call-R -> call-O
+  83              	.LVL10:
+  84              		.loc 1 1383 0 discriminator 1
+  85 0056 3BE0FAFF 		mov	%d15, -82
+  86              		.loc 1 1377 0 discriminator 1
+  87 005a 8272     		mov	%d2, 7
+  88              	.LVL11:
+  89              		.loc 1 1383 0 discriminator 1
+  90 005c E9CF1800 		st.b	[%a12] 24, %d15
+  91              		.loc 1 1386 0 discriminator 1
+  92 0060 0090     		ret
+  93              	.LVL12:
+  94              	.L5:
+  95              		.loc 1 1378 0
+  96 0062 820F     		mov	%d15, 0
+  97 0064 280F     		st.b	[%a15]0, %d15
+  98              		.loc 1 1383 0
+  99 0066 3BE0FAFF 		mov	%d15, -82
+ 100              		.loc 1 1367 0
+ 101 006a 8202     		mov	%d2, 0
+ 102              	.LVL13:
+ 103              		.loc 1 1383 0
+ 104 006c E9CF1800 		st.b	[%a12] 24, %d15
+ 105              		.loc 1 1386 0
+ 106 0070 0090     		ret
+ 107              	.LVL14:
+ 108              	.L3:
+ 109              		.loc 1 1376 0 discriminator 2
+ 110 0072 4892     		ld.w	%d2, [%a15] 36
+ 111 0074 820F     		mov	%d15, 0
+ 112 0076 DF02E17F 		jz	%d2, .L4
+****  Notice:Expanding jz-dm -> jeq-d4o
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 3
+
+
+ 113              		.loc 1 1376 0 is_stmt 0 discriminator 4
+ 114 007a C89F     		ld.a	%a15, [%a15] 36
+ 115              	.LVL15:
+ 116 007c 39FF1E00 		ld.bu	%d15, [%a15] 30
+ 117 0080 3CDC     		j	.L4
+ 118              	.LFE0:
+ 119              		.size	Os_AllowAccess, .-Os_AllowAccess
+ 120              	.section .debug_frame,"",@progbits
+ 121              	.Lframe0:
+ 122 0000 0C000000 		.uaword	.LECIE0-.LSCIE0
+ 123              	.LSCIE0:
+ 124 0004 FFFFFFFF 		.uaword	0xffffffff
+ 125 0008 01       		.byte	0x1
+ 126 0009 00       		.string	""
+ 127 000a 01       		.uleb128 0x1
+ 128 000b 01       		.sleb128 1
+ 129 000c 1B       		.byte	0x1b
+ 130 000d 0C       		.byte	0xc
+ 131 000e 1A       		.uleb128 0x1a
+ 132 000f 00       		.uleb128 0
+ 133              		.align 2
+ 134              	.LECIE0:
+ 135              	.LSFDE0:
+ 136 0010 10000000 		.uaword	.LEFDE0-.LASFDE0
+ 137              	.LASFDE0:
+ 138 0014 00000000 		.uaword	.Lframe0
+ 139 0018 00000000 		.uaword	.LFB0
+ 140 001c 82000000 		.uaword	.LFE0-.LFB0
+ 141 0020 42       		.byte	0x4
+ 142              		.uaword	.LCFI0-.LFB0
+ 143 0021 0E       		.byte	0xe
+ 144 0022 08       		.uleb128 0x8
+ 145 0023 00       		.align 2
+ 146              	.LEFDE0:
+ 147              	.section .text,"ax",@progbits
+ 148              	.Letext0:
+ 149              		.file 2 "D:\\home\\user123\\user\\Mohan6_VectorSIP\\21Dec23\\15Dec23_CAN_merge_21stDec\\25_Softwar
+ 150              		.file 3 "D:\\home\\user123\\user\\Mohan6_VectorSIP\\21Dec23\\15Dec23_CAN_merge_21stDec\\25_Softwar
+ 151              	.section .debug_info,"",@progbits
+ 152              	.Ldebug_info0:
+ 153 0000 42120000 		.uaword	0x1242
+ 154 0004 0200     		.uahalf	0x2
+ 155 0006 00000000 		.uaword	.Ldebug_abbrev0
+ 156 000a 04       		.byte	0x4
+ 157 000b 01       		.uleb128 0x1
+ 158 000c 474E5520 		.ascii	"GNU C 4."
+ 158      4320342E 
+ 159 0014 392E3420 		.string	"9.4 build on 2020-09-01 -mlicense-dir=c:\\hightec\\toolchains\\tricore\\v4.9.4.1\\bin\\..
+ 159      6275696C 
+ 159      64206F6E 
+ 159      20323032 
+ 159      302D3039 
+ 160 0115 01       		.byte	0x1
+ 161 0116 433A5C55 		.string	"C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\AllowAccess
+ 161      73657273 
+ 161      5C757365 
+ 161      72315C41 
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 4
+
+
+ 161      70704461 
+ 162 016b 00000000 		.uaword	.Ldebug_ranges0+0
+ 163 016f 00000000 		.uaword	0
+ 164 0173 00000000 		.uaword	0
+ 165 0177 00000000 		.uaword	.Ldebug_line0
+ 166 017b 02       		.uleb128 0x2
+ 167 017c 75696E74 		.string	"uint8"
+ 167      3800
+ 168 0182 02       		.byte	0x2
+ 169 0183 34       		.byte	0x34
+ 170 0184 88010000 		.uaword	0x188
+ 171 0188 03       		.uleb128 0x3
+ 172 0189 01       		.byte	0x1
+ 173 018a 08       		.byte	0x8
+ 174 018b 756E7369 		.string	"unsigned char"
+ 174      676E6564 
+ 174      20636861 
+ 174      7200
+ 175 0199 02       		.uleb128 0x2
+ 176 019a 75696E74 		.string	"uint16"
+ 176      313600
+ 177 01a1 02       		.byte	0x2
+ 178 01a2 35       		.byte	0x35
+ 179 01a3 A7010000 		.uaword	0x1a7
+ 180 01a7 03       		.uleb128 0x3
+ 181 01a8 02       		.byte	0x2
+ 182 01a9 07       		.byte	0x7
+ 183 01aa 73686F72 		.string	"short unsigned int"
+ 183      7420756E 
+ 183      7369676E 
+ 183      65642069 
+ 183      6E7400
+ 184 01bd 02       		.uleb128 0x2
+ 185 01be 75696E74 		.string	"uint32"
+ 185      333200
+ 186 01c5 02       		.byte	0x2
+ 187 01c6 36       		.byte	0x36
+ 188 01c7 CB010000 		.uaword	0x1cb
+ 189 01cb 03       		.uleb128 0x3
+ 190 01cc 04       		.byte	0x4
+ 191 01cd 07       		.byte	0x7
+ 192 01ce 756E7369 		.string	"unsigned int"
+ 192      676E6564 
+ 192      20696E74 
+ 192      00
+ 193 01db 03       		.uleb128 0x3
+ 194 01dc 01       		.byte	0x1
+ 195 01dd 06       		.byte	0x6
+ 196 01de 7369676E 		.string	"signed char"
+ 196      65642063 
+ 196      68617200 
+ 197 01ea 03       		.uleb128 0x3
+ 198 01eb 02       		.byte	0x2
+ 199 01ec 05       		.byte	0x5
+ 200 01ed 73686F72 		.string	"short int"
+ 200      7420696E 
+ 200      7400
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 5
+
+
+ 201 01f7 03       		.uleb128 0x3
+ 202 01f8 04       		.byte	0x4
+ 203 01f9 05       		.byte	0x5
+ 204 01fa 696E7400 		.string	"int"
+ 205 01fe 03       		.uleb128 0x3
+ 206 01ff 04       		.byte	0x4
+ 207 0200 04       		.byte	0x4
+ 208 0201 666C6F61 		.string	"float"
+ 208      7400
+ 209 0207 03       		.uleb128 0x3
+ 210 0208 08       		.byte	0x8
+ 211 0209 04       		.byte	0x4
+ 212 020a 646F7562 		.string	"double"
+ 212      6C6500
+ 213 0211 03       		.uleb128 0x3
+ 214 0212 08       		.byte	0x8
+ 215 0213 05       		.byte	0x5
+ 216 0214 6C6F6E67 		.string	"long long int"
+ 216      206C6F6E 
+ 216      6720696E 
+ 216      7400
+ 217 0222 03       		.uleb128 0x3
+ 218 0223 08       		.byte	0x8
+ 219 0224 07       		.byte	0x7
+ 220 0225 6C6F6E67 		.string	"long long unsigned int"
+ 220      206C6F6E 
+ 220      6720756E 
+ 220      7369676E 
+ 220      65642069 
+ 221 023c 02       		.uleb128 0x2
+ 222 023d 626F6F6C 		.string	"boolean"
+ 222      65616E00 
+ 223 0245 02       		.byte	0x2
+ 224 0246 49       		.byte	0x49
+ 225 0247 88010000 		.uaword	0x188
+ 226 024b 02       		.uleb128 0x2
+ 227 024c 53746174 		.string	"StatusType"
+ 227      75735479 
+ 227      706500
+ 228 0257 03       		.byte	0x3
+ 229 0258 28       		.byte	0x28
+ 230 0259 88010000 		.uaword	0x188
+ 231 025d 04       		.uleb128 0x4
+ 232 025e 08       		.byte	0x8
+ 233 025f 01       		.byte	0x1
+ 234 0260 7C       		.byte	0x7c
+ 235 0261 9C020000 		.uaword	0x29c
+ 236 0265 05       		.uleb128 0x5
+ 237 0266 436C6173 		.string	"Class"
+ 237      7300
+ 238 026c 01       		.byte	0x1
+ 239 026d 7D       		.byte	0x7d
+ 240 026e 7B010000 		.uaword	0x17b
+ 241 0272 02       		.byte	0x2
+ 242 0273 23       		.byte	0x23
+ 243 0274 00       		.uleb128 0
+ 244 0275 05       		.uleb128 0x5
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 6
+
+
+ 245 0276 54494E00 		.string	"TIN"
+ 246 027a 01       		.byte	0x1
+ 247 027b 7E       		.byte	0x7e
+ 248 027c 7B010000 		.uaword	0x17b
+ 249 0280 02       		.byte	0x2
+ 250 0281 23       		.byte	0x23
+ 251 0282 01       		.uleb128 0x1
+ 252 0283 05       		.uleb128 0x5
+ 253 0284 52657475 		.string	"ReturnAddress"
+ 253      726E4164 
+ 253      64726573 
+ 253      7300
+ 254 0292 01       		.byte	0x1
+ 255 0293 7F       		.byte	0x7f
+ 256 0294 BD010000 		.uaword	0x1bd
+ 257 0298 02       		.byte	0x2
+ 258 0299 23       		.byte	0x23
+ 259 029a 04       		.uleb128 0x4
+ 260 029b 00       		.byte	0
+ 261 029c 02       		.uleb128 0x2
+ 262 029d 4F735472 		.string	"OsTrapInfoType"
+ 262      6170496E 
+ 262      666F5479 
+ 262      706500
+ 263 02ac 01       		.byte	0x1
+ 264 02ad 80       		.byte	0x80
+ 265 02ae 5D020000 		.uaword	0x25d
+ 266 02b2 02       		.uleb128 0x2
+ 267 02b3 75696E74 		.string	"uint32_aligned"
+ 267      33325F61 
+ 267      6C69676E 
+ 267      656400
+ 268 02c2 01       		.byte	0x1
+ 269 02c3 86       		.byte	0x86
+ 270 02c4 BD010000 		.uaword	0x1bd
+ 271 02c8 04       		.uleb128 0x4
+ 272 02c9 44       		.byte	0x44
+ 273 02ca 01       		.byte	0x1
+ 274 02cb AB       		.byte	0xab
+ 275 02cc E1020000 		.uaword	0x2e1
+ 276 02d0 05       		.uleb128 0x5
+ 277 02d1 73746F72 		.string	"store"
+ 277      6500
+ 278 02d7 01       		.byte	0x1
+ 279 02d8 AC       		.byte	0xac
+ 280 02d9 E1020000 		.uaword	0x2e1
+ 281 02dd 02       		.byte	0x2
+ 282 02de 23       		.byte	0x23
+ 283 02df 00       		.uleb128 0
+ 284 02e0 00       		.byte	0
+ 285 02e1 06       		.uleb128 0x6
+ 286 02e2 BD010000 		.uaword	0x1bd
+ 287 02e6 F1020000 		.uaword	0x2f1
+ 288 02ea 07       		.uleb128 0x7
+ 289 02eb F1020000 		.uaword	0x2f1
+ 290 02ef 10       		.byte	0x10
+ 291 02f0 00       		.byte	0
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 7
+
+
+ 292 02f1 03       		.uleb128 0x3
+ 293 02f2 04       		.byte	0x4
+ 294 02f3 07       		.byte	0x7
+ 295 02f4 73697A65 		.string	"sizetype"
+ 295      74797065 
+ 295      00
+ 296 02fd 02       		.uleb128 0x2
+ 297 02fe 4F735F4A 		.string	"Os_JumpBufType"
+ 297      756D7042 
+ 297      75665479 
+ 297      706500
+ 298 030d 01       		.byte	0x1
+ 299 030e AD       		.byte	0xad
+ 300 030f 13030000 		.uaword	0x313
+ 301 0313 06       		.uleb128 0x6
+ 302 0314 C8020000 		.uaword	0x2c8
+ 303 0318 23030000 		.uaword	0x323
+ 304 031c 07       		.uleb128 0x7
+ 305 031d F1020000 		.uaword	0x2f1
+ 306 0321 00       		.byte	0
+ 307 0322 00       		.byte	0
+ 308 0323 02       		.uleb128 0x2
+ 309 0324 4F735F52 		.string	"Os_ResourceCountType"
+ 309      65736F75 
+ 309      72636543 
+ 309      6F756E74 
+ 309      54797065 
+ 310 0339 01       		.byte	0x1
+ 311 033a BE       		.byte	0xbe
+ 312 033b 88010000 		.uaword	0x188
+ 313 033f 02       		.uleb128 0x2
+ 314 0340 4F735F53 		.string	"Os_StackTraceType"
+ 314      7461636B 
+ 314      54726163 
+ 314      65547970 
+ 314      6500
+ 315 0352 01       		.byte	0x1
+ 316 0353 BF       		.byte	0xbf
+ 317 0354 CB010000 		.uaword	0x1cb
+ 318 0358 04       		.uleb128 0x4
+ 319 0359 08       		.byte	0x8
+ 320 035a 01       		.byte	0x1
+ 321 035b C0       		.byte	0xc0
+ 322 035c 7C030000 		.uaword	0x37c
+ 323 0360 05       		.uleb128 0x5
+ 324 0361 737000   		.string	"sp"
+ 325 0364 01       		.byte	0x1
+ 326 0365 C0       		.byte	0xc0
+ 327 0366 3F030000 		.uaword	0x33f
+ 328 036a 02       		.byte	0x2
+ 329 036b 23       		.byte	0x23
+ 330 036c 00       		.uleb128 0
+ 331 036d 05       		.uleb128 0x5
+ 332 036e 63747800 		.string	"ctx"
+ 333 0372 01       		.byte	0x1
+ 334 0373 C0       		.byte	0xc0
+ 335 0374 3F030000 		.uaword	0x33f
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 8
+
+
+ 336 0378 02       		.byte	0x2
+ 337 0379 23       		.byte	0x23
+ 338 037a 04       		.uleb128 0x4
+ 339 037b 00       		.byte	0
+ 340 037c 02       		.uleb128 0x2
+ 341 037d 4F735F53 		.string	"Os_StackValueType"
+ 341      7461636B 
+ 341      56616C75 
+ 341      65547970 
+ 341      6500
+ 342 038f 01       		.byte	0x1
+ 343 0390 C0       		.byte	0xc0
+ 344 0391 58030000 		.uaword	0x358
+ 345 0395 02       		.uleb128 0x2
+ 346 0396 4F735F53 		.string	"Os_StackSizeType"
+ 346      7461636B 
+ 346      53697A65 
+ 346      54797065 
+ 346      00
+ 347 03a7 01       		.byte	0x1
+ 348 03a8 C1       		.byte	0xc1
+ 349 03a9 7C030000 		.uaword	0x37c
+ 350 03ad 02       		.uleb128 0x2
+ 351 03ae 4F735F56 		.string	"Os_VoidVoidFunctionType"
+ 351      6F696456 
+ 351      6F696446 
+ 351      756E6374 
+ 351      696F6E54 
+ 352 03c6 01       		.byte	0x1
+ 353 03c7 C7       		.byte	0xc7
+ 354 03c8 CC030000 		.uaword	0x3cc
+ 355 03cc 08       		.uleb128 0x8
+ 356 03cd 04       		.byte	0x4
+ 357 03ce D2030000 		.uaword	0x3d2
+ 358 03d2 09       		.uleb128 0x9
+ 359 03d3 01       		.byte	0x1
+ 360 03d4 02       		.uleb128 0x2
+ 361 03d5 4170706C 		.string	"ApplicationType"
+ 361      69636174 
+ 361      696F6E54 
+ 361      79706500 
+ 362 03e5 01       		.byte	0x1
+ 363 03e6 D5       		.byte	0xd5
+ 364 03e7 88010000 		.uaword	0x188
+ 365 03eb 02       		.uleb128 0x2
+ 366 03ec 4F735F74 		.string	"Os_tmaskType"
+ 366      6D61736B 
+ 366      54797065 
+ 366      00
+ 367 03f9 01       		.byte	0x1
+ 368 03fa D9       		.byte	0xd9
+ 369 03fb BD010000 		.uaword	0x1bd
+ 370 03ff 02       		.uleb128 0x2
+ 371 0400 4F735F43 		.string	"Os_CoreStateType"
+ 371      6F726553 
+ 371      74617465 
+ 371      54797065 
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 9
+
+
+ 371      00
+ 372 0411 01       		.byte	0x1
+ 373 0412 E7       		.byte	0xe7
+ 374 0413 BD010000 		.uaword	0x1bd
+ 375 0417 02       		.uleb128 0x2
+ 376 0418 4F735F53 		.string	"Os_StopwatchTickType"
+ 376      746F7077 
+ 376      61746368 
+ 376      5469636B 
+ 376      54797065 
+ 377 042d 01       		.byte	0x1
+ 378 042e FD       		.byte	0xfd
+ 379 042f CB010000 		.uaword	0x1cb
+ 380 0433 0A       		.uleb128 0xa
+ 381 0434 4F735F54 		.string	"Os_TerminatorType"
+ 381      65726D69 
+ 381      6E61746F 
+ 381      72547970 
+ 381      6500
+ 382 0446 01       		.byte	0x1
+ 383 0447 0201     		.uahalf	0x102
+ 384 0449 4D040000 		.uaword	0x44d
+ 385 044d 08       		.uleb128 0x8
+ 386 044e 04       		.byte	0x4
+ 387 044f FD020000 		.uaword	0x2fd
+ 388 0453 0A       		.uleb128 0xa
+ 389 0454 4F735F4C 		.string	"Os_Lockable"
+ 389      6F636B61 
+ 389      626C6500 
+ 390 0460 01       		.byte	0x1
+ 391 0461 0701     		.uahalf	0x107
+ 392 0463 B2020000 		.uaword	0x2b2
+ 393 0467 0A       		.uleb128 0xa
+ 394 0468 436F7265 		.string	"CoreIdType"
+ 394      49645479 
+ 394      706500
+ 395 0473 01       		.byte	0x1
+ 396 0474 0901     		.uahalf	0x109
+ 397 0476 99010000 		.uaword	0x199
+ 398 047a 0B       		.uleb128 0xb
+ 399 047b 53040000 		.uaword	0x453
+ 400 047f 0C       		.uleb128 0xc
+ 401 0480 4F735F43 		.string	"Os_ControlledCoreType_s"
+ 401      6F6E7472 
+ 401      6F6C6C65 
+ 401      64436F72 
+ 401      65547970 
+ 402 0498 58       		.byte	0x58
+ 403 0499 01       		.byte	0x1
+ 404 049a 1004     		.uahalf	0x410
+ 405 049c 7D060000 		.uaword	0x67d
+ 406 04a0 0D       		.uleb128 0xd
+ 407 04a1 54726170 		.string	"TrapInfo"
+ 407      496E666F 
+ 407      00
+ 408 04aa 01       		.byte	0x1
+ 409 04ab 1104     		.uahalf	0x411
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 10
+
+
+ 410 04ad 9C020000 		.uaword	0x29c
+ 411 04b1 02       		.byte	0x2
+ 412 04b2 23       		.byte	0x23
+ 413 04b3 00       		.uleb128 0
+ 414 04b4 0D       		.uleb128 0xd
+ 415 04b5 4572726F 		.string	"ErrorInformation"
+ 415      72496E66 
+ 415      6F726D61 
+ 415      74696F6E 
+ 415      00
+ 416 04c6 01       		.byte	0x1
+ 417 04c7 1204     		.uahalf	0x412
+ 418 04c9 A80D0000 		.uaword	0xda8
+ 419 04cd 02       		.byte	0x2
+ 420 04ce 23       		.byte	0x23
+ 421 04cf 08       		.uleb128 0x8
+ 422 04d0 0D       		.uleb128 0xd
+ 423 04d1 6C6F636B 		.string	"lock_taskaccess"
+ 423      5F746173 
+ 423      6B616363 
+ 423      65737300 
+ 424 04e1 01       		.byte	0x1
+ 425 04e2 1304     		.uahalf	0x413
+ 426 04e4 7A040000 		.uaword	0x47a
+ 427 04e8 02       		.byte	0x2
+ 428 04e9 23       		.byte	0x23
+ 429 04ea 18       		.uleb128 0x18
+ 430 04eb 0D       		.uleb128 0xd
+ 431 04ec 52656164 		.string	"ReadyTasks"
+ 431      79546173 
+ 431      6B7300
+ 432 04f7 01       		.byte	0x1
+ 433 04f8 1404     		.uahalf	0x414
+ 434 04fa DE0D0000 		.uaword	0xdde
+ 435 04fe 02       		.byte	0x2
+ 436 04ff 23       		.byte	0x23
+ 437 0500 1C       		.uleb128 0x1c
+ 438 0501 0D       		.uleb128 0xd
+ 439 0502 52756E6E 		.string	"RunningISR"
+ 439      696E6749 
+ 439      535200
+ 440 050d 01       		.byte	0x1
+ 441 050e 1504     		.uahalf	0x415
+ 442 0510 E30D0000 		.uaword	0xde3
+ 443 0514 02       		.byte	0x2
+ 444 0515 23       		.byte	0x23
+ 445 0516 20       		.uleb128 0x20
+ 446 0517 0D       		.uleb128 0xd
+ 447 0518 52756E6E 		.string	"RunningTask"
+ 447      696E6754 
+ 447      61736B00 
+ 448 0524 01       		.byte	0x1
+ 449 0525 1604     		.uahalf	0x416
+ 450 0527 E80D0000 		.uaword	0xde8
+ 451 052b 02       		.byte	0x2
+ 452 052c 23       		.byte	0x23
+ 453 052d 24       		.uleb128 0x24
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 11
+
+
+ 454 052e 0D       		.uleb128 0xd
+ 455 052f 52756E6E 		.string	"RunningTPMask"
+ 455      696E6754 
+ 455      504D6173 
+ 455      6B00
+ 456 053d 01       		.byte	0x1
+ 457 053e 1704     		.uahalf	0x417
+ 458 0540 ED0D0000 		.uaword	0xded
+ 459 0544 02       		.byte	0x2
+ 460 0545 23       		.byte	0x23
+ 461 0546 28       		.uleb128 0x28
+ 462 0547 0D       		.uleb128 0xd
+ 463 0548 5465726D 		.string	"TerminatingTasks"
+ 463      696E6174 
+ 463      696E6754 
+ 463      61736B73 
+ 463      00
+ 464 0559 01       		.byte	0x1
+ 465 055a 1804     		.uahalf	0x418
+ 466 055c DE0D0000 		.uaword	0xdde
+ 467 0560 02       		.byte	0x2
+ 468 0561 23       		.byte	0x23
+ 469 0562 2C       		.uleb128 0x2c
+ 470 0563 0D       		.uleb128 0xd
+ 471 0564 4170706C 		.string	"Application"
+ 471      69636174 
+ 471      696F6E00 
+ 472 0570 01       		.byte	0x1
+ 473 0571 1904     		.uahalf	0x419
+ 474 0573 D4030000 		.uaword	0x3d4
+ 475 0577 02       		.byte	0x2
+ 476 0578 23       		.byte	0x23
+ 477 0579 30       		.uleb128 0x30
+ 478 057a 0D       		.uleb128 0xd
+ 479 057b 43757272 		.string	"CurrentTerminator"
+ 479      656E7454 
+ 479      65726D69 
+ 479      6E61746F 
+ 479      7200
+ 480 058d 01       		.byte	0x1
+ 481 058e 1A04     		.uahalf	0x41a
+ 482 0590 F20D0000 		.uaword	0xdf2
+ 483 0594 02       		.byte	0x2
+ 484 0595 23       		.byte	0x23
+ 485 0596 34       		.uleb128 0x34
+ 486 0597 0D       		.uleb128 0xd
+ 487 0598 43757272 		.string	"CurrentMeteredObject"
+ 487      656E744D 
+ 487      65746572 
+ 487      65644F62 
+ 487      6A656374 
+ 488 05ad 01       		.byte	0x1
+ 489 05ae 1B04     		.uahalf	0x41b
+ 490 05b0 81070000 		.uaword	0x781
+ 491 05b4 02       		.byte	0x2
+ 492 05b5 23       		.byte	0x23
+ 493 05b6 38       		.uleb128 0x38
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 12
+
+
+ 494 05b7 0D       		.uleb128 0xd
+ 495 05b8 49646C65 		.string	"IdleMeter"
+ 495      4D657465 
+ 495      7200
+ 496 05c2 01       		.byte	0x1
+ 497 05c3 1C04     		.uahalf	0x41c
+ 498 05c5 68070000 		.uaword	0x768
+ 499 05c9 02       		.byte	0x2
+ 500 05ca 23       		.byte	0x23
+ 501 05cb 3C       		.uleb128 0x3c
+ 502 05cc 0D       		.uleb128 0xd
+ 503 05cd 41707041 		.string	"AppAccess"
+ 503      63636573 
+ 503      7300
+ 504 05d7 01       		.byte	0x1
+ 505 05d8 1D04     		.uahalf	0x41d
+ 506 05da 7B010000 		.uaword	0x17b
+ 507 05de 02       		.byte	0x2
+ 508 05df 23       		.byte	0x23
+ 509 05e0 48       		.uleb128 0x48
+ 510 05e1 0D       		.uleb128 0xd
+ 511 05e2 4170704F 		.string	"AppOverride"
+ 511      76657272 
+ 511      69646500 
+ 512 05ee 01       		.byte	0x1
+ 513 05ef 1E04     		.uahalf	0x41e
+ 514 05f1 F70D0000 		.uaword	0xdf7
+ 515 05f5 02       		.byte	0x2
+ 516 05f6 23       		.byte	0x23
+ 517 05f7 49       		.uleb128 0x49
+ 518 05f8 0D       		.uleb128 0xd
+ 519 05f9 47657453 		.string	"GetStackValueAdjust"
+ 519      7461636B 
+ 519      56616C75 
+ 519      6541646A 
+ 519      75737400 
+ 520 060d 01       		.byte	0x1
+ 521 060e 1F04     		.uahalf	0x41f
+ 522 0610 95030000 		.uaword	0x395
+ 523 0614 02       		.byte	0x2
+ 524 0615 23       		.byte	0x23
+ 525 0616 4C       		.uleb128 0x4c
+ 526 0617 0D       		.uleb128 0xd
+ 527 0618 496E4572 		.string	"InErrorHook"
+ 527      726F7248 
+ 527      6F6F6B00 
+ 528 0624 01       		.byte	0x1
+ 529 0625 2004     		.uahalf	0x420
+ 530 0627 3C020000 		.uaword	0x23c
+ 531 062b 02       		.byte	0x2
+ 532 062c 23       		.byte	0x23
+ 533 062d 54       		.uleb128 0x54
+ 534 062e 0D       		.uleb128 0xd
+ 535 062f 496E5072 		.string	"InProtectionHook"
+ 535      6F746563 
+ 535      74696F6E 
+ 535      486F6F6B 
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 13
+
+
+ 535      00
+ 536 0640 01       		.byte	0x1
+ 537 0641 2104     		.uahalf	0x421
+ 538 0643 3C020000 		.uaword	0x23c
+ 539 0647 02       		.byte	0x2
+ 540 0648 23       		.byte	0x23
+ 541 0649 55       		.uleb128 0x55
+ 542 064a 0D       		.uleb128 0xd
+ 543 064b 436F7265 		.string	"CoreIsActive"
+ 543      49734163 
+ 543      74697665 
+ 543      00
+ 544 0658 01       		.byte	0x1
+ 545 0659 2204     		.uahalf	0x422
+ 546 065b 3C020000 		.uaword	0x23c
+ 547 065f 02       		.byte	0x2
+ 548 0660 23       		.byte	0x23
+ 549 0661 56       		.uleb128 0x56
+ 550 0662 0D       		.uleb128 0xd
+ 551 0663 496E5368 		.string	"InShutdownHook"
+ 551      7574646F 
+ 551      776E486F 
+ 551      6F6B00
+ 552 0672 01       		.byte	0x1
+ 553 0673 2304     		.uahalf	0x423
+ 554 0675 3C020000 		.uaword	0x23c
+ 555 0679 02       		.byte	0x2
+ 556 067a 23       		.byte	0x23
+ 557 067b 57       		.uleb128 0x57
+ 558 067c 00       		.byte	0
+ 559 067d 0E       		.uleb128 0xe
+ 560 067e 01       		.byte	0x1
+ 561 067f 01       		.byte	0x1
+ 562 0680 5F01     		.uahalf	0x15f
+ 563 0682 D2060000 		.uaword	0x6d2
+ 564 0686 0F       		.uleb128 0xf
+ 565 0687 4150504C 		.string	"APPLICATION_ACCESSIBLE"
+ 565      49434154 
+ 565      494F4E5F 
+ 565      41434345 
+ 565      53534942 
+ 566 069e 00       		.sleb128 0
+ 567 069f 0F       		.uleb128 0xf
+ 568 06a0 4150504C 		.string	"APPLICATION_RESTARTING"
+ 568      49434154 
+ 568      494F4E5F 
+ 568      52455354 
+ 568      41525449 
+ 569 06b7 01       		.sleb128 1
+ 570 06b8 0F       		.uleb128 0xf
+ 571 06b9 4150504C 		.string	"APPLICATION_TERMINATED"
+ 571      49434154 
+ 571      494F4E5F 
+ 571      5445524D 
+ 571      494E4154 
+ 572 06d0 02       		.sleb128 2
+ 573 06d1 00       		.byte	0
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 14
+
+
+ 574 06d2 0A       		.uleb128 0xa
+ 575 06d3 4170706C 		.string	"ApplicationStateType"
+ 575      69636174 
+ 575      696F6E53 
+ 575      74617465 
+ 575      54797065 
+ 576 06e8 01       		.byte	0x1
+ 577 06e9 5F01     		.uahalf	0x15f
+ 578 06eb 7D060000 		.uaword	0x67d
+ 579 06ef 0A       		.uleb128 0xa
+ 580 06f0 4170706C 		.string	"ApplicationStateRefType"
+ 580      69636174 
+ 580      696F6E53 
+ 580      74617465 
+ 580      52656654 
+ 581 0708 01       		.byte	0x1
+ 582 0709 6001     		.uahalf	0x160
+ 583 070b 0F070000 		.uaword	0x70f
+ 584 070f 08       		.uleb128 0x8
+ 585 0710 04       		.byte	0x4
+ 586 0711 D2060000 		.uaword	0x6d2
+ 587 0715 0C       		.uleb128 0xc
+ 588 0716 4F735F4D 		.string	"Os_MeterInfoType_s"
+ 588      65746572 
+ 588      496E666F 
+ 588      54797065 
+ 588      5F7300
+ 589 0729 0C       		.byte	0xc
+ 590 072a 01       		.byte	0x1
+ 591 072b 7201     		.uahalf	0x172
+ 592 072d 68070000 		.uaword	0x768
+ 593 0731 0D       		.uleb128 0xd
+ 594 0732 656C6170 		.string	"elapsed"
+ 594      73656400 
+ 595 073a 01       		.byte	0x1
+ 596 073b 7301     		.uahalf	0x173
+ 597 073d 17040000 		.uaword	0x417
+ 598 0741 02       		.byte	0x2
+ 599 0742 23       		.byte	0x23
+ 600 0743 00       		.uleb128 0
+ 601 0744 0D       		.uleb128 0xd
+ 602 0745 70726576 		.string	"previous"
+ 602      696F7573 
+ 602      00
+ 603 074e 01       		.byte	0x1
+ 604 074f 7401     		.uahalf	0x174
+ 605 0751 17040000 		.uaword	0x417
+ 606 0755 02       		.byte	0x2
+ 607 0756 23       		.byte	0x23
+ 608 0757 04       		.uleb128 0x4
+ 609 0758 0D       		.uleb128 0xd
+ 610 0759 6D617800 		.string	"max"
+ 611 075d 01       		.byte	0x1
+ 612 075e 7501     		.uahalf	0x175
+ 613 0760 17040000 		.uaword	0x417
+ 614 0764 02       		.byte	0x2
+ 615 0765 23       		.byte	0x23
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 15
+
+
+ 616 0766 08       		.uleb128 0x8
+ 617 0767 00       		.byte	0
+ 618 0768 0A       		.uleb128 0xa
+ 619 0769 4F735F4D 		.string	"Os_MeterInfoType"
+ 619      65746572 
+ 619      496E666F 
+ 619      54797065 
+ 619      00
+ 620 077a 01       		.byte	0x1
+ 621 077b 7601     		.uahalf	0x176
+ 622 077d 15070000 		.uaword	0x715
+ 623 0781 0A       		.uleb128 0xa
+ 624 0782 4F735F4D 		.string	"Os_MeterInfoRefType"
+ 624      65746572 
+ 624      496E666F 
+ 624      52656654 
+ 624      79706500 
+ 625 0796 01       		.byte	0x1
+ 626 0797 7701     		.uahalf	0x177
+ 627 0799 9D070000 		.uaword	0x79d
+ 628 079d 08       		.uleb128 0x8
+ 629 079e 04       		.byte	0x4
+ 630 079f 68070000 		.uaword	0x768
+ 631 07a3 0A       		.uleb128 0xa
+ 632 07a4 4F735F69 		.string	"Os_imaskType"
+ 632      6D61736B 
+ 632      54797065 
+ 632      00
+ 633 07b1 01       		.byte	0x1
+ 634 07b2 7F01     		.uahalf	0x17f
+ 635 07b4 BD010000 		.uaword	0x1bd
+ 636 07b8 0C       		.uleb128 0xc
+ 637 07b9 4F735F49 		.string	"Os_ISRDynType_s"
+ 637      53524479 
+ 637      6E547970 
+ 637      655F7300 
+ 638 07c9 10       		.byte	0x10
+ 639 07ca 01       		.byte	0x1
+ 640 07cb 8101     		.uahalf	0x181
+ 641 07cd 09080000 		.uaword	0x809
+ 642 07d1 10       		.uleb128 0x10
+ 643 07d2 00000000 		.uaword	.LASF0
+ 644 07d6 01       		.byte	0x1
+ 645 07d7 8201     		.uahalf	0x182
+ 646 07d9 23030000 		.uaword	0x323
+ 647 07dd 02       		.byte	0x2
+ 648 07de 23       		.byte	0x23
+ 649 07df 00       		.uleb128 0
+ 650 07e0 0D       		.uleb128 0xd
+ 651 07e1 7465726D 		.string	"terminating"
+ 651      696E6174 
+ 651      696E6700 
+ 652 07ed 01       		.byte	0x1
+ 653 07ee 8301     		.uahalf	0x183
+ 654 07f0 3C020000 		.uaword	0x23c
+ 655 07f4 02       		.byte	0x2
+ 656 07f5 23       		.byte	0x23
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 16
+
+
+ 657 07f6 01       		.uleb128 0x1
+ 658 07f7 0D       		.uleb128 0xd
+ 659 07f8 6D657465 		.string	"meter"
+ 659      7200
+ 660 07fe 01       		.byte	0x1
+ 661 07ff 8401     		.uahalf	0x184
+ 662 0801 68070000 		.uaword	0x768
+ 663 0805 02       		.byte	0x2
+ 664 0806 23       		.byte	0x23
+ 665 0807 04       		.uleb128 0x4
+ 666 0808 00       		.byte	0
+ 667 0809 0A       		.uleb128 0xa
+ 668 080a 4F735F49 		.string	"Os_ISRDynType"
+ 668      53524479 
+ 668      6E547970 
+ 668      6500
+ 669 0818 01       		.byte	0x1
+ 670 0819 8501     		.uahalf	0x185
+ 671 081b B8070000 		.uaword	0x7b8
+ 672 081f 0A       		.uleb128 0xa
+ 673 0820 4F735F49 		.string	"Os_IsrTerminatedFunctionType"
+ 673      73725465 
+ 673      726D696E 
+ 673      61746564 
+ 673      46756E63 
+ 674 083d 01       		.byte	0x1
+ 675 083e 8601     		.uahalf	0x186
+ 676 0840 CC030000 		.uaword	0x3cc
+ 677 0844 0C       		.uleb128 0xc
+ 678 0845 4F735F49 		.string	"Os_ISRType_s"
+ 678      53525479 
+ 678      70655F73 
+ 678      00
+ 679 0852 18       		.byte	0x18
+ 680 0853 01       		.byte	0x1
+ 681 0854 8701     		.uahalf	0x187
+ 682 0856 D8080000 		.uaword	0x8d8
+ 683 085a 10       		.uleb128 0x10
+ 684 085b 00000000 		.uaword	.LASF1
+ 685 085f 01       		.byte	0x1
+ 686 0860 8801     		.uahalf	0x188
+ 687 0862 AD030000 		.uaword	0x3ad
+ 688 0866 02       		.byte	0x2
+ 689 0867 23       		.byte	0x23
+ 690 0868 00       		.uleb128 0
+ 691 0869 0D       		.uleb128 0xd
+ 692 086a 7465726D 		.string	"terminated_function"
+ 692      696E6174 
+ 692      65645F66 
+ 692      756E6374 
+ 692      696F6E00 
+ 693 087e 01       		.byte	0x1
+ 694 087f 8901     		.uahalf	0x189
+ 695 0881 1F080000 		.uaword	0x81f
+ 696 0885 02       		.byte	0x2
+ 697 0886 23       		.byte	0x23
+ 698 0887 04       		.uleb128 0x4
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 17
+
+
+ 699 0888 10       		.uleb128 0x10
+ 700 0889 00000000 		.uaword	.LASF2
+ 701 088d 01       		.byte	0x1
+ 702 088e 8A01     		.uahalf	0x18a
+ 703 0890 D8080000 		.uaword	0x8d8
+ 704 0894 02       		.byte	0x2
+ 705 0895 23       		.byte	0x23
+ 706 0896 08       		.uleb128 0x8
+ 707 0897 0D       		.uleb128 0xd
+ 708 0898 696D6173 		.string	"imask"
+ 708      6B00
+ 709 089e 01       		.byte	0x1
+ 710 089f 8B01     		.uahalf	0x18b
+ 711 08a1 A3070000 		.uaword	0x7a3
+ 712 08a5 02       		.byte	0x2
+ 713 08a6 23       		.byte	0x23
+ 714 08a7 0C       		.uleb128 0xc
+ 715 08a8 0D       		.uleb128 0xd
+ 716 08a9 696E6465 		.string	"index"
+ 716      7800
+ 717 08af 01       		.byte	0x1
+ 718 08b0 8C01     		.uahalf	0x18c
+ 719 08b2 BD010000 		.uaword	0x1bd
+ 720 08b6 02       		.byte	0x2
+ 721 08b7 23       		.byte	0x23
+ 722 08b8 10       		.uleb128 0x10
+ 723 08b9 10       		.uleb128 0x10
+ 724 08ba 00000000 		.uaword	.LASF3
+ 725 08be 01       		.byte	0x1
+ 726 08bf 8D01     		.uahalf	0x18d
+ 727 08c1 7B010000 		.uaword	0x17b
+ 728 08c5 02       		.byte	0x2
+ 729 08c6 23       		.byte	0x23
+ 730 08c7 14       		.uleb128 0x14
+ 731 08c8 10       		.uleb128 0x10
+ 732 08c9 00000000 		.uaword	.LASF4
+ 733 08cd 01       		.byte	0x1
+ 734 08ce 8E01     		.uahalf	0x18e
+ 735 08d0 D4030000 		.uaword	0x3d4
+ 736 08d4 02       		.byte	0x2
+ 737 08d5 23       		.byte	0x23
+ 738 08d6 15       		.uleb128 0x15
+ 739 08d7 00       		.byte	0
+ 740 08d8 11       		.uleb128 0x11
+ 741 08d9 DD080000 		.uaword	0x8dd
+ 742 08dd 08       		.uleb128 0x8
+ 743 08de 04       		.byte	0x4
+ 744 08df 09080000 		.uaword	0x809
+ 745 08e3 0A       		.uleb128 0xa
+ 746 08e4 4F735F49 		.string	"Os_ISRType"
+ 746      53525479 
+ 746      706500
+ 747 08ef 01       		.byte	0x1
+ 748 08f0 8F01     		.uahalf	0x18f
+ 749 08f2 44080000 		.uaword	0x844
+ 750 08f6 0A       		.uleb128 0xa
+ 751 08f7 49535254 		.string	"ISRType"
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 18
+
+
+ 751      79706500 
+ 752 08ff 01       		.byte	0x1
+ 753 0900 9001     		.uahalf	0x190
+ 754 0902 06090000 		.uaword	0x906
+ 755 0906 08       		.uleb128 0x8
+ 756 0907 04       		.byte	0x4
+ 757 0908 0C090000 		.uaword	0x90c
+ 758 090c 11       		.uleb128 0x11
+ 759 090d E3080000 		.uaword	0x8e3
+ 760 0911 0A       		.uleb128 0xa
+ 761 0912 4F735F62 		.string	"Os_bitmask"
+ 761      69746D61 
+ 761      736B00
+ 762 091d 01       		.byte	0x1
+ 763 091e A201     		.uahalf	0x1a2
+ 764 0920 CB010000 		.uaword	0x1cb
+ 765 0924 0A       		.uleb128 0xa
+ 766 0925 4F735F70 		.string	"Os_pset0Type"
+ 766      73657430 
+ 766      54797065 
+ 766      00
+ 767 0932 01       		.byte	0x1
+ 768 0933 A301     		.uahalf	0x1a3
+ 769 0935 11090000 		.uaword	0x911
+ 770 0939 0A       		.uleb128 0xa
+ 771 093a 4F735F70 		.string	"Os_pset1Type"
+ 771      73657431 
+ 771      54797065 
+ 771      00
+ 772 0947 01       		.byte	0x1
+ 773 0948 A401     		.uahalf	0x1a4
+ 774 094a 11090000 		.uaword	0x911
+ 775 094e 0A       		.uleb128 0xa
+ 776 094f 4F735F70 		.string	"Os_pset2Type"
+ 776      73657432 
+ 776      54797065 
+ 776      00
+ 777 095c 01       		.byte	0x1
+ 778 095d A501     		.uahalf	0x1a5
+ 779 095f 11090000 		.uaword	0x911
+ 780 0963 12       		.uleb128 0x12
+ 781 0964 04       		.byte	0x4
+ 782 0965 01       		.byte	0x1
+ 783 0966 A601     		.uahalf	0x1a6
+ 784 0968 8E090000 		.uaword	0x98e
+ 785 096c 13       		.uleb128 0x13
+ 786 096d 703000   		.string	"p0"
+ 787 0970 01       		.byte	0x1
+ 788 0971 A701     		.uahalf	0x1a7
+ 789 0973 24090000 		.uaword	0x924
+ 790 0977 13       		.uleb128 0x13
+ 791 0978 703100   		.string	"p1"
+ 792 097b 01       		.byte	0x1
+ 793 097c A801     		.uahalf	0x1a8
+ 794 097e 39090000 		.uaword	0x939
+ 795 0982 13       		.uleb128 0x13
+ 796 0983 703200   		.string	"p2"
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 19
+
+
+ 797 0986 01       		.byte	0x1
+ 798 0987 A901     		.uahalf	0x1a9
+ 799 0989 4E090000 		.uaword	0x94e
+ 800 098d 00       		.byte	0
+ 801 098e 0A       		.uleb128 0xa
+ 802 098f 4F735F70 		.string	"Os_psetType"
+ 802      73657454 
+ 802      79706500 
+ 803 099b 01       		.byte	0x1
+ 804 099c AA01     		.uahalf	0x1aa
+ 805 099e 63090000 		.uaword	0x963
+ 806 09a2 12       		.uleb128 0x12
+ 807 09a3 04       		.byte	0x4
+ 808 09a4 01       		.byte	0x1
+ 809 09a5 AC01     		.uahalf	0x1ac
+ 810 09a7 CD090000 		.uaword	0x9cd
+ 811 09ab 13       		.uleb128 0x13
+ 812 09ac 743000   		.string	"t0"
+ 813 09af 01       		.byte	0x1
+ 814 09b0 AD01     		.uahalf	0x1ad
+ 815 09b2 11090000 		.uaword	0x911
+ 816 09b6 13       		.uleb128 0x13
+ 817 09b7 743100   		.string	"t1"
+ 818 09ba 01       		.byte	0x1
+ 819 09bb AE01     		.uahalf	0x1ae
+ 820 09bd 11090000 		.uaword	0x911
+ 821 09c1 13       		.uleb128 0x13
+ 822 09c2 743200   		.string	"t2"
+ 823 09c5 01       		.byte	0x1
+ 824 09c6 AF01     		.uahalf	0x1af
+ 825 09c8 11090000 		.uaword	0x911
+ 826 09cc 00       		.byte	0
+ 827 09cd 0A       		.uleb128 0xa
+ 828 09ce 4F735F74 		.string	"Os_tpmaskType"
+ 828      706D6173 
+ 828      6B547970 
+ 828      6500
+ 829 09dc 01       		.byte	0x1
+ 830 09dd B001     		.uahalf	0x1b0
+ 831 09df A2090000 		.uaword	0x9a2
+ 832 09e3 0A       		.uleb128 0xa
+ 833 09e4 4F735F41 		.string	"Os_ActivationCountType"
+ 833      63746976 
+ 833      6174696F 
+ 833      6E436F75 
+ 833      6E745479 
+ 834 09fb 01       		.byte	0x1
+ 835 09fc B101     		.uahalf	0x1b1
+ 836 09fe 88010000 		.uaword	0x188
+ 837 0a02 0C       		.uleb128 0xc
+ 838 0a03 4F735F54 		.string	"Os_TaskDynType_s"
+ 838      61736B44 
+ 838      796E5479 
+ 838      70655F73 
+ 838      00
+ 839 0a14 5C       		.byte	0x5c
+ 840 0a15 01       		.byte	0x1
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 20
+
+
+ 841 0a16 B301     		.uahalf	0x1b3
+ 842 0a18 BD0A0000 		.uaword	0xabd
+ 843 0a1c 0D       		.uleb128 0xd
+ 844 0a1d 6C617374 		.string	"last_activation"
+ 844      5F616374 
+ 844      69766174 
+ 844      696F6E00 
+ 845 0a2d 01       		.byte	0x1
+ 846 0a2e B401     		.uahalf	0x1b4
+ 847 0a30 17040000 		.uaword	0x417
+ 848 0a34 02       		.byte	0x2
+ 849 0a35 23       		.byte	0x23
+ 850 0a36 00       		.uleb128 0
+ 851 0a37 0D       		.uleb128 0xd
+ 852 0a38 7465726D 		.string	"terminate_jump_buf"
+ 852      696E6174 
+ 852      655F6A75 
+ 852      6D705F62 
+ 852      756600
+ 853 0a4b 01       		.byte	0x1
+ 854 0a4c B501     		.uahalf	0x1b5
+ 855 0a4e FD020000 		.uaword	0x2fd
+ 856 0a52 02       		.byte	0x2
+ 857 0a53 23       		.byte	0x23
+ 858 0a54 04       		.uleb128 0x4
+ 859 0a55 0D       		.uleb128 0xd
+ 860 0a56 6D657465 		.string	"meter"
+ 860      7200
+ 861 0a5c 01       		.byte	0x1
+ 862 0a5d B601     		.uahalf	0x1b6
+ 863 0a5f 68070000 		.uaword	0x768
+ 864 0a63 02       		.byte	0x2
+ 865 0a64 23       		.byte	0x23
+ 866 0a65 48       		.uleb128 0x48
+ 867 0a66 0D       		.uleb128 0xd
+ 868 0a67 7365656E 		.string	"seen_activation"
+ 868      5F616374 
+ 868      69766174 
+ 868      696F6E00 
+ 869 0a77 01       		.byte	0x1
+ 870 0a78 B701     		.uahalf	0x1b7
+ 871 0a7a 3C020000 		.uaword	0x23c
+ 872 0a7e 02       		.byte	0x2
+ 873 0a7f 23       		.byte	0x23
+ 874 0a80 54       		.uleb128 0x54
+ 875 0a81 10       		.uleb128 0x10
+ 876 0a82 00000000 		.uaword	.LASF5
+ 877 0a86 01       		.byte	0x1
+ 878 0a87 B801     		.uahalf	0x1b8
+ 879 0a89 E3090000 		.uaword	0x9e3
+ 880 0a8d 02       		.byte	0x2
+ 881 0a8e 23       		.byte	0x23
+ 882 0a8f 55       		.uleb128 0x55
+ 883 0a90 10       		.uleb128 0x10
+ 884 0a91 00000000 		.uaword	.LASF0
+ 885 0a95 01       		.byte	0x1
+ 886 0a96 B901     		.uahalf	0x1b9
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 21
+
+
+ 887 0a98 23030000 		.uaword	0x323
+ 888 0a9c 02       		.byte	0x2
+ 889 0a9d 23       		.byte	0x23
+ 890 0a9e 56       		.uleb128 0x56
+ 891 0a9f 0D       		.uleb128 0xd
+ 892 0aa0 7465726D 		.string	"termination_state"
+ 892      696E6174 
+ 892      696F6E5F 
+ 892      73746174 
+ 892      6500
+ 893 0ab2 01       		.byte	0x1
+ 894 0ab3 BA01     		.uahalf	0x1ba
+ 895 0ab5 BD010000 		.uaword	0x1bd
+ 896 0ab9 02       		.byte	0x2
+ 897 0aba 23       		.byte	0x23
+ 898 0abb 58       		.uleb128 0x58
+ 899 0abc 00       		.byte	0
+ 900 0abd 0A       		.uleb128 0xa
+ 901 0abe 4F735F54 		.string	"Os_TaskDynType"
+ 901      61736B44 
+ 901      796E5479 
+ 901      706500
+ 902 0acd 01       		.byte	0x1
+ 903 0ace BB01     		.uahalf	0x1bb
+ 904 0ad0 020A0000 		.uaword	0xa02
+ 905 0ad4 0C       		.uleb128 0xc
+ 906 0ad5 4F735F54 		.string	"Os_TaskType_s"
+ 906      61736B54 
+ 906      7970655F 
+ 906      7300
+ 907 0ae3 20       		.byte	0x20
+ 908 0ae4 01       		.byte	0x1
+ 909 0ae5 BD01     		.uahalf	0x1bd
+ 910 0ae7 910B0000 		.uaword	0xb91
+ 911 0aeb 10       		.uleb128 0x10
+ 912 0aec 00000000 		.uaword	.LASF2
+ 913 0af0 01       		.byte	0x1
+ 914 0af1 BE01     		.uahalf	0x1be
+ 915 0af3 910B0000 		.uaword	0xb91
+ 916 0af7 02       		.byte	0x2
+ 917 0af8 23       		.byte	0x23
+ 918 0af9 00       		.uleb128 0
+ 919 0afa 10       		.uleb128 0x10
+ 920 0afb 00000000 		.uaword	.LASF1
+ 921 0aff 01       		.byte	0x1
+ 922 0b00 BF01     		.uahalf	0x1bf
+ 923 0b02 AD030000 		.uaword	0x3ad
+ 924 0b06 02       		.byte	0x2
+ 925 0b07 23       		.byte	0x23
+ 926 0b08 04       		.uleb128 0x4
+ 927 0b09 0D       		.uleb128 0xd
+ 928 0b0a 70736574 		.string	"pset"
+ 928      00
+ 929 0b0f 01       		.byte	0x1
+ 930 0b10 C001     		.uahalf	0x1c0
+ 931 0b12 8E090000 		.uaword	0x98e
+ 932 0b16 02       		.byte	0x2
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 22
+
+
+ 933 0b17 23       		.byte	0x23
+ 934 0b18 08       		.uleb128 0x8
+ 935 0b19 0D       		.uleb128 0xd
+ 936 0b1a 62617365 		.string	"base_tpmask"
+ 936      5F74706D 
+ 936      61736B00 
+ 937 0b26 01       		.byte	0x1
+ 938 0b27 C101     		.uahalf	0x1c1
+ 939 0b29 CD090000 		.uaword	0x9cd
+ 940 0b2d 02       		.byte	0x2
+ 941 0b2e 23       		.byte	0x23
+ 942 0b2f 0C       		.uleb128 0xc
+ 943 0b30 10       		.uleb128 0x10
+ 944 0b31 00000000 		.uaword	.LASF6
+ 945 0b35 01       		.byte	0x1
+ 946 0b36 C201     		.uahalf	0x1c2
+ 947 0b38 CD090000 		.uaword	0x9cd
+ 948 0b3c 02       		.byte	0x2
+ 949 0b3d 23       		.byte	0x23
+ 950 0b3e 10       		.uleb128 0x10
+ 951 0b3f 0D       		.uleb128 0xd
+ 952 0b40 636F7265 		.string	"core_id"
+ 952      5F696400 
+ 953 0b48 01       		.byte	0x1
+ 954 0b49 C301     		.uahalf	0x1c3
+ 955 0b4b 67040000 		.uaword	0x467
+ 956 0b4f 02       		.byte	0x2
+ 957 0b50 23       		.byte	0x23
+ 958 0b51 14       		.uleb128 0x14
+ 959 0b52 0D       		.uleb128 0xd
+ 960 0b53 696E6465 		.string	"index"
+ 960      7800
+ 961 0b59 01       		.byte	0x1
+ 962 0b5a C401     		.uahalf	0x1c4
+ 963 0b5c BD010000 		.uaword	0x1bd
+ 964 0b60 02       		.byte	0x2
+ 965 0b61 23       		.byte	0x23
+ 966 0b62 18       		.uleb128 0x18
+ 967 0b63 10       		.uleb128 0x10
+ 968 0b64 00000000 		.uaword	.LASF5
+ 969 0b68 01       		.byte	0x1
+ 970 0b69 C501     		.uahalf	0x1c5
+ 971 0b6b E3090000 		.uaword	0x9e3
+ 972 0b6f 02       		.byte	0x2
+ 973 0b70 23       		.byte	0x23
+ 974 0b71 1C       		.uleb128 0x1c
+ 975 0b72 10       		.uleb128 0x10
+ 976 0b73 00000000 		.uaword	.LASF3
+ 977 0b77 01       		.byte	0x1
+ 978 0b78 C601     		.uahalf	0x1c6
+ 979 0b7a 7B010000 		.uaword	0x17b
+ 980 0b7e 02       		.byte	0x2
+ 981 0b7f 23       		.byte	0x23
+ 982 0b80 1D       		.uleb128 0x1d
+ 983 0b81 10       		.uleb128 0x10
+ 984 0b82 00000000 		.uaword	.LASF4
+ 985 0b86 01       		.byte	0x1
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 23
+
+
+ 986 0b87 C701     		.uahalf	0x1c7
+ 987 0b89 D4030000 		.uaword	0x3d4
+ 988 0b8d 02       		.byte	0x2
+ 989 0b8e 23       		.byte	0x23
+ 990 0b8f 1E       		.uleb128 0x1e
+ 991 0b90 00       		.byte	0
+ 992 0b91 11       		.uleb128 0x11
+ 993 0b92 960B0000 		.uaword	0xb96
+ 994 0b96 08       		.uleb128 0x8
+ 995 0b97 04       		.byte	0x4
+ 996 0b98 BD0A0000 		.uaword	0xabd
+ 997 0b9c 0A       		.uleb128 0xa
+ 998 0b9d 4F735F54 		.string	"Os_TaskType"
+ 998      61736B54 
+ 998      79706500 
+ 999 0ba9 01       		.byte	0x1
+ 1000 0baa C801     		.uahalf	0x1c8
+ 1001 0bac D40A0000 		.uaword	0xad4
+ 1002 0bb0 0A       		.uleb128 0xa
+ 1003 0bb1 5461736B 		.string	"TaskType"
+ 1003      54797065 
+ 1003      00
+ 1004 0bba 01       		.byte	0x1
+ 1005 0bbb C901     		.uahalf	0x1c9
+ 1006 0bbd C10B0000 		.uaword	0xbc1
+ 1007 0bc1 08       		.uleb128 0x8
+ 1008 0bc2 04       		.byte	0x4
+ 1009 0bc3 C70B0000 		.uaword	0xbc7
+ 1010 0bc7 11       		.uleb128 0x11
+ 1011 0bc8 9C0B0000 		.uaword	0xb9c
+ 1012 0bcc 12       		.uleb128 0x12
+ 1013 0bcd 04       		.byte	0x4
+ 1014 0bce 01       		.byte	0x1
+ 1015 0bcf E101     		.uahalf	0x1e1
+ 1016 0bd1 F00B0000 		.uaword	0xbf0
+ 1017 0bd5 14       		.uleb128 0x14
+ 1018 0bd6 00000000 		.uaword	.LASF6
+ 1019 0bda 01       		.byte	0x1
+ 1020 0bdb E201     		.uahalf	0x1e2
+ 1021 0bdd CD090000 		.uaword	0x9cd
+ 1022 0be1 13       		.uleb128 0x13
+ 1023 0be2 696D6173 		.string	"imask"
+ 1023      6B00
+ 1024 0be8 01       		.byte	0x1
+ 1025 0be9 E301     		.uahalf	0x1e3
+ 1026 0beb A3070000 		.uaword	0x7a3
+ 1027 0bef 00       		.byte	0
+ 1028 0bf0 0C       		.uleb128 0xc
+ 1029 0bf1 4F735F52 		.string	"Os_ResourceDynType_s"
+ 1029      65736F75 
+ 1029      72636544 
+ 1029      796E5479 
+ 1029      70655F73 
+ 1030 0c06 0C       		.byte	0xc
+ 1031 0c07 01       		.byte	0x1
+ 1032 0c08 DE01     		.uahalf	0x1de
+ 1033 0c0a 530C0000 		.uaword	0xc53
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 24
+
+
+ 1034 0c0e 0D       		.uleb128 0xd
+ 1035 0c0f 61636365 		.string	"access_count"
+ 1035      73735F63 
+ 1035      6F756E74 
+ 1035      00
+ 1036 0c1c 01       		.byte	0x1
+ 1037 0c1d DF01     		.uahalf	0x1df
+ 1038 0c1f 23030000 		.uaword	0x323
+ 1039 0c23 02       		.byte	0x2
+ 1040 0c24 23       		.byte	0x23
+ 1041 0c25 00       		.uleb128 0
+ 1042 0c26 0D       		.uleb128 0xd
+ 1043 0c27 6C6F636B 		.string	"locker"
+ 1043      657200
+ 1044 0c2e 01       		.byte	0x1
+ 1045 0c2f E001     		.uahalf	0x1e0
+ 1046 0c31 B00B0000 		.uaword	0xbb0
+ 1047 0c35 02       		.byte	0x2
+ 1048 0c36 23       		.byte	0x23
+ 1049 0c37 04       		.uleb128 0x4
+ 1050 0c38 0D       		.uleb128 0xd
+ 1051 0c39 73617665 		.string	"saved_priority"
+ 1051      645F7072 
+ 1051      696F7269 
+ 1051      747900
+ 1052 0c48 01       		.byte	0x1
+ 1053 0c49 E401     		.uahalf	0x1e4
+ 1054 0c4b CC0B0000 		.uaword	0xbcc
+ 1055 0c4f 02       		.byte	0x2
+ 1056 0c50 23       		.byte	0x23
+ 1057 0c51 08       		.uleb128 0x8
+ 1058 0c52 00       		.byte	0
+ 1059 0c53 0A       		.uleb128 0xa
+ 1060 0c54 4F735F52 		.string	"Os_ResourceDynType"
+ 1060      65736F75 
+ 1060      72636544 
+ 1060      796E5479 
+ 1060      706500
+ 1061 0c67 01       		.byte	0x1
+ 1062 0c68 E501     		.uahalf	0x1e5
+ 1063 0c6a F00B0000 		.uaword	0xbf0
+ 1064 0c6e 0C       		.uleb128 0xc
+ 1065 0c6f 4F735F52 		.string	"Os_ResourceType_s"
+ 1065      65736F75 
+ 1065      72636554 
+ 1065      7970655F 
+ 1065      7300
+ 1066 0c81 10       		.byte	0x10
+ 1067 0c82 01       		.byte	0x1
+ 1068 0c83 E601     		.uahalf	0x1e6
+ 1069 0c85 C80C0000 		.uaword	0xcc8
+ 1070 0c89 10       		.uleb128 0x10
+ 1071 0c8a 00000000 		.uaword	.LASF2
+ 1072 0c8e 01       		.byte	0x1
+ 1073 0c8f E701     		.uahalf	0x1e7
+ 1074 0c91 C80C0000 		.uaword	0xcc8
+ 1075 0c95 02       		.byte	0x2
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 25
+
+
+ 1076 0c96 23       		.byte	0x23
+ 1077 0c97 00       		.uleb128 0
+ 1078 0c98 10       		.uleb128 0x10
+ 1079 0c99 00000000 		.uaword	.LASF6
+ 1080 0c9d 01       		.byte	0x1
+ 1081 0c9e E801     		.uahalf	0x1e8
+ 1082 0ca0 CD090000 		.uaword	0x9cd
+ 1083 0ca4 02       		.byte	0x2
+ 1084 0ca5 23       		.byte	0x23
+ 1085 0ca6 04       		.uleb128 0x4
+ 1086 0ca7 0D       		.uleb128 0xd
+ 1087 0ca8 696D6173 		.string	"imask"
+ 1087      6B00
+ 1088 0cae 01       		.byte	0x1
+ 1089 0caf E901     		.uahalf	0x1e9
+ 1090 0cb1 A3070000 		.uaword	0x7a3
+ 1091 0cb5 02       		.byte	0x2
+ 1092 0cb6 23       		.byte	0x23
+ 1093 0cb7 08       		.uleb128 0x8
+ 1094 0cb8 10       		.uleb128 0x10
+ 1095 0cb9 00000000 		.uaword	.LASF3
+ 1096 0cbd 01       		.byte	0x1
+ 1097 0cbe EA01     		.uahalf	0x1ea
+ 1098 0cc0 7B010000 		.uaword	0x17b
+ 1099 0cc4 02       		.byte	0x2
+ 1100 0cc5 23       		.byte	0x23
+ 1101 0cc6 0C       		.uleb128 0xc
+ 1102 0cc7 00       		.byte	0
+ 1103 0cc8 11       		.uleb128 0x11
+ 1104 0cc9 CD0C0000 		.uaword	0xccd
+ 1105 0ccd 08       		.uleb128 0x8
+ 1106 0cce 04       		.byte	0x4
+ 1107 0ccf 530C0000 		.uaword	0xc53
+ 1108 0cd3 0A       		.uleb128 0xa
+ 1109 0cd4 4F735F52 		.string	"Os_ResourceType"
+ 1109      65736F75 
+ 1109      72636554 
+ 1109      79706500 
+ 1110 0ce4 01       		.byte	0x1
+ 1111 0ce5 EB01     		.uahalf	0x1eb
+ 1112 0ce7 6E0C0000 		.uaword	0xc6e
+ 1113 0ceb 0A       		.uleb128 0xa
+ 1114 0cec 5265736F 		.string	"ResourceType"
+ 1114      75726365 
+ 1114      54797065 
+ 1114      00
+ 1115 0cf9 01       		.byte	0x1
+ 1116 0cfa EC01     		.uahalf	0x1ec
+ 1117 0cfc 000D0000 		.uaword	0xd00
+ 1118 0d00 08       		.uleb128 0x8
+ 1119 0d01 04       		.byte	0x4
+ 1120 0d02 060D0000 		.uaword	0xd06
+ 1121 0d06 11       		.uleb128 0x11
+ 1122 0d07 D30C0000 		.uaword	0xcd3
+ 1123 0d0b 0A       		.uleb128 0xa
+ 1124 0d0c 4F535365 		.string	"OSServiceIdType"
+ 1124      72766963 
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 26
+
+
+ 1124      65496454 
+ 1124      79706500 
+ 1125 0d1c 01       		.byte	0x1
+ 1126 0d1d 5102     		.uahalf	0x251
+ 1127 0d1f 88010000 		.uaword	0x188
+ 1128 0d23 0A       		.uleb128 0xa
+ 1129 0d24 4F735F42 		.string	"Os_BiggestType"
+ 1129      69676765 
+ 1129      73745479 
+ 1129      706500
+ 1130 0d33 01       		.byte	0x1
+ 1131 0d34 2503     		.uahalf	0x325
+ 1132 0d36 CB010000 		.uaword	0x1cb
+ 1133 0d3a 15       		.uleb128 0x15
+ 1134 0d3b 10       		.byte	0x10
+ 1135 0d3c 01       		.byte	0x1
+ 1136 0d3d 2703     		.uahalf	0x327
+ 1137 0d3f A80D0000 		.uaword	0xda8
+ 1138 0d43 0D       		.uleb128 0xd
+ 1139 0d44 73657276 		.string	"service_id"
+ 1139      6963655F 
+ 1139      696400
+ 1140 0d4f 01       		.byte	0x1
+ 1141 0d50 2803     		.uahalf	0x328
+ 1142 0d52 0B0D0000 		.uaword	0xd0b
+ 1143 0d56 02       		.byte	0x2
+ 1144 0d57 23       		.byte	0x23
+ 1145 0d58 00       		.uleb128 0
+ 1146 0d59 0D       		.uleb128 0xd
+ 1147 0d5a 73657276 		.string	"service_param1"
+ 1147      6963655F 
+ 1147      70617261 
+ 1147      6D3100
+ 1148 0d69 01       		.byte	0x1
+ 1149 0d6a 2903     		.uahalf	0x329
+ 1150 0d6c 230D0000 		.uaword	0xd23
+ 1151 0d70 02       		.byte	0x2
+ 1152 0d71 23       		.byte	0x23
+ 1153 0d72 04       		.uleb128 0x4
+ 1154 0d73 0D       		.uleb128 0xd
+ 1155 0d74 73657276 		.string	"service_param2"
+ 1155      6963655F 
+ 1155      70617261 
+ 1155      6D3200
+ 1156 0d83 01       		.byte	0x1
+ 1157 0d84 2A03     		.uahalf	0x32a
+ 1158 0d86 230D0000 		.uaword	0xd23
+ 1159 0d8a 02       		.byte	0x2
+ 1160 0d8b 23       		.byte	0x23
+ 1161 0d8c 08       		.uleb128 0x8
+ 1162 0d8d 0D       		.uleb128 0xd
+ 1163 0d8e 73657276 		.string	"service_param3"
+ 1163      6963655F 
+ 1163      70617261 
+ 1163      6D3300
+ 1164 0d9d 01       		.byte	0x1
+ 1165 0d9e 2B03     		.uahalf	0x32b
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 27
+
+
+ 1166 0da0 230D0000 		.uaword	0xd23
+ 1167 0da4 02       		.byte	0x2
+ 1168 0da5 23       		.byte	0x23
+ 1169 0da6 0C       		.uleb128 0xc
+ 1170 0da7 00       		.byte	0
+ 1171 0da8 0A       		.uleb128 0xa
+ 1172 0da9 4F735F45 		.string	"Os_ErrorInformationType"
+ 1172      72726F72 
+ 1172      496E666F 
+ 1172      726D6174 
+ 1172      696F6E54 
+ 1173 0dc1 01       		.byte	0x1
+ 1174 0dc2 2C03     		.uahalf	0x32c
+ 1175 0dc4 3A0D0000 		.uaword	0xd3a
+ 1176 0dc8 0A       		.uleb128 0xa
+ 1177 0dc9 4F735F4F 		.string	"Os_OrtiIdType"
+ 1177      72746949 
+ 1177      64547970 
+ 1177      6500
+ 1178 0dd7 01       		.byte	0x1
+ 1179 0dd8 3003     		.uahalf	0x330
+ 1180 0dda 88010000 		.uaword	0x188
+ 1181 0dde 0B       		.uleb128 0xb
+ 1182 0ddf 8E090000 		.uaword	0x98e
+ 1183 0de3 0B       		.uleb128 0xb
+ 1184 0de4 F6080000 		.uaword	0x8f6
+ 1185 0de8 0B       		.uleb128 0xb
+ 1186 0de9 B00B0000 		.uaword	0xbb0
+ 1187 0ded 0B       		.uleb128 0xb
+ 1188 0dee CD090000 		.uaword	0x9cd
+ 1189 0df2 0B       		.uleb128 0xb
+ 1190 0df3 33040000 		.uaword	0x433
+ 1191 0df7 0B       		.uleb128 0xb
+ 1192 0df8 D4030000 		.uaword	0x3d4
+ 1193 0dfc 0A       		.uleb128 0xa
+ 1194 0dfd 4F735F43 		.string	"Os_ControlledCoreType"
+ 1194      6F6E7472 
+ 1194      6F6C6C65 
+ 1194      64436F72 
+ 1194      65547970 
+ 1195 0e13 01       		.byte	0x1
+ 1196 0e14 2404     		.uahalf	0x424
+ 1197 0e16 7F040000 		.uaword	0x47f
+ 1198 0e1a 0C       		.uleb128 0xc
+ 1199 0e1b 4F735F41 		.string	"Os_AnyCoreType_s"
+ 1199      6E79436F 
+ 1199      72655479 
+ 1199      70655F73 
+ 1199      00
+ 1200 0e2c 64       		.byte	0x64
+ 1201 0e2d 01       		.byte	0x1
+ 1202 0e2e 3204     		.uahalf	0x432
+ 1203 0e30 530F0000 		.uaword	0xf53
+ 1204 0e34 0D       		.uleb128 0xd
+ 1205 0e35 44697361 		.string	"DisableAllImask"
+ 1205      626C6541 
+ 1205      6C6C496D 
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 28
+
+
+ 1205      61736B00 
+ 1206 0e45 01       		.byte	0x1
+ 1207 0e46 3304     		.uahalf	0x433
+ 1208 0e48 530F0000 		.uaword	0xf53
+ 1209 0e4c 02       		.byte	0x2
+ 1210 0e4d 23       		.byte	0x23
+ 1211 0e4e 00       		.uleb128 0
+ 1212 0e4f 0D       		.uleb128 0xd
+ 1213 0e50 53757370 		.string	"SuspendAllImask"
+ 1213      656E6441 
+ 1213      6C6C496D 
+ 1213      61736B00 
+ 1214 0e60 01       		.byte	0x1
+ 1215 0e61 3404     		.uahalf	0x434
+ 1216 0e63 530F0000 		.uaword	0xf53
+ 1217 0e67 02       		.byte	0x2
+ 1218 0e68 23       		.byte	0x23
+ 1219 0e69 04       		.uleb128 0x4
+ 1220 0e6a 0D       		.uleb128 0xd
+ 1221 0e6b 53757370 		.string	"SuspendOSImask"
+ 1221      656E644F 
+ 1221      53496D61 
+ 1221      736B00
+ 1222 0e7a 01       		.byte	0x1
+ 1223 0e7b 3504     		.uahalf	0x435
+ 1224 0e7d 530F0000 		.uaword	0xf53
+ 1225 0e81 02       		.byte	0x2
+ 1226 0e82 23       		.byte	0x23
+ 1227 0e83 08       		.uleb128 0x8
+ 1228 0e84 0D       		.uleb128 0xd
+ 1229 0e85 44697361 		.string	"DisableAllCount"
+ 1229      626C6541 
+ 1229      6C6C436F 
+ 1229      756E7400 
+ 1230 0e95 01       		.byte	0x1
+ 1231 0e96 3604     		.uahalf	0x436
+ 1232 0e98 580F0000 		.uaword	0xf58
+ 1233 0e9c 02       		.byte	0x2
+ 1234 0e9d 23       		.byte	0x23
+ 1235 0e9e 0C       		.uleb128 0xc
+ 1236 0e9f 0D       		.uleb128 0xd
+ 1237 0ea0 53757370 		.string	"SuspendAllCount"
+ 1237      656E6441 
+ 1237      6C6C436F 
+ 1237      756E7400 
+ 1238 0eb0 01       		.byte	0x1
+ 1239 0eb1 3704     		.uahalf	0x437
+ 1240 0eb3 580F0000 		.uaword	0xf58
+ 1241 0eb7 02       		.byte	0x2
+ 1242 0eb8 23       		.byte	0x23
+ 1243 0eb9 10       		.uleb128 0x10
+ 1244 0eba 0D       		.uleb128 0xd
+ 1245 0ebb 53757370 		.string	"SuspendOSCount"
+ 1245      656E644F 
+ 1245      53436F75 
+ 1245      6E7400
+ 1246 0eca 01       		.byte	0x1
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 29
+
+
+ 1247 0ecb 3804     		.uahalf	0x438
+ 1248 0ecd 580F0000 		.uaword	0xf58
+ 1249 0ed1 02       		.byte	0x2
+ 1250 0ed2 23       		.byte	0x23
+ 1251 0ed3 14       		.uleb128 0x14
+ 1252 0ed4 0D       		.uleb128 0xd
+ 1253 0ed5 4F727469 		.string	"OrtiApiID"
+ 1253      41706949 
+ 1253      4400
+ 1254 0edf 01       		.byte	0x1
+ 1255 0ee0 3904     		.uahalf	0x439
+ 1256 0ee2 5D0F0000 		.uaword	0xf5d
+ 1257 0ee6 02       		.byte	0x2
+ 1258 0ee7 23       		.byte	0x23
+ 1259 0ee8 18       		.uleb128 0x18
+ 1260 0ee9 0D       		.uleb128 0xd
+ 1261 0eea 4F727469 		.string	"OrtiLastError"
+ 1261      4C617374 
+ 1261      4572726F 
+ 1261      7200
+ 1262 0ef8 01       		.byte	0x1
+ 1263 0ef9 3A04     		.uahalf	0x43a
+ 1264 0efb 4B020000 		.uaword	0x24b
+ 1265 0eff 02       		.byte	0x2
+ 1266 0f00 23       		.byte	0x23
+ 1267 0f01 19       		.uleb128 0x19
+ 1268 0f02 0D       		.uleb128 0xd
+ 1269 0f03 52657374 		.string	"RestartJumpBuf"
+ 1269      6172744A 
+ 1269      756D7042 
+ 1269      756600
+ 1270 0f12 01       		.byte	0x1
+ 1271 0f13 3B04     		.uahalf	0x43b
+ 1272 0f15 FD020000 		.uaword	0x2fd
+ 1273 0f19 02       		.byte	0x2
+ 1274 0f1a 23       		.byte	0x23
+ 1275 0f1b 1C       		.uleb128 0x1c
+ 1276 0f1c 0D       		.uleb128 0xd
+ 1277 0f1d 52657374 		.string	"Restartable"
+ 1277      61727461 
+ 1277      626C6500 
+ 1278 0f29 01       		.byte	0x1
+ 1279 0f2a 3C04     		.uahalf	0x43c
+ 1280 0f2c 3C020000 		.uaword	0x23c
+ 1281 0f30 02       		.byte	0x2
+ 1282 0f31 23       		.byte	0x23
+ 1283 0f32 60       		.uleb128 0x60
+ 1284 0f33 0D       		.uleb128 0xd
+ 1285 0f34 4C617374 		.string	"LastProtectionFault"
+ 1285      50726F74 
+ 1285      65637469 
+ 1285      6F6E4661 
+ 1285      756C7400 
+ 1286 0f48 01       		.byte	0x1
+ 1287 0f49 3D04     		.uahalf	0x43d
+ 1288 0f4b 4B020000 		.uaword	0x24b
+ 1289 0f4f 02       		.byte	0x2
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 30
+
+
+ 1290 0f50 23       		.byte	0x23
+ 1291 0f51 61       		.uleb128 0x61
+ 1292 0f52 00       		.byte	0
+ 1293 0f53 0B       		.uleb128 0xb
+ 1294 0f54 A3070000 		.uaword	0x7a3
+ 1295 0f58 0B       		.uleb128 0xb
+ 1296 0f59 BD010000 		.uaword	0x1bd
+ 1297 0f5d 0B       		.uleb128 0xb
+ 1298 0f5e C80D0000 		.uaword	0xdc8
+ 1299 0f62 0A       		.uleb128 0xa
+ 1300 0f63 4F735F41 		.string	"Os_AnyCoreType"
+ 1300      6E79436F 
+ 1300      72655479 
+ 1300      706500
+ 1301 0f72 01       		.byte	0x1
+ 1302 0f73 3E04     		.uahalf	0x43e
+ 1303 0f75 1A0E0000 		.uaword	0xe1a
+ 1304 0f79 0C       		.uleb128 0xc
+ 1305 0f7a 4F735F43 		.string	"Os_CoreConfiguration_s"
+ 1305      6F726543 
+ 1305      6F6E6669 
+ 1305      67757261 
+ 1305      74696F6E 
+ 1306 0f91 18       		.byte	0x18
+ 1307 0f92 01       		.byte	0x1
+ 1308 0f93 4904     		.uahalf	0x449
+ 1309 0f95 13100000 		.uaword	0x1013
+ 1310 0f99 0D       		.uleb128 0xd
+ 1311 0f9a 636F6E74 		.string	"controlled"
+ 1311      726F6C6C 
+ 1311      656400
+ 1312 0fa5 01       		.byte	0x1
+ 1313 0fa6 4A04     		.uahalf	0x44a
+ 1314 0fa8 13100000 		.uaword	0x1013
+ 1315 0fac 02       		.byte	0x2
+ 1316 0fad 23       		.byte	0x23
+ 1317 0fae 00       		.uleb128 0
+ 1318 0faf 0D       		.uleb128 0xd
+ 1319 0fb0 616E7900 		.string	"any"
+ 1320 0fb4 01       		.byte	0x1
+ 1321 0fb5 4B04     		.uahalf	0x44b
+ 1322 0fb7 1E100000 		.uaword	0x101e
+ 1323 0fbb 02       		.byte	0x2
+ 1324 0fbc 23       		.byte	0x23
+ 1325 0fbd 04       		.uleb128 0x4
+ 1326 0fbe 0D       		.uleb128 0xd
+ 1327 0fbf 73746174 		.string	"state"
+ 1327      6500
+ 1328 0fc5 01       		.byte	0x1
+ 1329 0fc6 4C04     		.uahalf	0x44c
+ 1330 0fc8 29100000 		.uaword	0x1029
+ 1331 0fcc 02       		.byte	0x2
+ 1332 0fcd 23       		.byte	0x23
+ 1333 0fce 08       		.uleb128 0x8
+ 1334 0fcf 0D       		.uleb128 0xd
+ 1335 0fd0 64697370 		.string	"dispatch"
+ 1335      61746368 
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 31
+
+
+ 1335      00
+ 1336 0fd9 01       		.byte	0x1
+ 1337 0fda 4D04     		.uahalf	0x44d
+ 1338 0fdc AD030000 		.uaword	0x3ad
+ 1339 0fe0 02       		.byte	0x2
+ 1340 0fe1 23       		.byte	0x23
+ 1341 0fe2 0C       		.uleb128 0xc
+ 1342 0fe3 0D       		.uleb128 0xd
+ 1343 0fe4 4F735F52 		.string	"Os_Res_Scheduler"
+ 1343      65735F53 
+ 1343      63686564 
+ 1343      756C6572 
+ 1343      00
+ 1344 0ff5 01       		.byte	0x1
+ 1345 0ff6 4E04     		.uahalf	0x44e
+ 1346 0ff8 EB0C0000 		.uaword	0xceb
+ 1347 0ffc 02       		.byte	0x2
+ 1348 0ffd 23       		.byte	0x23
+ 1349 0ffe 10       		.uleb128 0x10
+ 1350 0fff 0D       		.uleb128 0xd
+ 1351 1000 636F7265 		.string	"core_id"
+ 1351      5F696400 
+ 1352 1008 01       		.byte	0x1
+ 1353 1009 4F04     		.uahalf	0x44f
+ 1354 100b 67040000 		.uaword	0x467
+ 1355 100f 02       		.byte	0x2
+ 1356 1010 23       		.byte	0x23
+ 1357 1011 14       		.uleb128 0x14
+ 1358 1012 00       		.byte	0
+ 1359 1013 11       		.uleb128 0x11
+ 1360 1014 18100000 		.uaword	0x1018
+ 1361 1018 08       		.uleb128 0x8
+ 1362 1019 04       		.byte	0x4
+ 1363 101a FC0D0000 		.uaword	0xdfc
+ 1364 101e 11       		.uleb128 0x11
+ 1365 101f 23100000 		.uaword	0x1023
+ 1366 1023 08       		.uleb128 0x8
+ 1367 1024 04       		.byte	0x4
+ 1368 1025 620F0000 		.uaword	0xf62
+ 1369 1029 11       		.uleb128 0x11
+ 1370 102a 2E100000 		.uaword	0x102e
+ 1371 102e 08       		.uleb128 0x8
+ 1372 102f 04       		.byte	0x4
+ 1373 1030 34100000 		.uaword	0x1034
+ 1374 1034 0B       		.uleb128 0xb
+ 1375 1035 FF030000 		.uaword	0x3ff
+ 1376 1039 0A       		.uleb128 0xa
+ 1377 103a 4F735F43 		.string	"Os_CoreConfiguration"
+ 1377      6F726543 
+ 1377      6F6E6669 
+ 1377      67757261 
+ 1377      74696F6E 
+ 1378 104f 01       		.byte	0x1
+ 1379 1050 5004     		.uahalf	0x450
+ 1380 1052 790F0000 		.uaword	0xf79
+ 1381 1056 16       		.uleb128 0x16
+ 1382 1057 01       		.byte	0x1
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 32
+
+
+ 1383 1058 4F735F41 		.string	"Os_AllowAccess"
+ 1383      6C6C6F77 
+ 1383      41636365 
+ 1383      737300
+ 1384 1067 01       		.byte	0x1
+ 1385 1068 5605     		.uahalf	0x556
+ 1386 106a 01       		.byte	0x1
+ 1387 106b 4B020000 		.uaword	0x24b
+ 1388 106f 00000000 		.uaword	.LFB0
+ 1389 1073 00000000 		.uaword	.LFE0
+ 1390 1077 00000000 		.uaword	.LLST0
+ 1391 107b 01       		.byte	0x1
+ 1392 107c B3110000 		.uaword	0x11b3
+ 1393 1080 17       		.uleb128 0x17
+ 1394 1081 6170695F 		.string	"api_retval"
+ 1394      72657476 
+ 1394      616C00
+ 1395 108c 01       		.byte	0x1
+ 1396 108d 5705     		.uahalf	0x557
+ 1397 108f 4B020000 		.uaword	0x24b
+ 1398 1093 00000000 		.uaword	.LLST1
+ 1399 1097 18       		.uleb128 0x18
+ 1400 1098 61707073 		.string	"appstate_ref"
+ 1400      74617465 
+ 1400      5F726566 
+ 1400      00
+ 1401 10a5 01       		.byte	0x1
+ 1402 10a6 5805     		.uahalf	0x558
+ 1403 10a8 EF060000 		.uaword	0x6ef
+ 1404 10ac 18       		.uleb128 0x18
+ 1405 10ad 6F735F63 		.string	"os_current_core_const"
+ 1405      75727265 
+ 1405      6E745F63 
+ 1405      6F72655F 
+ 1405      636F6E73 
+ 1406 10c3 01       		.byte	0x1
+ 1407 10c4 5905     		.uahalf	0x559
+ 1408 10c6 B3110000 		.uaword	0x11b3
+ 1409 10ca 17       		.uleb128 0x17
+ 1410 10cb 6F735F63 		.string	"os_current_controlled_core"
+ 1410      75727265 
+ 1410      6E745F63 
+ 1410      6F6E7472 
+ 1410      6F6C6C65 
+ 1411 10e6 01       		.byte	0x1
+ 1412 10e7 5A05     		.uahalf	0x55a
+ 1413 10e9 18100000 		.uaword	0x1018
+ 1414 10ed 00000000 		.uaword	.LLST2
+ 1415 10f1 19       		.uleb128 0x19
+ 1416 10f2 6F735F63 		.string	"os_current_core"
+ 1416      75727265 
+ 1416      6E745F63 
+ 1416      6F726500 
+ 1417 1102 01       		.byte	0x1
+ 1418 1103 5B05     		.uahalf	0x55b
+ 1419 1105 23100000 		.uaword	0x1023
+ 1420 1109 01       		.byte	0x1
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 33
+
+
+ 1421 110a 6C       		.byte	0x6c
+ 1422 110b 17       		.uleb128 0x17
+ 1423 110c 70726576 		.string	"previous_tmask"
+ 1423      696F7573 
+ 1423      5F746D61 
+ 1423      736B00
+ 1424 111b 01       		.byte	0x1
+ 1425 111c 5C05     		.uahalf	0x55c
+ 1426 111e EB030000 		.uaword	0x3eb
+ 1427 1122 00000000 		.uaword	.LLST3
+ 1428 1126 1A       		.uleb128 0x1a
+ 1429 1127 6170695F 		.string	"api_error_exit"
+ 1429      6572726F 
+ 1429      725F6578 
+ 1429      697400
+ 1430 1136 01       		.byte	0x1
+ 1431 1137 6405     		.uahalf	0x564
+ 1432 1139 00000000 		.uaword	.LDL1
+ 1433 113d 1A       		.uleb128 0x1a
+ 1434 113e 6170695F 		.string	"api_exit"
+ 1434      65786974 
+ 1434      00
+ 1435 1147 01       		.byte	0x1
+ 1436 1148 6605     		.uahalf	0x566
+ 1437 114a 00000000 		.uaword	.L6
+ 1438 114e 1B       		.uleb128 0x1b
+ 1439 114f 00000000 		.uaword	.LBB2
+ 1440 1153 00000000 		.uaword	.LBE2
+ 1441 1157 6C110000 		.uaword	0x116c
+ 1442 115b 17       		.uleb128 0x17
+ 1443 115c 72657300 		.string	"res"
+ 1444 1160 01       		.byte	0x1
+ 1445 1161 5905     		.uahalf	0x559
+ 1446 1163 CB010000 		.uaword	0x1cb
+ 1447 1167 00000000 		.uaword	.LLST4
+ 1448 116b 00       		.byte	0
+ 1449 116c 1B       		.uleb128 0x1b
+ 1450 116d 00000000 		.uaword	.LBB3
+ 1451 1171 00000000 		.uaword	.LBE3
+ 1452 1175 8A110000 		.uaword	0x118a
+ 1453 1179 17       		.uleb128 0x17
+ 1454 117a 72657300 		.string	"res"
+ 1455 117e 01       		.byte	0x1
+ 1456 117f 5C05     		.uahalf	0x55c
+ 1457 1181 CB010000 		.uaword	0x1cb
+ 1458 1185 00000000 		.uaword	.LLST3
+ 1459 1189 00       		.byte	0
+ 1460 118a 1C       		.uleb128 0x1c
+ 1461 118b 00000000 		.uaword	.LVL10
+ 1462 118f 18120000 		.uaword	0x1218
+ 1463 1193 1D       		.uleb128 0x1d
+ 1464 1194 01       		.byte	0x1
+ 1465 1195 57       		.byte	0x57
+ 1466 1196 02       		.byte	0x2
+ 1467 1197 7F       		.byte	0x7f
+ 1468 1198 00       		.sleb128 0
+ 1469 1199 1D       		.uleb128 0x1d
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 34
+
+
+ 1470 119a 01       		.byte	0x1
+ 1471 119b 56       		.byte	0x56
+ 1472 119c 02       		.byte	0x2
+ 1473 119d 7F       		.byte	0x7f
+ 1474 119e 00       		.sleb128 0
+ 1475 119f 1D       		.uleb128 0x1d
+ 1476 11a0 01       		.byte	0x1
+ 1477 11a1 55       		.byte	0x55
+ 1478 11a2 02       		.byte	0x2
+ 1479 11a3 08       		.byte	0x8
+ 1480 11a4 57       		.byte	0x57
+ 1481 11a5 1D       		.uleb128 0x1d
+ 1482 11a6 01       		.byte	0x1
+ 1483 11a7 54       		.byte	0x54
+ 1484 11a8 01       		.byte	0x1
+ 1485 11a9 37       		.byte	0x37
+ 1486 11aa 1D       		.uleb128 0x1d
+ 1487 11ab 02       		.byte	0x2
+ 1488 11ac 8A       		.byte	0x8a
+ 1489 11ad 00       		.sleb128 0
+ 1490 11ae 02       		.byte	0x2
+ 1491 11af 7F       		.byte	0x7f
+ 1492 11b0 00       		.sleb128 0
+ 1493 11b1 00       		.byte	0
+ 1494 11b2 00       		.byte	0
+ 1495 11b3 08       		.uleb128 0x8
+ 1496 11b4 04       		.byte	0x4
+ 1497 11b5 B9110000 		.uaword	0x11b9
+ 1498 11b9 11       		.uleb128 0x11
+ 1499 11ba 39100000 		.uaword	0x1039
+ 1500 11be 06       		.uleb128 0x6
+ 1501 11bf D2060000 		.uaword	0x6d2
+ 1502 11c3 C9110000 		.uaword	0x11c9
+ 1503 11c7 1E       		.uleb128 0x1e
+ 1504 11c8 00       		.byte	0
+ 1505 11c9 1F       		.uleb128 0x1f
+ 1506 11ca 4F735F64 		.string	"Os_dyn_appstate"
+ 1506      796E5F61 
+ 1506      70707374 
+ 1506      61746500 
+ 1507 11da 01       		.byte	0x1
+ 1508 11db 6304     		.uahalf	0x463
+ 1509 11dd BE110000 		.uaword	0x11be
+ 1510 11e1 01       		.byte	0x1
+ 1511 11e2 01       		.byte	0x1
+ 1512 11e3 06       		.uleb128 0x6
+ 1513 11e4 39100000 		.uaword	0x1039
+ 1514 11e8 EE110000 		.uaword	0x11ee
+ 1515 11ec 1E       		.uleb128 0x1e
+ 1516 11ed 00       		.byte	0
+ 1517 11ee 1F       		.uleb128 0x1f
+ 1518 11ef 4F735F63 		.string	"Os_const_coreconfiguration"
+ 1518      6F6E7374 
+ 1518      5F636F72 
+ 1518      65636F6E 
+ 1518      66696775 
+ 1519 120a 01       		.byte	0x1
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 35
+
+
+ 1520 120b 6A04     		.uahalf	0x46a
+ 1521 120d 13120000 		.uaword	0x1213
+ 1522 1211 01       		.byte	0x1
+ 1523 1212 01       		.byte	0x1
+ 1524 1213 11       		.uleb128 0x11
+ 1525 1214 E3110000 		.uaword	0x11e3
+ 1526 1218 20       		.uleb128 0x20
+ 1527 1219 01       		.byte	0x1
+ 1528 121a 4F735F45 		.string	"Os_ErrorLog"
+ 1528      72726F72 
+ 1528      4C6F6700 
+ 1529 1226 01       		.byte	0x1
+ 1530 1227 4805     		.uahalf	0x548
+ 1531 1229 01       		.byte	0x1
+ 1532 122a 01       		.byte	0x1
+ 1533 122b 21       		.uleb128 0x21
+ 1534 122c 4B020000 		.uaword	0x24b
+ 1535 1230 21       		.uleb128 0x21
+ 1536 1231 0B0D0000 		.uaword	0xd0b
+ 1537 1235 21       		.uleb128 0x21
+ 1538 1236 230D0000 		.uaword	0xd23
+ 1539 123a 21       		.uleb128 0x21
+ 1540 123b 230D0000 		.uaword	0xd23
+ 1541 123f 21       		.uleb128 0x21
+ 1542 1240 230D0000 		.uaword	0xd23
+ 1543 1244 00       		.byte	0
+ 1544 1245 00       		.byte	0
+ 1545              	.section .debug_abbrev,"",@progbits
+ 1546              	.Ldebug_abbrev0:
+ 1547 0000 01       		.uleb128 0x1
+ 1548 0001 11       		.uleb128 0x11
+ 1549 0002 01       		.byte	0x1
+ 1550 0003 25       		.uleb128 0x25
+ 1551 0004 08       		.uleb128 0x8
+ 1552 0005 13       		.uleb128 0x13
+ 1553 0006 0B       		.uleb128 0xb
+ 1554 0007 03       		.uleb128 0x3
+ 1555 0008 08       		.uleb128 0x8
+ 1556 0009 55       		.uleb128 0x55
+ 1557 000a 06       		.uleb128 0x6
+ 1558 000b 11       		.uleb128 0x11
+ 1559 000c 01       		.uleb128 0x1
+ 1560 000d 52       		.uleb128 0x52
+ 1561 000e 01       		.uleb128 0x1
+ 1562 000f 10       		.uleb128 0x10
+ 1563 0010 06       		.uleb128 0x6
+ 1564 0011 00       		.byte	0
+ 1565 0012 00       		.byte	0
+ 1566 0013 02       		.uleb128 0x2
+ 1567 0014 16       		.uleb128 0x16
+ 1568 0015 00       		.byte	0
+ 1569 0016 03       		.uleb128 0x3
+ 1570 0017 08       		.uleb128 0x8
+ 1571 0018 3A       		.uleb128 0x3a
+ 1572 0019 0B       		.uleb128 0xb
+ 1573 001a 3B       		.uleb128 0x3b
+ 1574 001b 0B       		.uleb128 0xb
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 36
+
+
+ 1575 001c 49       		.uleb128 0x49
+ 1576 001d 13       		.uleb128 0x13
+ 1577 001e 00       		.byte	0
+ 1578 001f 00       		.byte	0
+ 1579 0020 03       		.uleb128 0x3
+ 1580 0021 24       		.uleb128 0x24
+ 1581 0022 00       		.byte	0
+ 1582 0023 0B       		.uleb128 0xb
+ 1583 0024 0B       		.uleb128 0xb
+ 1584 0025 3E       		.uleb128 0x3e
+ 1585 0026 0B       		.uleb128 0xb
+ 1586 0027 03       		.uleb128 0x3
+ 1587 0028 08       		.uleb128 0x8
+ 1588 0029 00       		.byte	0
+ 1589 002a 00       		.byte	0
+ 1590 002b 04       		.uleb128 0x4
+ 1591 002c 13       		.uleb128 0x13
+ 1592 002d 01       		.byte	0x1
+ 1593 002e 0B       		.uleb128 0xb
+ 1594 002f 0B       		.uleb128 0xb
+ 1595 0030 3A       		.uleb128 0x3a
+ 1596 0031 0B       		.uleb128 0xb
+ 1597 0032 3B       		.uleb128 0x3b
+ 1598 0033 0B       		.uleb128 0xb
+ 1599 0034 01       		.uleb128 0x1
+ 1600 0035 13       		.uleb128 0x13
+ 1601 0036 00       		.byte	0
+ 1602 0037 00       		.byte	0
+ 1603 0038 05       		.uleb128 0x5
+ 1604 0039 0D       		.uleb128 0xd
+ 1605 003a 00       		.byte	0
+ 1606 003b 03       		.uleb128 0x3
+ 1607 003c 08       		.uleb128 0x8
+ 1608 003d 3A       		.uleb128 0x3a
+ 1609 003e 0B       		.uleb128 0xb
+ 1610 003f 3B       		.uleb128 0x3b
+ 1611 0040 0B       		.uleb128 0xb
+ 1612 0041 49       		.uleb128 0x49
+ 1613 0042 13       		.uleb128 0x13
+ 1614 0043 38       		.uleb128 0x38
+ 1615 0044 0A       		.uleb128 0xa
+ 1616 0045 00       		.byte	0
+ 1617 0046 00       		.byte	0
+ 1618 0047 06       		.uleb128 0x6
+ 1619 0048 01       		.uleb128 0x1
+ 1620 0049 01       		.byte	0x1
+ 1621 004a 49       		.uleb128 0x49
+ 1622 004b 13       		.uleb128 0x13
+ 1623 004c 01       		.uleb128 0x1
+ 1624 004d 13       		.uleb128 0x13
+ 1625 004e 00       		.byte	0
+ 1626 004f 00       		.byte	0
+ 1627 0050 07       		.uleb128 0x7
+ 1628 0051 21       		.uleb128 0x21
+ 1629 0052 00       		.byte	0
+ 1630 0053 49       		.uleb128 0x49
+ 1631 0054 13       		.uleb128 0x13
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 37
+
+
+ 1632 0055 2F       		.uleb128 0x2f
+ 1633 0056 0B       		.uleb128 0xb
+ 1634 0057 00       		.byte	0
+ 1635 0058 00       		.byte	0
+ 1636 0059 08       		.uleb128 0x8
+ 1637 005a 0F       		.uleb128 0xf
+ 1638 005b 00       		.byte	0
+ 1639 005c 0B       		.uleb128 0xb
+ 1640 005d 0B       		.uleb128 0xb
+ 1641 005e 49       		.uleb128 0x49
+ 1642 005f 13       		.uleb128 0x13
+ 1643 0060 00       		.byte	0
+ 1644 0061 00       		.byte	0
+ 1645 0062 09       		.uleb128 0x9
+ 1646 0063 15       		.uleb128 0x15
+ 1647 0064 00       		.byte	0
+ 1648 0065 27       		.uleb128 0x27
+ 1649 0066 0C       		.uleb128 0xc
+ 1650 0067 00       		.byte	0
+ 1651 0068 00       		.byte	0
+ 1652 0069 0A       		.uleb128 0xa
+ 1653 006a 16       		.uleb128 0x16
+ 1654 006b 00       		.byte	0
+ 1655 006c 03       		.uleb128 0x3
+ 1656 006d 08       		.uleb128 0x8
+ 1657 006e 3A       		.uleb128 0x3a
+ 1658 006f 0B       		.uleb128 0xb
+ 1659 0070 3B       		.uleb128 0x3b
+ 1660 0071 05       		.uleb128 0x5
+ 1661 0072 49       		.uleb128 0x49
+ 1662 0073 13       		.uleb128 0x13
+ 1663 0074 00       		.byte	0
+ 1664 0075 00       		.byte	0
+ 1665 0076 0B       		.uleb128 0xb
+ 1666 0077 35       		.uleb128 0x35
+ 1667 0078 00       		.byte	0
+ 1668 0079 49       		.uleb128 0x49
+ 1669 007a 13       		.uleb128 0x13
+ 1670 007b 00       		.byte	0
+ 1671 007c 00       		.byte	0
+ 1672 007d 0C       		.uleb128 0xc
+ 1673 007e 13       		.uleb128 0x13
+ 1674 007f 01       		.byte	0x1
+ 1675 0080 03       		.uleb128 0x3
+ 1676 0081 08       		.uleb128 0x8
+ 1677 0082 0B       		.uleb128 0xb
+ 1678 0083 0B       		.uleb128 0xb
+ 1679 0084 3A       		.uleb128 0x3a
+ 1680 0085 0B       		.uleb128 0xb
+ 1681 0086 3B       		.uleb128 0x3b
+ 1682 0087 05       		.uleb128 0x5
+ 1683 0088 01       		.uleb128 0x1
+ 1684 0089 13       		.uleb128 0x13
+ 1685 008a 00       		.byte	0
+ 1686 008b 00       		.byte	0
+ 1687 008c 0D       		.uleb128 0xd
+ 1688 008d 0D       		.uleb128 0xd
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 38
+
+
+ 1689 008e 00       		.byte	0
+ 1690 008f 03       		.uleb128 0x3
+ 1691 0090 08       		.uleb128 0x8
+ 1692 0091 3A       		.uleb128 0x3a
+ 1693 0092 0B       		.uleb128 0xb
+ 1694 0093 3B       		.uleb128 0x3b
+ 1695 0094 05       		.uleb128 0x5
+ 1696 0095 49       		.uleb128 0x49
+ 1697 0096 13       		.uleb128 0x13
+ 1698 0097 38       		.uleb128 0x38
+ 1699 0098 0A       		.uleb128 0xa
+ 1700 0099 00       		.byte	0
+ 1701 009a 00       		.byte	0
+ 1702 009b 0E       		.uleb128 0xe
+ 1703 009c 04       		.uleb128 0x4
+ 1704 009d 01       		.byte	0x1
+ 1705 009e 0B       		.uleb128 0xb
+ 1706 009f 0B       		.uleb128 0xb
+ 1707 00a0 3A       		.uleb128 0x3a
+ 1708 00a1 0B       		.uleb128 0xb
+ 1709 00a2 3B       		.uleb128 0x3b
+ 1710 00a3 05       		.uleb128 0x5
+ 1711 00a4 01       		.uleb128 0x1
+ 1712 00a5 13       		.uleb128 0x13
+ 1713 00a6 00       		.byte	0
+ 1714 00a7 00       		.byte	0
+ 1715 00a8 0F       		.uleb128 0xf
+ 1716 00a9 28       		.uleb128 0x28
+ 1717 00aa 00       		.byte	0
+ 1718 00ab 03       		.uleb128 0x3
+ 1719 00ac 08       		.uleb128 0x8
+ 1720 00ad 1C       		.uleb128 0x1c
+ 1721 00ae 0D       		.uleb128 0xd
+ 1722 00af 00       		.byte	0
+ 1723 00b0 00       		.byte	0
+ 1724 00b1 10       		.uleb128 0x10
+ 1725 00b2 0D       		.uleb128 0xd
+ 1726 00b3 00       		.byte	0
+ 1727 00b4 03       		.uleb128 0x3
+ 1728 00b5 0E       		.uleb128 0xe
+ 1729 00b6 3A       		.uleb128 0x3a
+ 1730 00b7 0B       		.uleb128 0xb
+ 1731 00b8 3B       		.uleb128 0x3b
+ 1732 00b9 05       		.uleb128 0x5
+ 1733 00ba 49       		.uleb128 0x49
+ 1734 00bb 13       		.uleb128 0x13
+ 1735 00bc 38       		.uleb128 0x38
+ 1736 00bd 0A       		.uleb128 0xa
+ 1737 00be 00       		.byte	0
+ 1738 00bf 00       		.byte	0
+ 1739 00c0 11       		.uleb128 0x11
+ 1740 00c1 26       		.uleb128 0x26
+ 1741 00c2 00       		.byte	0
+ 1742 00c3 49       		.uleb128 0x49
+ 1743 00c4 13       		.uleb128 0x13
+ 1744 00c5 00       		.byte	0
+ 1745 00c6 00       		.byte	0
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 39
+
+
+ 1746 00c7 12       		.uleb128 0x12
+ 1747 00c8 17       		.uleb128 0x17
+ 1748 00c9 01       		.byte	0x1
+ 1749 00ca 0B       		.uleb128 0xb
+ 1750 00cb 0B       		.uleb128 0xb
+ 1751 00cc 3A       		.uleb128 0x3a
+ 1752 00cd 0B       		.uleb128 0xb
+ 1753 00ce 3B       		.uleb128 0x3b
+ 1754 00cf 05       		.uleb128 0x5
+ 1755 00d0 01       		.uleb128 0x1
+ 1756 00d1 13       		.uleb128 0x13
+ 1757 00d2 00       		.byte	0
+ 1758 00d3 00       		.byte	0
+ 1759 00d4 13       		.uleb128 0x13
+ 1760 00d5 0D       		.uleb128 0xd
+ 1761 00d6 00       		.byte	0
+ 1762 00d7 03       		.uleb128 0x3
+ 1763 00d8 08       		.uleb128 0x8
+ 1764 00d9 3A       		.uleb128 0x3a
+ 1765 00da 0B       		.uleb128 0xb
+ 1766 00db 3B       		.uleb128 0x3b
+ 1767 00dc 05       		.uleb128 0x5
+ 1768 00dd 49       		.uleb128 0x49
+ 1769 00de 13       		.uleb128 0x13
+ 1770 00df 00       		.byte	0
+ 1771 00e0 00       		.byte	0
+ 1772 00e1 14       		.uleb128 0x14
+ 1773 00e2 0D       		.uleb128 0xd
+ 1774 00e3 00       		.byte	0
+ 1775 00e4 03       		.uleb128 0x3
+ 1776 00e5 0E       		.uleb128 0xe
+ 1777 00e6 3A       		.uleb128 0x3a
+ 1778 00e7 0B       		.uleb128 0xb
+ 1779 00e8 3B       		.uleb128 0x3b
+ 1780 00e9 05       		.uleb128 0x5
+ 1781 00ea 49       		.uleb128 0x49
+ 1782 00eb 13       		.uleb128 0x13
+ 1783 00ec 00       		.byte	0
+ 1784 00ed 00       		.byte	0
+ 1785 00ee 15       		.uleb128 0x15
+ 1786 00ef 13       		.uleb128 0x13
+ 1787 00f0 01       		.byte	0x1
+ 1788 00f1 0B       		.uleb128 0xb
+ 1789 00f2 0B       		.uleb128 0xb
+ 1790 00f3 3A       		.uleb128 0x3a
+ 1791 00f4 0B       		.uleb128 0xb
+ 1792 00f5 3B       		.uleb128 0x3b
+ 1793 00f6 05       		.uleb128 0x5
+ 1794 00f7 01       		.uleb128 0x1
+ 1795 00f8 13       		.uleb128 0x13
+ 1796 00f9 00       		.byte	0
+ 1797 00fa 00       		.byte	0
+ 1798 00fb 16       		.uleb128 0x16
+ 1799 00fc 2E       		.uleb128 0x2e
+ 1800 00fd 01       		.byte	0x1
+ 1801 00fe 3F       		.uleb128 0x3f
+ 1802 00ff 0C       		.uleb128 0xc
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 40
+
+
+ 1803 0100 03       		.uleb128 0x3
+ 1804 0101 08       		.uleb128 0x8
+ 1805 0102 3A       		.uleb128 0x3a
+ 1806 0103 0B       		.uleb128 0xb
+ 1807 0104 3B       		.uleb128 0x3b
+ 1808 0105 05       		.uleb128 0x5
+ 1809 0106 27       		.uleb128 0x27
+ 1810 0107 0C       		.uleb128 0xc
+ 1811 0108 49       		.uleb128 0x49
+ 1812 0109 13       		.uleb128 0x13
+ 1813 010a 11       		.uleb128 0x11
+ 1814 010b 01       		.uleb128 0x1
+ 1815 010c 12       		.uleb128 0x12
+ 1816 010d 01       		.uleb128 0x1
+ 1817 010e 40       		.uleb128 0x40
+ 1818 010f 06       		.uleb128 0x6
+ 1819 0110 9742     		.uleb128 0x2117
+ 1820 0112 0C       		.uleb128 0xc
+ 1821 0113 01       		.uleb128 0x1
+ 1822 0114 13       		.uleb128 0x13
+ 1823 0115 00       		.byte	0
+ 1824 0116 00       		.byte	0
+ 1825 0117 17       		.uleb128 0x17
+ 1826 0118 34       		.uleb128 0x34
+ 1827 0119 00       		.byte	0
+ 1828 011a 03       		.uleb128 0x3
+ 1829 011b 08       		.uleb128 0x8
+ 1830 011c 3A       		.uleb128 0x3a
+ 1831 011d 0B       		.uleb128 0xb
+ 1832 011e 3B       		.uleb128 0x3b
+ 1833 011f 05       		.uleb128 0x5
+ 1834 0120 49       		.uleb128 0x49
+ 1835 0121 13       		.uleb128 0x13
+ 1836 0122 02       		.uleb128 0x2
+ 1837 0123 06       		.uleb128 0x6
+ 1838 0124 00       		.byte	0
+ 1839 0125 00       		.byte	0
+ 1840 0126 18       		.uleb128 0x18
+ 1841 0127 34       		.uleb128 0x34
+ 1842 0128 00       		.byte	0
+ 1843 0129 03       		.uleb128 0x3
+ 1844 012a 08       		.uleb128 0x8
+ 1845 012b 3A       		.uleb128 0x3a
+ 1846 012c 0B       		.uleb128 0xb
+ 1847 012d 3B       		.uleb128 0x3b
+ 1848 012e 05       		.uleb128 0x5
+ 1849 012f 49       		.uleb128 0x49
+ 1850 0130 13       		.uleb128 0x13
+ 1851 0131 00       		.byte	0
+ 1852 0132 00       		.byte	0
+ 1853 0133 19       		.uleb128 0x19
+ 1854 0134 34       		.uleb128 0x34
+ 1855 0135 00       		.byte	0
+ 1856 0136 03       		.uleb128 0x3
+ 1857 0137 08       		.uleb128 0x8
+ 1858 0138 3A       		.uleb128 0x3a
+ 1859 0139 0B       		.uleb128 0xb
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 41
+
+
+ 1860 013a 3B       		.uleb128 0x3b
+ 1861 013b 05       		.uleb128 0x5
+ 1862 013c 49       		.uleb128 0x49
+ 1863 013d 13       		.uleb128 0x13
+ 1864 013e 02       		.uleb128 0x2
+ 1865 013f 0A       		.uleb128 0xa
+ 1866 0140 00       		.byte	0
+ 1867 0141 00       		.byte	0
+ 1868 0142 1A       		.uleb128 0x1a
+ 1869 0143 0A       		.uleb128 0xa
+ 1870 0144 00       		.byte	0
+ 1871 0145 03       		.uleb128 0x3
+ 1872 0146 08       		.uleb128 0x8
+ 1873 0147 3A       		.uleb128 0x3a
+ 1874 0148 0B       		.uleb128 0xb
+ 1875 0149 3B       		.uleb128 0x3b
+ 1876 014a 05       		.uleb128 0x5
+ 1877 014b 11       		.uleb128 0x11
+ 1878 014c 01       		.uleb128 0x1
+ 1879 014d 00       		.byte	0
+ 1880 014e 00       		.byte	0
+ 1881 014f 1B       		.uleb128 0x1b
+ 1882 0150 0B       		.uleb128 0xb
+ 1883 0151 01       		.byte	0x1
+ 1884 0152 11       		.uleb128 0x11
+ 1885 0153 01       		.uleb128 0x1
+ 1886 0154 12       		.uleb128 0x12
+ 1887 0155 01       		.uleb128 0x1
+ 1888 0156 01       		.uleb128 0x1
+ 1889 0157 13       		.uleb128 0x13
+ 1890 0158 00       		.byte	0
+ 1891 0159 00       		.byte	0
+ 1892 015a 1C       		.uleb128 0x1c
+ 1893 015b 898201   		.uleb128 0x4109
+ 1894 015e 01       		.byte	0x1
+ 1895 015f 11       		.uleb128 0x11
+ 1896 0160 01       		.uleb128 0x1
+ 1897 0161 31       		.uleb128 0x31
+ 1898 0162 13       		.uleb128 0x13
+ 1899 0163 00       		.byte	0
+ 1900 0164 00       		.byte	0
+ 1901 0165 1D       		.uleb128 0x1d
+ 1902 0166 8A8201   		.uleb128 0x410a
+ 1903 0169 00       		.byte	0
+ 1904 016a 02       		.uleb128 0x2
+ 1905 016b 0A       		.uleb128 0xa
+ 1906 016c 9142     		.uleb128 0x2111
+ 1907 016e 0A       		.uleb128 0xa
+ 1908 016f 00       		.byte	0
+ 1909 0170 00       		.byte	0
+ 1910 0171 1E       		.uleb128 0x1e
+ 1911 0172 21       		.uleb128 0x21
+ 1912 0173 00       		.byte	0
+ 1913 0174 00       		.byte	0
+ 1914 0175 00       		.byte	0
+ 1915 0176 1F       		.uleb128 0x1f
+ 1916 0177 34       		.uleb128 0x34
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 42
+
+
+ 1917 0178 00       		.byte	0
+ 1918 0179 03       		.uleb128 0x3
+ 1919 017a 08       		.uleb128 0x8
+ 1920 017b 3A       		.uleb128 0x3a
+ 1921 017c 0B       		.uleb128 0xb
+ 1922 017d 3B       		.uleb128 0x3b
+ 1923 017e 05       		.uleb128 0x5
+ 1924 017f 49       		.uleb128 0x49
+ 1925 0180 13       		.uleb128 0x13
+ 1926 0181 3F       		.uleb128 0x3f
+ 1927 0182 0C       		.uleb128 0xc
+ 1928 0183 3C       		.uleb128 0x3c
+ 1929 0184 0C       		.uleb128 0xc
+ 1930 0185 00       		.byte	0
+ 1931 0186 00       		.byte	0
+ 1932 0187 20       		.uleb128 0x20
+ 1933 0188 2E       		.uleb128 0x2e
+ 1934 0189 01       		.byte	0x1
+ 1935 018a 3F       		.uleb128 0x3f
+ 1936 018b 0C       		.uleb128 0xc
+ 1937 018c 03       		.uleb128 0x3
+ 1938 018d 08       		.uleb128 0x8
+ 1939 018e 3A       		.uleb128 0x3a
+ 1940 018f 0B       		.uleb128 0xb
+ 1941 0190 3B       		.uleb128 0x3b
+ 1942 0191 05       		.uleb128 0x5
+ 1943 0192 27       		.uleb128 0x27
+ 1944 0193 0C       		.uleb128 0xc
+ 1945 0194 3C       		.uleb128 0x3c
+ 1946 0195 0C       		.uleb128 0xc
+ 1947 0196 00       		.byte	0
+ 1948 0197 00       		.byte	0
+ 1949 0198 21       		.uleb128 0x21
+ 1950 0199 05       		.uleb128 0x5
+ 1951 019a 00       		.byte	0
+ 1952 019b 49       		.uleb128 0x49
+ 1953 019c 13       		.uleb128 0x13
+ 1954 019d 00       		.byte	0
+ 1955 019e 00       		.byte	0
+ 1956 019f 00       		.byte	0
+ 1957              	.section .debug_loc,"",@progbits
+ 1958              	.Ldebug_loc0:
+ 1959              	.LLST0:
+ 1960 0000 00000000 		.uaword	.LFB0
+ 1961 0004 00000000 		.uaword	.LCFI0
+ 1962 0008 0200     		.uahalf	0x2
+ 1963 000a 8A       		.byte	0x8a
+ 1964 000b 00       		.sleb128 0
+ 1965 000c 00000000 		.uaword	.LCFI0
+ 1966 0010 00000000 		.uaword	.LFE0
+ 1967 0014 0200     		.uahalf	0x2
+ 1968 0016 8A       		.byte	0x8a
+ 1969 0017 08       		.sleb128 8
+ 1970 0018 00000000 		.uaword	0
+ 1971 001c 00000000 		.uaword	0
+ 1972              	.LLST1:
+ 1973 0020 00000000 		.uaword	.LVL0
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 43
+
+
+ 1974 0024 00000000 		.uaword	.LVL9
+ 1975 0028 0200     		.uahalf	0x2
+ 1976 002a 30       		.byte	0x30
+ 1977 002b 9F       		.byte	0x9f
+ 1978 002c 00000000 		.uaword	.LVL9
+ 1979 0030 00000000 		.uaword	.LVL11
+ 1980 0034 0200     		.uahalf	0x2
+ 1981 0036 37       		.byte	0x37
+ 1982 0037 9F       		.byte	0x9f
+ 1983 0038 00000000 		.uaword	.LVL11
+ 1984 003c 00000000 		.uaword	.LVL12
+ 1985 0040 0100     		.uahalf	0x1
+ 1986 0042 52       		.byte	0x52
+ 1987 0043 00000000 		.uaword	.LVL12
+ 1988 0047 00000000 		.uaword	.LVL13
+ 1989 004b 0200     		.uahalf	0x2
+ 1990 004d 30       		.byte	0x30
+ 1991 004e 9F       		.byte	0x9f
+ 1992 004f 00000000 		.uaword	.LVL13
+ 1993 0053 00000000 		.uaword	.LVL14
+ 1994 0057 0100     		.uahalf	0x1
+ 1995 0059 52       		.byte	0x52
+ 1996 005a 00000000 		.uaword	.LVL14
+ 1997 005e 00000000 		.uaword	.LFE0
+ 1998 0062 0200     		.uahalf	0x2
+ 1999 0064 30       		.byte	0x30
+ 2000 0065 9F       		.byte	0x9f
+ 2001 0066 00000000 		.uaword	0
+ 2002 006a 00000000 		.uaword	0
+ 2003              	.LLST2:
+ 2004 006e 00000000 		.uaword	.LVL2
+ 2005 0072 00000000 		.uaword	.LVL6
+ 2006 0076 0100     		.uahalf	0x1
+ 2007 0078 6F       		.byte	0x6f
+ 2008 0079 00000000 		.uaword	.LVL6
+ 2009 007d 00000000 		.uaword	.LVL10-1
+ 2010 0081 0200     		.uahalf	0x2
+ 2011 0083 73       		.byte	0x73
+ 2012 0084 00       		.sleb128 0
+ 2013 0085 00000000 		.uaword	.LVL12
+ 2014 0089 00000000 		.uaword	.LVL14
+ 2015 008d 0200     		.uahalf	0x2
+ 2016 008f 73       		.byte	0x73
+ 2017 0090 00       		.sleb128 0
+ 2018 0091 00000000 		.uaword	.LVL14
+ 2019 0095 00000000 		.uaword	.LVL15
+ 2020 0099 0100     		.uahalf	0x1
+ 2021 009b 6F       		.byte	0x6f
+ 2022 009c 00000000 		.uaword	.LVL15
+ 2023 00a0 00000000 		.uaword	.LFE0
+ 2024 00a4 0200     		.uahalf	0x2
+ 2025 00a6 73       		.byte	0x73
+ 2026 00a7 00       		.sleb128 0
+ 2027 00a8 00000000 		.uaword	0
+ 2028 00ac 00000000 		.uaword	0
+ 2029              	.LLST3:
+ 2030 00b0 00000000 		.uaword	.LVL4
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 44
+
+
+ 2031 00b4 00000000 		.uaword	.LVL5
+ 2032 00b8 0100     		.uahalf	0x1
+ 2033 00ba 5F       		.byte	0x5f
+ 2034 00bb 00000000 		.uaword	0
+ 2035 00bf 00000000 		.uaword	0
+ 2036              	.LLST4:
+ 2037 00c3 00000000 		.uaword	.LVL1
+ 2038 00c7 00000000 		.uaword	.LVL4
+ 2039 00cb 0100     		.uahalf	0x1
+ 2040 00cd 5F       		.byte	0x5f
+ 2041 00ce 00000000 		.uaword	0
+ 2042 00d2 00000000 		.uaword	0
+ 2043              	.section .debug_aranges,"",@progbits
+ 2044 0000 1C000000 		.uaword	0x1c
+ 2045 0004 0200     		.uahalf	0x2
+ 2046 0006 00000000 		.uaword	.Ldebug_info0
+ 2047 000a 04       		.byte	0x4
+ 2048 000b 00       		.byte	0
+ 2049 000c 0000     		.uahalf	0
+ 2050 000e 0000     		.uahalf	0
+ 2051 0010 00000000 		.uaword	.LFB0
+ 2052 0014 82000000 		.uaword	.LFE0-.LFB0
+ 2053 0018 00000000 		.uaword	0
+ 2054 001c 00000000 		.uaword	0
+ 2055              	.section .debug_ranges,"",@progbits
+ 2056              	.Ldebug_ranges0:
+ 2057 0000 00000000 		.uaword	.LFB0
+ 2058 0004 00000000 		.uaword	.LFE0
+ 2059 0008 00000000 		.uaword	0
+ 2060 000c 00000000 		.uaword	0
+ 2061              	.section .debug_line,"",@progbits
+ 2062              	.Ldebug_line0:
+ 2063 0000 74010000 	.section .debug_str,"",@progbits
+ 2063      02001101 
+ 2063      00000201 
+ 2063      FB0E0D00 
+ 2063      01010101 
+ 2064              	.LASF4:
+ 2065 0000 6170706C 		.string	"application"
+ 2065      69636174 
+ 2065      696F6E00 
+ 2066              	.LASF2:
+ 2067 000c 64796E61 		.string	"dynamic"
+ 2067      6D696300 
+ 2068              	.LASF5:
+ 2069 0014 61637469 		.string	"activation_count"
+ 2069      76617469 
+ 2069      6F6E5F63 
+ 2069      6F756E74 
+ 2069      00
+ 2070              	.LASF6:
+ 2071 0025 74706D61 		.string	"tpmask"
+ 2071      736B00
+ 2072              	.LASF1:
+ 2073 002c 656E7472 		.string	"entry_function"
+ 2073      795F6675 
+ 2073      6E637469 
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccJv9ffM.s 			page 45
+
+
+ 2073      6F6E00
+ 2074              	.LASF3:
+ 2075 003b 61636365 		.string	"access"
+ 2075      737300
+ 2076              	.LASF0:
+ 2077 0042 7265736F 		.string	"resource_count"
+ 2077      75726365 
+ 2077      5F636F75 
+ 2077      6E7400
+ 2078              		.extern	Os_ErrorLog,STT_FUNC,0
+ 2079              		.extern	Os_dyn_appstate,STT_OBJECT,-1
+ 2080              		.extern	Os_const_coreconfiguration,STT_OBJECT,-1
+ 2081              		.ident	"GCC: (HighTec Release HDP-v4.9.4.1-11fcedf) 4.9.4 build on 2020-09-01"

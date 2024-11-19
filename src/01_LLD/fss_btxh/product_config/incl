@@ -1,0 +1,140 @@
+#!/usr/bin/env perl
+# Description:	Prepare references to header files' directories
+use 5.010001;
+use strict;
+use warnings FATAL => 'all';
+use autodie;
+use Cwd 'abs_path';
+use Carp;
+use English;
+use POSIX;
+use Getopt::Long;
+use File::Basename;
+use File::Spec;
+use Cwd;
+
+alarm 10;
+my $version = '%version: 15 %';		# Special string updated by synergy
+$version =~ s/^.*? | %//g;
+our $VERSION = $version;
+use FindBin;
+push (@INC, $FindBin::RealBin);
+require MM_common;
+
+#--- main
+our @opt_blacklist;
+our $opt_incl;
+our $opt_link = '';
+Getopt::Long::Configure(qw(require_order no_pass_through));
+GetOptions(
+	'blacklist|b=s@',	# Unallowed directories
+	'incl|I=s',		# Compiler include option
+	'link|l!'		# Resolve links
+) or MM_common::help();
+$OUTPUT_RECORD_SEPARATOR=$INPUT_RECORD_SEPARATOR;
+if (($OSNAME eq 'MSWin32') and $opt_link)
+{
+	warn "links are unsupported in ms-win";
+	$opt_link = ''
+}
+foreach (@ARGV)
+{
+	unless (-e $_)
+	{			# Create eventual not existing files
+		open(my $handle, '>', $_) ;
+		close($handle)
+	}
+}
+my $opt_incl_defined = defined $opt_incl;
+$opt_incl //= '-I';
+foreach (@opt_blacklist)
+{		# Canonize blaklist paths following any eventual link
+	$_ = File::Spec->abs2rel(abs_path(File::Spec->abs2rel($_)))
+}
+unless (defined $MM_common::opt_output)
+{		# Double check to avoid false warning
+	$INPLACE_EDIT = '' unless defined $MM_common::opt_output
+}
+my $rs = $RS;
+local $RS;		# Slurp all arguments' file
+my %paths;
+while (<>)
+{
+	undef %paths unless defined $MM_common::opt_output;
+	foreach (split /\s+/, $_)
+	{
+		s/^$opt_incl// if $opt_incl_defined;
+		my $is_dir = -d $_;
+		unless (defined $is_dir)
+		{
+			warn "processing $ARGV removed '$_': ${OS_ERROR}$rs";
+			next
+		}
+		unless ($is_dir)
+		{
+			warn "processing $ARGV removed '$_' not a directory$rs";
+			next
+		}
+		die ("unreadable '$_'$rs") unless -r $_;
+		$_ = File::Spec->abs2rel($_);
+		my $canonpath = File::Spec->canonpath($_);
+		my $cpath = $_;	
+		$cpath =~ s?\\?/?;
+				# Silently accept Unix format, eventuallu convert it 
+		my $ucpath = File::Spec::Unix->canonpath($_);
+		warn("'$_' changed to canonical form '$canonpath' " .
+				"processing '$ARGV'$rs") unless $cpath eq $ucpath;
+		my $linkedpath = File::Spec->abs2rel(abs_path($_));
+		foreach my $blacklisted (@opt_blacklist)
+		{
+			die "'$_' is blacklisted$rs" if $linkedpath eq $blacklisted
+		}
+		warn("'$canonpath' linked to '$linkedpath' processing'$ARGV'$rs")
+							if $Carp::Verbose and (-l $_);
+		$canonpath=$linkedpath if $opt_link;
+		if (defined $paths{$linkedpath})
+		{
+			warn("processing $ARGV removed duplicate of '$canonpath'$rs");
+			next
+		}
+		$paths{$linkedpath} = '';
+		print "$opt_incl" . $canonpath
+	}
+}
+
+=head1 NAME
+
+incl - list of include path for the compiler
+
+=head1 SYNOPSIS
+
+incl [options] <incl file(s)>
+
+=head1 DESCRIPTION
+
+Checks and update compiler's include paths.
+Prepended each by the compiler include option, defaults to -I,
+and eventually convert to the local format (i.e. UNIX to ms-dos).
+incl check the include dirs for any inconsistency,
+then prepends the compiler's include option to any line.
+If resolve symbolic links is requested, incl change any symbolic links to the
+linked path (links are not part of the Microsoft environments).
+
+=head1 NOTES
+
+The compiler' include paths can be written in Unix format:
+blanks separate single paths.
+
+=head1 OPTIONS
+
+ -b --blacklist <path>	unacceptable directory
+ -I --incl <compiler include option>	 (default is '-I')
+ -l --link		resolve symbolic links (discarded in ms-win)
+
+=head1 AUTOR
+
+TechM
+
+=head1 COPYRIGHT
+
+(c) Copyright 2019 

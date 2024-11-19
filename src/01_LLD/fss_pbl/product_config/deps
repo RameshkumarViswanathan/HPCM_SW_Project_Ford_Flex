@@ -1,0 +1,192 @@
+#!/usr/bin/env perl
+# Description:	Analysis of dependencies in C or assembly
+use 5.010001;
+use strict;
+use warnings FATAL => 'all';
+require autodie;	# 'use' produce false warnings on files handlers
+use English;
+use POSIX;
+use Getopt::Long;
+use File::Basename;
+use File::Spec::Functions 'abs2rel';
+
+alarm 10;
+my $version = '%version: 7 %';	# Special string updated by synergy
+$version =~ s/^.*? | %//g;
+our $VERSION = $version;
+use FindBin;
+push (@INC, $FindBin::RealBin);
+require MM_common;
+my %ext =
+(
+ 	x => 'xsm',	# eXtended S-Motorola
+	p => 'i',	# C preprocessed
+	S => 'S',	# C preprocessing-Assembly
+	s => 's',	# Assembly
+	o => 'o',	# Object
+	a => 'a',	# Archive
+	i => ''		# Intermediate
+);
+Getopt::Long::Configure(qw(require_order no_pass_through no_bundling));
+Getopt::Long::GetOptions(
+	'exts|e:s%{,7}' => \%ext	# File extensions
+) or MM_common::help();
+$OUTPUT_RECORD_SEPARATOR=$INPUT_RECORD_SEPARATOR;
+my %target;
+my %dependent;
+my %source;
+my %any_source;
+my %file_found;
+my @deps = <>;
+$ARGV = undef;	# No more file processing (none reported in case of error)
+chomp @deps;
+		# Extract targets, dependents and source names
+foreach (@deps)
+{
+	next unless $_;
+			# Split the line and extract name
+		# head is up to ':' (the make target or goal)
+		# name is target name without path
+		# body is after the ':' (the dependencies)
+	$_ =~ m/^(?'head'.*?(?:(?'name'\b\w+\.\w+\b(?!\()).*)?):\s*(?'body'.*)/;
+	my $head = $+{head};
+	my $body = $+{body};
+	if (($body =~ m/=$/) or (!defined $+{name}))
+	{	# Target specific null variable or .SECONDARY: or similar, left it untouched
+		print;
+		next
+	}
+	my ($name, undef, $suffix) = fileparse($+{name}, qr/\.[^.]*/);
+	if (($suffix eq '.a2i')or($suffix eq '.dd')or($suffix eq ".$ext{a}"))
+	{
+		$any_source{"${name}$suffix"} = '';
+		$file_found{"${name}$suffix"} = 'is a target'
+	}
+	else
+	{		# C/assembly sources or chaining to C
+		$source{$name} = ''
+	}
+	$target{"${name}$suffix"} = $head;
+				# Append ' ' as a next separator
+				# Do not repeat equal bodies
+	$dependent{"${name}$suffix"} .= "$body "
+			unless ((defined $dependent{"${name}$suffix"}) and 
+				($dependent{"${name}$suffix"} eq "$body "))
+}
+chop %dependent;			# Remove last ' ' added tp values
+		# Consider any possible C source chain
+my @exts = ($ext{x}, 'c', $ext{S}, $ext{s}, $ext{o});
+push @exts, $ext{i} if $ext{i};
+foreach (keys %source)
+{
+ 	foreach my $extension (@exts)
+	{
+		$any_source{"$_.$extension"} = ''
+	}
+}
+%source = ();
+	# Join same header on multiple lines and remove multiple dependents
+foreach (keys %dependent)
+{
+	next if m/\.$ext{a}$/;
+	my $body = $dependent{$_};
+	my %header;
+	foreach my $single_header (split /\s+/, $body)
+	{
+		$header{$single_header} = '';	# Dependents on this targets
+		$any_source{$single_header} = ''	# all files
+	}
+	$dependent{$_} = join(' ', keys %header)
+}
+		# Check for duplicate files in VDEP
+open(STDIN, '<', 'make_macros');
+my (@paths) = grep {/VDEP/} <STDIN>;
+$paths[0] //= '';
+$paths[0] =~ s/^.*=\s*//;
+@paths = split /\s+/, ". $paths[0]";
+my $dup;
+my %standard_header =
+(
+	'assert.h' => '',	'complex.h' => '',	'ctype.h' => '',
+	'errno.h' => '',	'fenv.h' => '',		'float.h' => '',
+	'inttypes.h' => '',	'iso646.h' => '',	'limits.h' => '',
+	'locale.h' => '',	'math.h' => '',		'setjmp.h' => '',
+	'signal.h' => '',	'stdarg.h' => '',	'stdbool.h' => '',
+	'stddef.h' => '',	'stdint.h' => '',	'stdio.h' => '',
+	'stdlib.h' => '',	'string.h' => '',	'tgmath.h' => '',
+	'time.h' => '',		'wchar.h' => '',	'wctype.h' => ''
+);
+foreach my $dir (@paths)
+{
+	opendir(my $dh, $dir) or die "can't opendir $dir: ${OS_ERROR}$RS";
+	foreach (grep { -f "$dir/$_" } File::Spec->no_upwards(readdir($dh)))
+	{
+		die ("standard header '$_' in project$RS")
+						if exists $standard_header{$_};
+		if (exists $any_source{$_})
+		{
+			if ($file_found{$_})
+			{
+				my $message = "'$_' in '$dir' and " .
+							"'$file_found{$_}'";
+				if ($Carp::Verbose)
+				{
+					use File::Compare;
+					require File::Spec;
+					my $file1 = File::Spec->catfile
+						(($file_found{$_}), $_);
+					my $file2 = File::Spec->catfile
+						(($dir), $_);
+					my $cmp = compare "$file1", "$file2";
+					die("comparing '$file1' and '$file2'" .
+						" ${OS_ERROR}$RS") if $cmp<0;
+					$message .= ' (unequals)' if $cmp
+				}
+				warn("$message$RS");
+				$dup = ''
+			}
+			$file_found{$_} = $dir
+		}
+	}
+	closedir $dh;
+}
+die ("duplicates found$RS") if defined $dup;
+foreach (keys %target)
+{
+	print "$target{$_}: $dependent{$_}"
+}
+__END__
+
+=head1 NAME
+
+deps - merge dependencies
+
+=head1 SYNOPSIS
+
+deps [options] [dep_files] (default is stdin)
+
+=head1 DESCRIPTION
+
+merge make dependencies from the specified files, or from standard input.
+Extract from list(s) of sources files .a2l file to be dependencies of project.a2i.
+Checks for any duplicate file in specified paths (plus current directory).
+Any valid source extension (specified) is used to consider for duplicate.
+
+=head1 OPTIONS
+
+ -e --exts <k>=<v>	Files extensions; valid keys and defaults values are:
+	p => 'i',	C preprocessed
+	S => 'S',	C preprocessing-Assembly
+	s => 's',	Assembly
+	o => 'o',	Object
+	a => 'a',	Archive
+	i => ''		Intermediate
+ -O -objects		Unarchived_objects (multiple declaration possible)
+
+=head1 AUTHOR
+
+TechM
+
+=head1 COPYRIGHT
+
+(c) Copyright 2021 

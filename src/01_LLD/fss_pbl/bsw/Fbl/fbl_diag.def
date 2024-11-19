@@ -1,0 +1,330 @@
+/***********************************************************************************************************************
+ *  FILE DESCRIPTION
+ *  ------------------------------------------------------------------------------------------------------------------*/
+/** \file
+ *  \brief         Diagnostic services supported in boot mode
+ *                 Definition of services and subfunctions for state machine
+ *
+ *  --------------------------------------------------------------------------------------------------------------------
+ *  COPYRIGHT
+ *  --------------------------------------------------------------------------------------------------------------------
+ *  \par Copyright
+ *  \verbatim
+ *  Copyright (c) 2023 by Vector Informatik GmbH.                                                  All rights reserved.
+ *
+ *                This software is copyright protected and proprietary to Vector Informatik GmbH.
+ *                Vector Informatik GmbH grants to you only those rights as set out in the license conditions.
+ *                All other rights remain with Vector Informatik GmbH.
+ *  \endverbatim
+ */
+/**********************************************************************************************************************/
+
+/***********************************************************************************************************************
+ *  REVISION HISTORY
+ *  --------------------------------------------------------------------------------------------------------------------
+ *  Version    Date        Author  Change Id        Description
+ *  --------------------------------------------------------------------------------------------------------------------
+ *  02.00.00   2014-02-13  visci   ESCAN00073673    Updated implementation for FBL_Ford_SLP7
+ *                                 ESCAN00066098    No changes
+ *                                 ESCAN00059341    Allow selective security access for write DIDs
+ *  02.01.00   2014-03-21  vishrf  ESCAN00073727    No changes
+ *                         visci   ESCAN00074423    No changes
+ *                                 ESCAN00074447    No changes
+ *  02.02.00   2014-05-28  visci   ESCAN00075558    No changes
+ *  02.03.00   2014-08-15  visci   ESCAN00076997    No changes
+ *  02.04.00   2014-10-16  visci   ESCAN00078054    No changes
+ *                                 ESCAN00078099    No changes
+ *                                 ESCAN00078681    No changes
+ *                                 ESCAN00078424    No changes
+ *  02.05.00   2015-02-16  visci   ESCAN00081013    No changes
+ *  02.06.00   2015-05-19  vaddod  ESCAN00083057    No changes
+ *  02.07.00   2015-10-22  visci   ESCAN00085448    No changes
+ *                                 ESCAN00085459    No changes
+ *                                 ESCAN00085637    No changes
+ *  02.07.01   2015-11-12  visjop  ESCAN00086446    No changes
+ *             2015-11-30  visci   ESCAN00086872    NRC not sent for functionally addressed RoutineControl requests
+ *  02.08.00   2016-01-12  visci   ESCAN00087405    No changes
+ *                                 ESCAN00087747    Reworked configuration switches
+ *                                 ESCAN00087748    Added support for routine UpdateSecurityBytes
+ *                                 ESCAN00087750    No changes
+ *                                 ESCAN00087753    No changes
+ *  02.09.00   2016-03-02  visdkl  ESCAN00088680    No changes
+ *                                 ESCAN00088680    No changes
+ *  02.09.01   2016-04-07  vistns  ESCAN00089238    No changes
+ *  02.09.02   2016-04-27  visci   ESCAN00089381    No changes
+ *  02.10.00   2016-05-02  vishrf  ESCAN00087939    No changes
+ *                                 ESCAN00087940    No changes
+ *                                 ESCAN00089306    No changes
+ *                                 ESCAN00089677    No changes
+ *                                 ESCAN00089842    No changes
+ *  03.00.00   2016-07-01  visci   ESCAN00088607    No changes
+ *                                 ESCAN00090374    Added support for software signing solution
+ *  03.00.01   2017-03-13  visci   ESCAN00094120    No changes
+ *  03.01.00   2017-06-05  vadcel  ESCAN00095425    No changes
+ *  03.01.01   2017-09-05  visdkl  ESCAN00096537    No changes
+ *  03.01.02   2017-10-30  vadjbi  ESCAN00096944    No changes
+ *                                 ESCAN00097248    No changes
+ *  03.02.00   2017-12-07  vadcel  ESCAN00097677    No changes
+ *  03.02.01   2018-03-23  visdkl  ESCAN00098896    No changes
+ *  03.03.00   2018-04-10  visdkl  ESCAN00099059    No changes
+ *  03.03.01   2018-06-14  visdkl  ESCAN00099687    No changes
+ *             2018-07-04  visdkl  ESCAN00099466    No changes
+ *  03.03.02   2018-08-21  visci   ESCAN00100454    No changes
+ *                                 ESCAN00100459    No changes (see fbl_valstruct_oem.h)
+ *  03.04.00   2018-11-26  visdkl  ESCAN00100766    No changes
+ *                         visrr   ESCAN00101451    No changes
+ *  03.05.00   2019-02-04  viskjs  ESCAN00101971    No changes
+ *  03.06.00   2019-03-23  viskjs  ESCAN00102053    No changes
+ *                                 ESCAN00102061    No changes
+ *                                 ESCAN00102506    Added RoutineControl services for OTA
+ *  03.06.01   2019-05-07  viskjs  ESCAN00102940    No changes
+ *  04.00.00   2019-05-27  visrie  ESCAN00103269    Added support for SecureBoot and new Bootmanager
+ *  04.00.01   2019-06-19  visrie  ESCAN00103460    No changes
+ *  04.01.00   2019-06-25  visdlm  ESCAN00103535    No changes
+ *  04.01.01   2019-09-09  visrcn  ESCAN00103863    No changes
+ *  04.01.02   2019-09-18  visrcn  ESCAN00104292    Routine Control aren't security access protected
+ *  04.01.03   2019-10-07  visrcn  ESCAN00104507    No changes
+ *  04.01.04   2020-01-14  visjdn  ESCAN00105039    No changes
+ *  04.01.05   2020-01-22  visrcn  ESCAN00105356    No changes
+ *  04.01.06   2020-02-04  visrcn  ESCAN00104331    FlashDriver is not de-initialized on transition to DefaultSession
+ *                                                  or before shutdown
+ *                                 ESCAN00105007    Wrong NRC priority for stop routine activate inactive memory
+ *                                                  partition
+ *  04.01.07   2020-03-20  visrie  ESCAN00104555    No changes
+ *  04.01.08   2020-04-01  visjdn  ESCAN00105201    No changes
+ *  04.01.09   2020-05-05  vistmo  ESCAN00105551    No changes
+ *  04.01.10   2020-06-29  visjdn  ESCAN00106253    No changes
+ *  04.01.11   2020-07-07  visjdn  ESCAN00106303    [OTA] Wrong sequence for 0x213 is accepted
+ *  04.01.12   2020-09-10  vistbe  ESCAN00107348    Bootloader states are reset, that should not be changed
+ *  04.02.00   2020-10-01  visrie  FBL-1611         No changes
+ *  04.03.00   2020-11-16  vistmo  FBL-1288         No changes
+ *  04.04.00   2020-12-10  vistmo  FBL-2141         Add support for Software Signing Solution 2.0
+ *                         visrcn  ESCAN00107410    No changes
+ *  04.05.00   2021-01-11  visjdn  FBL-2439         No changes
+ *  04.05.01   2021-02-24  vishor  ESCAN00108271    No changes
+ *                                 FBL-3035         No changes
+ *  04.05.02   2021-04-19  vishor  ESCAN00108500    No changes
+ *  04.05.03   2021-05-10  vistbe  ESCAN00109048    All Routine Control services are security access protected
+ *  04.06.00   2021-06-28  vistbe  FBL-3522         No changes
+ *                                 ESCAN00108908    No changes
+ *  04.06.01   2021-10-22  vistbe  ESCAN00110414    No changes
+ *                                 ESCAN00110495    RTC Token Update return NRC$13 for Mode 0-4
+ *  04.06.02   2022-01-31  visjdn  ESCAN00110767    No changes
+ *  04.06.03   2022-03-29  visrie  ESCAN00111600    No changes
+ *  04.07.00   2022-07-04  vismix  FBL-5233         No changes
+ *                                 ESCAN00109981    No changes
+ *                                 ESCAN00106367    No changes
+ *                                 ESCAN00111443    No changes
+ *  04.08.00   2022-07-06  vismix  FBL-4527         No changes
+ *  04.08.01   2022-07-27  visjns  ESCAN00112049    Incorrect NRC order for routine use inactive memory partition
+ *                                 ESCAN00112263    No changes
+ *  04.09.00   2022-08-15  vistmo  ESCAN00112435    No changes
+ *                                 ESCAN00112575    No changes
+ *  04.09.01   2022-10-17  vismix  ESCAN00112879    No changes
+ *  04.09.02   2023-01-13  vismix  ESCAN00112890    No changes
+ *                                 ESCAN00113612    No changes
+ *  04.10.00   2023-02-09  vistmo  ESCAN00112972    No changes
+ *                                 ESCAN00113835    No changes
+ *                                 ESCAN00113843    No changes
+ *                                 ESCAN00113764    RID 7013 (token download) is always supported
+ *                                 FBL-6438         No changes
+ *  04.10.01   2023-03-13  visjns  ESCAN00113919    RoutineControl Routines wrongly protected by security access
+ *  04.10.02   2023-05-11  vismix  ESCAN00113831    No changes
+ **********************************************************************************************************************/
+
+/***********************************************************************************************************************
+ *  VERSION
+ **********************************************************************************************************************/
+#if ( FBLDIAG_14229_FORD_VERSION != 0x0410u ) || \
+    ( FBLDIAG_14229_FORD_RELEASE_VERSION != 0x02u )
+# error "Error in fbl_diag.def: State machine definition and source are inconsistent!"
+#endif
+
+#ifndef FBL_DIAG_DEF
+#define FBL_DIAG_DEF
+
+/* PRQA S 0883 EOF */ /* MD_MSR_Undef */
+
+/* Some preprocessors don't like undefined (but unused) macro parameters */
+#if !defined( FBL_DIAG_DISABLE_DUMMY_MACRO_PARAMETERS )
+# define Root                       0u
+# define DiagnosticSessionControl   0u
+# define EcuReset                   0u
+# define SecurityAccess             0u
+# define TesterPresent              0u
+# define ReadDataByIdentifier       0u
+# define ReadDataById               0u
+# define WriteDataByIdentifier      0u
+# define WriteDataById              0u
+# define RoutineControl             0u
+# define RequestDownload            0u
+# define RequestUpload              0u
+# define TransferData               0u
+# define RequestTransferExit        0u
+# define DefaultSession             0u
+# define ProgrammingSession         0u
+# define HardReset                  0u
+# define RequestSeed                0u
+# define SendKey                    0u
+# define SecAccessSeed              0u
+# define SecAccessKey               0u
+# define ZeroSubFunction            0u
+# define StartRoutine               0u
+# define EraseMemory                0u
+# define RcEraseMemory              0u
+# define CheckProgDep               0u
+# define RcCheckProgDep             0u
+# define ActivateSbl                0u
+# define RcActivateSbl              0u
+# define CheckValidApp              0u
+#if ( SEC_SECURITY_CLASS_VERIFY == SEC_CLASS_CCC )
+# define TokenDownload              0u
+#endif
+# define RcCheckValidApp            0u
+# if defined( FBL_DIAG_ENABLE_UPDATE_SEC_BYTES )
+#  define UpdateSecBytes            0u
+#  define RcUpdateSecBytes          0u
+# endif
+# if defined( FBL_DIAG_ENABLE_UPLOAD )
+# define TransferDataDownload       0u
+# define TransferDataUpload         0u
+# endif
+# define ServiceCheck               0u
+# define SubFctCheck                0u
+# define TransferDataCheck          0u
+# define SubRoutineCheck            0u
+# define NonSubFctCheck             0u
+# define RcTypeCheck                0u
+#endif
+#endif /* FBL_DIAG_DEF */
+
+/* Increase compatibility with certain preprocessors */
+#if defined( None )
+#else
+# define None                       0xFFu
+#endif
+
+/*  LEVEL 0                                         Name                       Parent                    First Child                Last Child                 Buffer Position           ID                                        Main Handler Index    Checks             Set                                                                                          Unset                              Add                                                             Clear                                                                                             Clear Fail                                                                                        Minimum Request Length                                                     Maximum Request Length                                                                           */
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( Root                     , None                    , DiagnosticSessionControl , RequestTransferExit      , kDiagFmtServiceId       , 0x00                                    , None                , ServiceCheck     , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , 0u                                                                       , kDiagRqlUnlimited                                                                                    )
+#include "fbl_diag.imp"
+
+/*  LEVEL 1                                         Name                       Parent                    First Child                Last Child                 Buffer Position           ID                                        Main Handler Index    Checks             Set                                                                                          Unset                              Add                                                             Clear                                                                                             Clear Fail                                                                                        Minimum Request Length                                                     Maximum Request Length                                                                           */
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( DiagnosticSessionControl , Root                    , DefaultSession           , ProgrammingSession       , kDiagFmtSubparam        , kDiagSidDiagnosticSessionControl        , None                , SubFctCheck      , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateFirstDownloadReq)                                  , (kDiagStateSecurityKeyAll | kDiagStateSecurityAccessAll)                                        , (kDiagStateNone)                                                                                , kDiagRqlSubfunctionService                                               , kDiagRqlUnlimited                                                                                    )
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( EcuReset                 , Root                    , HardReset                , HardReset                , kDiagFmtSubparam        , kDiagSidEcuReset                        , None                , SubFctCheck      , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlSubfunctionService                                               , kDiagRqlUnlimited                                                                                    )
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( SecurityAccess           , Root                    , RequestSeed              , SendKey                  , kDiagFmtSubparam        , kDiagSidSecurityAccess                  , None                , SubFctSecCheck   , (kDiagStateNone)                                                                           , (kDiagStateSessionDefault)       , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateSecurityKeyAll)                                                                      , kDiagRqlSubfunctionService                                               , kDiagRqlUnlimited                                                                                    )
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( TesterPresent            , Root                    , ZeroSubFunction          , ZeroSubFunction          , kDiagFmtSubparam        , kDiagSidTesterPresent                   , None                , SubFctCheck      , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlSubfunctionService                                               , kDiagRqlUnlimited                                                                                    )
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( ReadDataByIdentifier     , Root                    , None                     , None                     , kDiagFmtDataIdHigh      , kDiagSidReadDataByIdentifier            , ReadDataById        , NonSubFctCheck   , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlMinReadDataByIdentifier                                          , kDiagRqlMaxReadDataByIdentifier                                                                      )
+#include "fbl_diag.imp"
+
+#if defined( FBL_DIAG_ENABLE_WRITE_DATA_BY_IDENTIFIER )
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( WriteDataByIdentifier    , Root                    , None                     , None                     , kDiagFmtDataIdHigh      , kDiagSidWriteDataByIdentifier           , WriteDataById       , NonSubFctCheck   , (kDiagStateSessionProgramming | kDiagStateSecurityAccess01)                                , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlWriteDataByIdentifier                                            , kDiagRqlUnlimited                                                                                    )
+# include "fbl_diag.imp"
+#endif /* FBL_DIAG_ENABLE_WRITE_DATA_BY_IDENTIFIER */
+
+#if defined( FBL_ENABLE_USERROUTINE )
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( RoutineControl           , Root                    , ActivateSbl              , CheckProgDep             , kDiagFmtSubRoutineIdHigh, kDiagSidRoutineControl                  , RoutineControl      , SubRoutineCheck  , (kDiagStateSessionProgramming)                                                             , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlRoutineControl                                                   , kDiagRqlUnlimited                                                                                    )
+#else
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( RoutineControl           , Root                    , ActivateSbl              , CheckProgDep             , kDiagFmtSubRoutineIdHigh, kDiagSidRoutineControl                  , None                , SubRoutineCheck  , (kDiagStateSessionProgramming)                                                             , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlRoutineControl                                                   , kDiagRqlUnlimited                                                                                    )
+#endif /* FBL_ENABLE_USERROUTINE */
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( RequestDownload          , Root                    , None                     , None                     , kDiagFmtSubparam        , kDiagSidRequestDownload                 , RequestDownload     , NonSubFctCheck   , (kDiagStateSessionProgramming | kDiagStateSecurityAccess01)                                , (kDiagStateNone)                 , (kDiagStateTransferDataAllowed)                               , (kDiagStateFirstDownloadReq | kDiagStateTransferDataSucceeded)                                  , (kDiagStateTransferDataAllowed | kDiagStateTransferDataSucceeded)                               , kDiagRqlRequestDownload + kDiagSubMinLengthFormat + kDiagSubMinAddrFormat, kDiagRqlRequestDownload + kDiagSubMaxLengthFormat + kDiagSubMaxAddrFormat                            )
+#include "fbl_diag.imp"
+
+#if defined( FBL_DIAG_ENABLE_UPLOAD )
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( RequestUpload            , Root                    , None                     , None                     , kDiagFmtSubparam        , kDiagSidRequestUpload                   , RequestUpload       , NonSubFctCheck   , (kDiagStateSessionProgramming | kDiagStateSecurityAccess01)                                , (kDiagStateTransferDataAllowed)  , (kDiagStateTransferDataAllowed | kDiagStateTransferDataUpload), (kDiagStateTransferDataSucceeded)                                                               , (kDiagStateTransferDataAllowed | kDiagStateTransferDataSucceeded | kDiagStateTransferDataUpload), kDiagRqlRequestUpload + kDiagSubMinLengthFormat + kDiagSubMinAddrFormat  , kDiagRqlRequestUpload + kDiagSubMaxLengthFormat + kDiagSubMaxAddrFormat                              )
+# include "fbl_diag.imp"
+
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( TransferData             , Root                    , TransferDataDownload     , TransferDataUpload       , kDiagFmtSequenceCnt     , kDiagSidTransferData                    , None                , TransferDataCheck, (kDiagStateSessionProgramming | kDiagStateTransferDataAllowed)                             , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateTransferDataSucceeded)                                                               , (kDiagStateTransferDataAllowed | kDiagStateTransferDataSucceeded | kDiagStateTransferDataUpload), kDiagRqlTransferDataUpload                                               , kDiagRqlUnlimited                                                                                    )
+# include "fbl_diag.imp"
+
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( RequestTransferExit      , Root                    , None                     , None                     , kDiagFmtSubparam        , kDiagSidRequestTransferExit             , RequestTransferExit , NonSubFctCheck   , (kDiagStateSessionProgramming | kDiagStateTransferDataAllowed)                             , (kDiagStateNone)                 , (kDiagStateTransferDataSucceeded)                             , (kDiagStateTransferDataAllowed | kDiagStateTransferDataSucceeded | kDiagStateTransferDataUpload), (kDiagStateTransferDataAllowed | kDiagStateTransferDataSucceeded | kDiagStateTransferDataUpload), kDiagRqlRequestTransferExit                                              , kDiagRqlRequestTransferExit                                                                          )
+# include "fbl_diag.imp"
+#else
+# if defined( FBL_ENABLE_UNALIGNED_DATA_TRANSFER )
+#  define FBL_DIAG_STATE_RESULT FBL_DIAG_STATE_DEF( TransferData             , Root                    , None                     , None                     , kDiagFmtSubparam        , kDiagSidTransferData                    , TransferDataDownload, NonSubFctCheck   , (kDiagStateSessionProgramming | kDiagStateTransferDataAllowed)                             , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateTransferDataSucceeded)                                                               , (kDiagStateTransferDataAllowed | kDiagStateTransferDataSucceeded)                               , kDiagRqlTransferDataDownload                                             , (FBL_DIAG_BUFFER_LENGTH - 1u)                                                                         )
+# else
+#  define FBL_DIAG_STATE_RESULT FBL_DIAG_STATE_DEF( TransferData             , Root                    , None                     , None                     , kDiagFmtSubparam        , kDiagSidTransferData                    , TransferDataDownload, NonSubFctCheck   , (kDiagStateSessionProgramming | kDiagStateTransferDataAllowed)                             , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateTransferDataSucceeded)                                                               , (kDiagStateTransferDataAllowed | kDiagStateTransferDataSucceeded)                               , kDiagRqlTransferDataDownload                                             , ((kDiagRqlTransferDataDownload - 1u) + ((FBL_DIAG_BUFFER_LENGTH - 2u) & (~(FBL_MAX_SEGMENT_SIZE - 1u)))))
+# endif /* FBL_ENABLE_UNALIGNED_DATA_TRANSFER */
+# include "fbl_diag.imp"
+
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( RequestTransferExit      , Root                    , None                     , None                     , None                    , kDiagSidRequestTransferExit             , RequestTransferExit , NonSubFctCheck   , (kDiagStateSessionProgramming | kDiagStateTransferDataAllowed)                             , (kDiagStateNone)                 , (kDiagStateTransferDataSucceeded)                             , (kDiagStateTransferDataAllowed | kDiagStateTransferDataSucceeded)                               , (kDiagStateTransferDataAllowed | kDiagStateTransferDataSucceeded)                               , kDiagRqlRequestTransferExit                                              , kDiagRqlRequestTransferExit                                                                          )
+# include "fbl_diag.imp"
+#endif /* FBL_DIAG_ENABLE_UPLOAD */
+
+/*  LEVEL 2                                         Name                       Parent                    First Child                Last Child                 Buffer Position           ID                                        Main Handler Index    Checks             Set                                                                                          Unset                              Add                                                             Clear                                                                                             Clear Fail                                                                                        Minimum Request Length                                                     Maximum Request Length                                                                           */
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( DefaultSession           , DiagnosticSessionControl, None                     , None                     , None                    , kDiagSubDefaultSession                  , DefaultSession      , None             , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlDiagnosticSessionControl                                         , kDiagRqlDiagnosticSessionControl                                                                     )
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( ProgrammingSession       , DiagnosticSessionControl, None                     , None                     , None                    , kDiagSubProgrammingSession              , ProgrammingSession  , None             , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlDiagnosticSessionControl                                         , kDiagRqlDiagnosticSessionControl                                                                     )
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( HardReset                , EcuReset                , None                     , None                     , None                    , kDiagSubHardReset                       , EcuReset            , None             , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlEcuReset                                                         , kDiagRqlEcuReset                                                                                     )
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( RequestSeed              , SecurityAccess          , None                     , None                     , None                    , kDiagSubRequestSeed                     , SecAccessSeed       , None             , (kDiagStateNone)                                                                           , (kDiagStateSecurityAccessDelay01), (kDiagStateSecurityKey01)                                     , (kDiagStateSecurityKeyAll)                                                                      , (kDiagStateNone)                                                                                , kDiagRqlSecurityAccessSeed                                               , kDiagRqlSecurityAccessSeed                                                                           )
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( SendKey                  , SecurityAccess          , None                     , None                     , None                    , kDiagSubSendKey                         , SecAccessKey        , None             , (kDiagStateSecurityKey01)                                                                  , (kDiagStateSecurityAccessDelay01), (kDiagStateSecurityAccess01)                                  , (kDiagStateSecurityKeyAll | kDiagStateSecurityAccessAll)                                        , (kDiagStateNone)                                                                                , kDiagRqlSecurityAccessKey                                                , kDiagRqlSecurityAccessKey                                                                            )
+#include "fbl_diag.imp"
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( ZeroSubFunction          , TesterPresent           , None                     , None                     , None                    , kDiagSubZeroSubFunction                 , TesterPresent       , None             , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlTesterPresent                                                    , kDiagRqlTesterPresent                                                                                )
+#include "fbl_diag.imp"
+
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( ActivateSbl              , RoutineControl          , StartRoutine             , StartRoutine             , kDiagFmtSubparam        , SPLIT_SHORT(kDiagRoutineIdActivateSbl)  , RcActivateSbl       , RcTypeCheck      , (kDiagStateSecurityAccess01)                                                               , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlRcActivateSbl                                                    , kDiagRqlRcActivateSbl                                                                                )
+#include "fbl_diag.imp"
+
+
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( CheckValidApp            , RoutineControl          , StartRoutine             , StartRoutine             , kDiagFmtSubparam        , SPLIT_SHORT(kDiagRoutineIdCheckValidApp), RcCheckValidApp     , RcTypeCheck      , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateFirstDownloadReq)                                  , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlRcCheckValidApp                                                  , kDiagRqlRcCheckValidApp                                                                              )
+#include "fbl_diag.imp"
+
+#if ( SEC_SECURITY_CLASS_VERIFY == SEC_CLASS_CCC )
+# if defined( FBL_ENABLE_TOKEN_DOWNLOAD_HANDLING )
+#  define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( TokenDownload            , RoutineControl          , StartRoutine             , StartRoutine             , kDiagFmtSubparam        , SPLIT_SHORT(kDiagRoutineIdTokenDownload), RcTokenDownload     , RcTypeCheck      , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlRcTokenDownloadMin                                               , kDiagRqlRcTokenDownloadMax                                                                           )
+#  include "fbl_diag.imp"
+# endif
+#endif
+
+
+#if defined( FBL_DIAG_ENABLE_UPDATE_SEC_BYTES )
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( UpdateSecBytes           , RoutineControl          , StartRoutine             , StartRoutine             , kDiagFmtSubparam        , SPLIT_SHORT(kDiagRoutineIdUpdateSecBytes), RcUpdateSecBytes   , RcTypeCheck      , (kDiagStateSecurityAccess01)                                                               , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlRcUpdateSecBytes                                                 , kDiagRqlRcUpdateSecBytes                                                                             )
+# include "fbl_diag.imp"
+#endif /* FBL_DIAG_ENABLE_UPDATE_SEC_BYTES */
+
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( EraseMemory              , RoutineControl          , StartRoutine             , StartRoutine             , kDiagFmtSubparam        , SPLIT_SHORT(kDiagRoutineIdEraseMemory)  , RcEraseMemory       , RcTypeCheck      , (kDiagStateSecurityAccess01)                                                               , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateFirstDownloadReq)                                                                    , (kDiagStateNone)                                                                                , kDiagRqlRcEraseMemory                                                    , kDiagRqlRcEraseMemory                                                                                )
+#include "fbl_diag.imp"
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( CheckProgDep             , RoutineControl          , StartRoutine             , StartRoutine             , kDiagFmtSubparam        , SPLIT_SHORT(kDiagRoutineIdCheckProgDep) , RcCheckProgDep      , RcTypeCheck      , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlRcCheckProgDep                                                   , kDiagRqlRcCheckProgDep                                                                               )
+#include "fbl_diag.imp"
+
+/*  LEVEL 3                                         Name                       Parent                    First Child                Last Child                 Buffer Position           ID                                        Main Handler Index    Checks             Set                                                                                          Unset                              Add                                                             Clear                                                                                             Clear Fail                                                                                        Minimum Request Length                                                     Maximum Request Length                                                                           */
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+#define FBL_DIAG_STATE_RESULT   FBL_DIAG_STATE_DEF( StartRoutine             , None                    , None                     , None                     , None                    , kDiagSubStartRoutine                    , None                , None             , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlRoutineControl                                                   , kDiagRqlUnlimited                                                                                    )
+#include "fbl_diag.imp"
+
+
+#if defined( FBL_DIAG_ENABLE_UPLOAD )
+# if defined( FBL_ENABLE_UNALIGNED_DATA_TRANSFER )
+#  define FBL_DIAG_STATE_RESULT FBL_DIAG_STATE_DEF( TransferDataDownload     , TransferData            , None                     , None                     , None                    , kDiagSidTransferData                    , TransferDataDownload, None             , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlTransferDataDownload                                             , (FBL_DIAG_BUFFER_LENGTH - 1u)                                                                         )
+# else
+#  define FBL_DIAG_STATE_RESULT FBL_DIAG_STATE_DEF( TransferDataDownload     , TransferData            , None                     , None                     , None                    , kDiagSidTransferData                    , TransferDataDownload, None             , (kDiagStateNone)                                                                           , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlTransferDataDownload                                             , ((kDiagRqlTransferDataDownload - 1u) + ((FBL_DIAG_BUFFER_LENGTH - 2u) & (~(FBL_MAX_SEGMENT_SIZE - 1u)))))
+# endif /* FBL_ENABLE_UNALIGNED_DATA_TRANSFER */
+# include "fbl_diag.imp"
+
+# define FBL_DIAG_STATE_RESULT  FBL_DIAG_STATE_DEF( TransferDataUpload       , TransferData            , None                     , None                     , None                    , kDiagSidTransferData                    , TransferDataUpload  , None             , (kDiagStateTransferDataUpload)                                                             , (kDiagStateNone)                 , (kDiagStateNone)                                              , (kDiagStateNone)                                                                                , (kDiagStateNone)                                                                                , kDiagRqlTransferDataUpload                                               , kDiagRqlTransferDataUpload                                                                           )
+# include "fbl_diag.imp"
+#endif /* FBL_DIAG_ENABLE_UPLOAD */
+
+/***********************************************************************************************************************
+ *  END OF FILE: FBL_DIAG.DEF
+ **********************************************************************************************************************/

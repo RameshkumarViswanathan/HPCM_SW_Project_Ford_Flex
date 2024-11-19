@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00048.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>ActiveEcuC</SHORT-NAME>
+      <ELEMENTS>
+        <ECUC-MODULE-CONFIGURATION-VALUES UUID="4c05dfdb-d7ea-471c-b416-846d025bbec4">
+          <SHORT-NAME>Smh</SHORT-NAME>
+          <DEFINITION-REF DEST="ECUC-MODULE-DEF">/MICROSAR/Smh</DEFINITION-REF>
+          <IMPLEMENTATION-CONFIG-VARIANT>VARIANT-LINK-TIME</IMPLEMENTATION-CONFIG-VARIANT>
+          <MODULE-DESCRIPTION-REF DEST="BSW-IMPLEMENTATION">/MICROSAR/Smh_Impl</MODULE-DESCRIPTION-REF>
+          <CONTAINERS>
+            <ECUC-CONTAINER-VALUE UUID="6aa1e15a-e5f1-4bcb-81d6-767929f1fe68">
+              <SHORT-NAME>SmhGeneral</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhGeneral</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhGeneral/SmhWatchdogCycleCount</DEFINITION-REF>
+                  <VALUE>32</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhGeneral/SmhProvidevSecPrimRandomFunction</DEFINITION-REF>
+                  <VALUE>true</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/Smh/SmhGeneral/SmhOperationMode</DEFINITION-REF>
+                  <VALUE>PRODUCTION</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhGeneral/SmhCryptographicKeysLocatedInRAM</DEFINITION-REF>
+                  <VALUE>false</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhGeneral/SmhSaveRestoreContext</DEFINITION-REF>
+                  <VALUE>false</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="3087ede7-7568-469d-a2ff-531a35687d08">
+              <SHORT-NAME>SmhSeedKey</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhSeedKey</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhKeyTimeout</DEFINITION-REF>
+                  <VALUE>100</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhCallCycle</DEFINITION-REF>
+                  <VALUE>10</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="6d395329-eee7-435c-b670-78afcedaf73a">
+                  <SHORT-NAME>SmhKeyConfig</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhSeedKey/SmhKeyConfig</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhKeyConfig/SmhKeyConstant</DEFINITION-REF>
+                      <VALUE>4294967295</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhKeyConfig/SmhKeyLength</DEFINITION-REF>
+                      <VALUE>4</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhKeyConfig/SmhKeyType</DEFINITION-REF>
+                      <VALUE>HIS</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhKeyConfig/SmhExternalComparison</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhKeyConfig/SmhSecretKeyLength</DEFINITION-REF>
+                      <VALUE>0</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhKeyConfig/SmhExtendedApi</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhKeyConfig/SmhAsymmetric</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="ac75e8a0-9879-49a5-91f1-2204ad098cf0">
+                  <SHORT-NAME>SmhSeedConfig</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhSeedKey/SmhSeedConfig</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhSeedConfig/SmhSeedLength</DEFINITION-REF>
+                      <VALUE>4</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhSeedConfig/SmhSeedType</DEFINITION-REF>
+                      <VALUE>HIS</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <SUB-CONTAINERS>
+                    <ECUC-CONTAINER-VALUE UUID="60fd947c-128d-42a5-ac00-ee6c709e65c4">
+                      <SHORT-NAME>SmhSeedGeneration</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-CHOICE-CONTAINER-DEF">/MICROSAR/Smh/SmhSeedKey/SmhSeedConfig/SmhSeedGeneration</DEFINITION-REF>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE UUID="08c97413-1645-48a7-9207-da8862109c7a">
+                          <SHORT-NAME>SmhLcg</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhSeedKey/SmhSeedConfig/SmhSeedGeneration/SmhLcg</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhSeedConfig/SmhSeedGeneration/SmhLcg/SmhMultiplier</DEFINITION-REF>
+                              <VALUE>2147001325</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhSeedKey/SmhSeedConfig/SmhSeedGeneration/SmhLcg/SmhIncrement</DEFINITION-REF>
+                              <VALUE>715136305</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                  </SUB-CONTAINERS>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="3a368e4c-d0e3-4065-8970-38bcb8006884">
+              <SHORT-NAME>SmhCryptographicKeys</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhElementIdRSAPublicExponent</DEFINITION-REF>
+                  <VALUE>161</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhElementIdRSAModulus</DEFINITION-REF>
+                  <VALUE>160</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhElementIdRSAPrivateExponent</DEFINITION-REF>
+                  <VALUE>162</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="76740f78-d897-4709-b1cd-7db45f39b2a8">
+                  <SHORT-NAME>AesKey</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhDescription</DEFINITION-REF>
+                      <VALUE>Decryption key for security class AAA</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/AesKeyValue</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/AesIvValue</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="c3e7880c-96c7-47e5-8bbf-f3e9cfef49d2">
+                  <SHORT-NAME>ClassCCC_Rsa2048Key</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhDescription</DEFINITION-REF>
+                      <VALUE>Public key for RSA (2048 Bits)</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/RsaKey2048ExpValue</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/RsaKey2048ModValue</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="003bcac8-c348-44ef-9756-0fc97e7f7226">
+                  <SHORT-NAME>ClassCCC_Rsa3072Key</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhDescription</DEFINITION-REF>
+                      <VALUE>Public key for RSA (3072 Bits)</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/RsaKey3072ExpValue</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/RsaKey3072ModValue</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="15a16e8f-7043-4d31-8902-ba699ab93e7e">
+                  <SHORT-NAME>AesKeyValue</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>00112233445566778899aabbccddeeff</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE>AesKey</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Aes128_Key</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="fadc98df-f4c4-43ef-990a-85e961543bc1">
+                  <SHORT-NAME>RsaKey2048ExpValue</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE>Exp</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>00010001</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Signature_Rsa2048_Exp</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="a492d59c-b90a-4d82-9042-c2348c7fcdf7">
+                  <SHORT-NAME>RsaKey2048ModValue</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE>Mod</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>B1C5BE469A4F56098B1B4EC0B51502B0E89C147A8F769708078D3AA395EC97CD76848C9D9A6E00C3F2C1CBE35AA5FFD9C06CAAFDE16A61BF06E415BDA6D52B5737188B01B609292F08AF9760ED62316E006655631A7EF9B23DBDD4A5F4F6F6C87B6575DC40D05E75451DD394583D89C92380AFB598C77564D135281CA69B725CD272DAB478FE330DF9D3136D57597F7F40E965EDF327C72986D80286063CC9AA165BBDCE00DC0E67445A62554D66C75775174F575CA9E2F648EBA97F0B261BA6DF918C535C0430AF045BAD7F41BE01EE8F891825D541434D8F429FA74FAC7AF4A00D95F07D1C7F5DFAE94A468CD5351E1B0C15E9F52FA8F101B17CF784632D75</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Signature_Rsa2048_Mod</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="7d73c41f-b6f9-4ed5-b277-dc0909f80b80">
+                  <SHORT-NAME>RsaKey3072ExpValue</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE>Exp</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>00010001</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Signature_Rsa3072_Exp</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="933e58ca-842e-4201-a3e6-8b4af33723a1">
+                  <SHORT-NAME>RsaKey3072ModValue</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE>Mod</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>D27DA65AF1BE1B2938258AC85EA5ABBCBE39296923562764F65EB017998D17105DF62D9D8070F44622BB7488D19F65A6EF829FD59CF02A702C3216C097BED86665FE9252797982B9FE2F168A23EA16AA7DEF98E1DC0A75DB23ED625F506478D1879887A40B8C762E6E7693E70B4642F863594842DE66539ABA12B80EBDA19D99D94F9EC6A18E9EDC2EAF381D6A695DF49E3006EB2F739467BA5D34070E95DC618BA712D816C47A0D2470B7189ACC403FC6E2572CAD7E1E40DE7158586EF34A806D2528BD481B30E79D430052103BE5A44C31C3E4EBF23708FA4F0428C9FD14429014CB6486008B44A2A8A1CC146296AA99CC2E7B4D3CF78E7103379890545FF105CE50E82AC5FEF0A5DF43CB34625427BA57E7F174BC1E3ADA54D5F02B8A7EBDDB13C88A91C1F8FAFDDB0C67F17005194A7849AFD9149115A529F882D16429AC07F216B5648EBCEB07ADEE0FE53237BBE9224A9D21B353C15A2F03F454F902CE18D89F3B4C64186FC41D9FB2D2DB1F425A8CDB7D9093800A0BBD3639975BD1FF</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Signature_Rsa3072_Mod</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="37e0a0d0-4720-421b-9695-0cf3b270490d">
+                  <SHORT-NAME>AesIvValue</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE>AesIV</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>00000000000000000000000000000000</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Aes128_IV</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="53b2b1e6-6d9f-4748-a7d6-7f5d71efcc72">
+                  <SHORT-NAME>SecAccess_AesKey</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhDescription</DEFINITION-REF>
+                      <VALUE>Decryption key for security access</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/Sec_Access_AesKeyValue</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/SecAccess_AesIvValue</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="f69dc892-1c80-4a63-83e3-c89e4f1b820c">
+                  <SHORT-NAME>Sec_Access_AesKeyValue</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>000102030405060708090A0B0C0D0E0F</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Aes128_Key</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="ed2b8525-9fcb-4445-a107-023d9bb04ae4">
+                  <SHORT-NAME>SecAccess_AesIvValue</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE>IV</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>00000000000000000000000000000000</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Aes128_IV</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="b632a470-8f90-4058-9f1a-add8ac580cf9">
+                  <SHORT-NAME>SecAccess_DiagSecH_Rsa2048Key</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhDescription</DEFINITION-REF>
+                      <VALUE>Public key for RSA (2048 Bits) used in DiagSecH</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/RsaKey2048ExpValue_DiagSecH</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKey/SmhKeyValueRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/RsaKey2048ModValue_DiagSecH</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="023786a2-b821-4328-98b6-c20d2cde2381">
+                  <SHORT-NAME>RsaKey2048ExpValue_DiagSecH</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE>Exp</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>00010001</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Signature_Rsa2048_Exp</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="44abc6ff-f22f-4c27-87b7-1bd436f76efe">
+                  <SHORT-NAME>RsaKey2048ModValue_DiagSecH</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhSuffix</DEFINITION-REF>
+                      <VALUE>Mod</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhValue</DEFINITION-REF>
+                      <VALUE>CBEF678443AFEF6C4BCD656318FAB06D230F63B7FEC924DA47C43D37DDE2FBE6BF1BD0EA28E7B2EC4D445CE5B44A95F9FC306D6FB20D52AAB49DB366322087E460AF44BA2605B19DECA55ECC4EE1BA33E375C38424E5340E4FE71601259B9E732180DB44490DE3BFA09ADF8E1E70834FE54E43D661F934A7FE2EACFF83262F4BC2B150C98B8E627897F2A9A72274A1B823BA06E86D9F04582168682C1E8BF45AA508ED6A5B66A830EDEBE52AF3159C1B40A4E20D60450A1F8D06A821D7D76D5D4B90F2A7213DF2B5D82C184FB1305739344BE6CA7B98983699F01D104A6ADE122BA608ACB1E31AEDCB1CFC5144D653450DEFB1B7F3F41F163103564A640D0C5F</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhDescription</DEFINITION-REF>
+                      <VALUE/>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyValue/SmhCryptoKeyElementRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Crypto/CryptoKeyElements/Crypto_30_LibCv_Fbl_Signature_Rsa2048_Mod</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="2b7250b4-a5bf-4eb2-b473-19e4622a23d9">
+                  <SHORT-NAME>SmhKeyOperations</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyOperations</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyOperations/SmhAccessKeyElementApis</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyOperations/SmhCopyKeyElementApi</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhCryptographicKeys/SmhKeyOperations/SmhCopyKeyApi</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="026efc49-61e1-4b52-82dc-30f70f1e0f1e">
+              <SHORT-NAME>SmhJob_AesDecryption</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="b9d888d5-244c-4b9b-9ba0-acfabd2fbb6b">
+                  <SHORT-NAME>SmhJob_AesDecryption</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob/SmhDecryption</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhDecryption/SmhCryptographicKeyRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/AesKey</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhDecryption/SmhCsmJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Csm/CsmJobs/CsmJob_DecryptionAes128NoneCbc</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="c22c3954-b8c3-4743-a050-bbea44d582ee">
+              <SHORT-NAME>SmhJob_Verify_ClassCCC</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="12a37f5a-f28f-4bd8-a1d8-1f55a3d650c6">
+                  <SHORT-NAME>SmhJob_Verify_ClassCCC</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob/SmhSignatureVerify</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhSignatureVerify/SmhCryptographicKeyRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/ClassCCC_Rsa2048Key</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhSignatureVerify/SmhCsmJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Csm/CsmJobs/CsmJob_SigAsymVer_RsaV15Sha256</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="94713802-a70c-49c5-ae87-21a9a8bc43fb">
+              <SHORT-NAME>SmhEncryption</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhEncryption</DEFINITION-REF>
+              <REFERENCE-VALUES>
+                <ECUC-REFERENCE-VALUE>
+                  <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhEncryption/SmhDecryptionDefaultConfig</DEFINITION-REF>
+                  <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhEncryption/SmhDecryptionConfig_Aes128</VALUE-REF>
+                </ECUC-REFERENCE-VALUE>
+                <ECUC-REFERENCE-VALUE>
+                  <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhEncryption/SmhEncryptionDefaultConfig</DEFINITION-REF>
+                  <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhEncryption/SmhEncryptionConfig_SecAccess</VALUE-REF>
+                </ECUC-REFERENCE-VALUE>
+              </REFERENCE-VALUES>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="81167c70-e6d2-4493-a42c-e58b521e9896">
+                  <SHORT-NAME>SmhDecryptionConfig_Aes128</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhEncryption/SmhDecryptionConfig</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/MICROSAR/Smh/SmhEncryption/SmhDecryptionConfig/SmhFunctionName</DEFINITION-REF>
+                      <VALUE>DecryptAes128</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhEncryption/SmhDecryptionConfig/SmhJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhJob_AesDecryption/SmhJob_AesDecryption</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="3bdd4963-64e6-4dd9-8b78-1c0b81f52ec7">
+                  <SHORT-NAME>SmhDecryptionConfig_SecAccess</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhEncryption/SmhDecryptionConfig</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/MICROSAR/Smh/SmhEncryption/SmhDecryptionConfig/SmhFunctionName</DEFINITION-REF>
+                      <VALUE>SecM_DecryptAes128PkcsCbc</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhEncryption/SmhDecryptionConfig/SmhJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhJob_SecAccess_AesDecryption/SmhJob_SecAccess_AesDecryption</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="d1041b79-7c69-4708-967f-6a4a17fe60ba">
+                  <SHORT-NAME>SmhEncryptionConfig_SecAccess</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhEncryption/SmhEncryptionConfig</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/MICROSAR/Smh/SmhEncryption/SmhEncryptionConfig/SmhFunctionName</DEFINITION-REF>
+                      <VALUE>SecM_EncryptAes128PkcsCbc</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhEncryption/SmhEncryptionConfig/SmhJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhJob_SecAccess_AesEncryption/SmhJob_SecAccess_AesEncryption</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="5aacd2f5-82c7-41a4-bab9-7a74244d1610">
+                  <SHORT-NAME>SmhEncryptionConfig</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhEncryption/SmhEncryptionConfig</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/MICROSAR/Smh/SmhEncryption/SmhEncryptionConfig/SmhFunctionName</DEFINITION-REF>
+                      <VALUE>SecM_EncryptRsaSha256Oaep</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhEncryption/SmhEncryptionConfig/SmhJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhJob_RsaSha256OaepEncryption/SmhJob_RsaSha256OaepEncryption</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="f8ba78e5-88ed-4ab2-a493-6efda9092626">
+              <SHORT-NAME>SmhJob_SecAccess_AesDecryption</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="104d539b-017c-499c-91e3-8267a66629d4">
+                  <SHORT-NAME>SmhJob_SecAccess_AesDecryption</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob/SmhDecryption</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhDecryption/SmhCryptographicKeyRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/SecAccess_AesKey</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhDecryption/SmhCsmJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Csm/CsmJobs/CsmJob_DecryptionAes128NoneCbc</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="329123b0-da0d-4d60-b90f-729bc4221502">
+              <SHORT-NAME>SmhJob_SecAccess_AesEncryption</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="e575dfbf-6419-414d-9e8f-32c66ab4352b">
+                  <SHORT-NAME>SmhJob_SecAccess_AesEncryption</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob/SmhEncryption</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhEncryption/SmhCryptographicKeyRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/SecAccess_AesKey</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhEncryption/SmhCsmJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Csm/CsmJobs/CsmJob_EncryptionAes128NoneCbc</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="be86539b-fdc5-4eba-b33e-86c312677d97">
+              <SHORT-NAME>SmhJob_Sha1</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="c68d0f85-fd8c-4a30-90bb-6f651f60d694">
+                  <SHORT-NAME>SmhJob_Sha1</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob/SmhHash</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhHash/SmhCsmJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Csm/CsmJobs/CsmJob_Sha1</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="56437c6c-9385-41e4-b604-2a8a803f712c">
+              <SHORT-NAME>SmhCrc</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCrc</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/Smh/SmhCrc/SmhCRCType</DEFINITION-REF>
+                  <VALUE>CRC_32</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="8ecf8ca8-f2eb-4e50-9fb0-b4ce1910f844">
+                  <SHORT-NAME>SmhCrc32</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhCrc/SmhCrc32</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/Smh/SmhCrc/SmhCrc32/SmhOptimization</DEFINITION-REF>
+                      <VALUE>SPEED</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhCrc/SmhCrc32/SmhInitialValue</DEFINITION-REF>
+                      <VALUE>4294967295</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhCrc/SmhCrc32/SmhPolynomial</DEFINITION-REF>
+                      <VALUE>3988292384</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/Smh/SmhCrc/SmhCrc32/SmhMode</DEFINITION-REF>
+                      <VALUE>REFLECTED</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhCrc/SmhCrc32/SmhComplementValue</DEFINITION-REF>
+                      <VALUE>4294967295</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="cb673e38-113c-4bd0-822a-42d564d67b22">
+              <SHORT-NAME>SmhJob_Verify_ClassCCC_DiagSecH</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="8df490c2-707e-4247-8584-fb034a91892f">
+                  <SHORT-NAME>SmhJob_Verify_ClassCCC_DiagSecH</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob/SmhSignatureVerify</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhSignatureVerify/SmhCryptographicKeyRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/SecAccess_DiagSecH_Rsa2048Key</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhSignatureVerify/SmhCsmJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Csm/CsmJobs/CsmJob_SigAsymVer_RsaPssSha256</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="9d017a89-3acb-47ae-ae10-44807934cef4">
+              <SHORT-NAME>SmhJob_RsaSha256OaepEncryption</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="2089ae70-80ea-4437-bb0b-95aee223e919">
+                  <SHORT-NAME>SmhJob_RsaSha256OaepEncryption</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhJob/SmhEncryption</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhEncryption/SmhCryptographicKeyRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhCryptographicKeys/SecAccess_DiagSecH_Rsa2048Key</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhJob/SmhEncryption/SmhCsmJobRef</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Csm/CsmJobs/CsmJob_EncryptionRsaSha256Oaep</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="2793c9bc-2640-4ce3-bc48-9b3c5dc9b2b6">
+              <SHORT-NAME>SmhVerification</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification</DEFINITION-REF>
+              <SUB-CONTAINERS>
+                <ECUC-CONTAINER-VALUE UUID="1c91a4b2-a3d1-412f-8c9d-9ab012723d22">
+                  <SHORT-NAME>SmhMonolithicVerification</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification</DEFINITION-REF>
+                  <PARAMETER-VALUES>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhCRCWritten</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-TEXTUAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhMemoryAccessMode</DEFINITION-REF>
+                      <VALUE>ADDRESS</VALUE>
+                    </ECUC-TEXTUAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhExportVerificationWrapper</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhOperationCountOfWrapper</DEFINITION-REF>
+                      <VALUE>4</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhCheckAddressRangeOverflow</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhAssertReadCount</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhCRCTotal</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhReadBufferSize</DEFINITION-REF>
+                      <VALUE>64</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                    <ECUC-NUMERICAL-PARAM-VALUE>
+                      <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhCRCWrittenGet</DEFINITION-REF>
+                      <VALUE>false</VALUE>
+                    </ECUC-NUMERICAL-PARAM-VALUE>
+                  </PARAMETER-VALUES>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-CHOICE-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhDefaultMonolithicVerificationConfig</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                  <SUB-CONTAINERS>
+                    <ECUC-CONTAINER-VALUE UUID="aa4b6ad7-7b9a-4752-a2dd-48126834b4df">
+                      <SHORT-NAME>SmhSecurityClassDDD</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD</DEFINITION-REF>
+                      <REFERENCE-VALUES>
+                        <ECUC-REFERENCE-VALUE>
+                          <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD/SmhDefaultSecurityClassDDDConfig</DEFINITION-REF>
+                          <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig</VALUE-REF>
+                        </ECUC-REFERENCE-VALUE>
+                      </REFERENCE-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE UUID="8f833180-150d-4a9e-bb18-6b55c6ecbf1f">
+                          <SHORT-NAME>SmhSecurityClassDDDConfig</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhFunctionName</DEFINITION-REF>
+                              <VALUE>SecM_VerificationClassDDD</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhIncludeAddressAndLengthInSignature</DEFINITION-REF>
+                              <VALUE>false</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhSignatureOffset</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhCRCOffset</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                          <REFERENCE-VALUES>
+                            <ECUC-REFERENCE-VALUE>
+                              <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhStreamVerificationConfig</DEFINITION-REF>
+                              <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig</VALUE-REF>
+                            </ECUC-REFERENCE-VALUE>
+                          </REFERENCE-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE UUID="c6e4e7ad-0e62-4628-8d30-d193577df2e9">
+                      <SHORT-NAME>SmhSecurityClassCCC</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassCCC</DEFINITION-REF>
+                      <REFERENCE-VALUES>
+                        <ECUC-REFERENCE-VALUE>
+                          <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassCCC/SmhDefaultSecurityClassCCCConfig</DEFINITION-REF>
+                          <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig</VALUE-REF>
+                        </ECUC-REFERENCE-VALUE>
+                      </REFERENCE-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE UUID="d1e94337-1a73-4134-9a84-db9651975486">
+                          <SHORT-NAME>SmhSecurityClassCCCConfig</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhFunctionName</DEFINITION-REF>
+                              <VALUE>SecM_Verification_ClassCCC</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhIncludeAddressAndLengthInSignature</DEFINITION-REF>
+                              <VALUE>false</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhSignatureOffset</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhCRCOffset</DEFINITION-REF>
+                              <VALUE>0</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                          <REFERENCE-VALUES>
+                            <ECUC-REFERENCE-VALUE>
+                              <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhMonolithicVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhStreamVerificationConfig</DEFINITION-REF>
+                              <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig</VALUE-REF>
+                            </ECUC-REFERENCE-VALUE>
+                          </REFERENCE-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                  </SUB-CONTAINERS>
+                </ECUC-CONTAINER-VALUE>
+                <ECUC-CONTAINER-VALUE UUID="5cc80bf9-23d2-4a6f-b233-88e7ed20cc14">
+                  <SHORT-NAME>SmhStreamVerification</SHORT-NAME>
+                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification</DEFINITION-REF>
+                  <REFERENCE-VALUES>
+                    <ECUC-REFERENCE-VALUE>
+                      <DEFINITION-REF DEST="ECUC-CHOICE-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhDefaultStreamVerificationConfig</DEFINITION-REF>
+                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig</VALUE-REF>
+                    </ECUC-REFERENCE-VALUE>
+                  </REFERENCE-VALUES>
+                  <SUB-CONTAINERS>
+                    <ECUC-CONTAINER-VALUE UUID="f2426d02-c853-4f47-8e07-4349f85f2b21">
+                      <SHORT-NAME>SmhSecurityClassDDD</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD</DEFINITION-REF>
+                      <REFERENCE-VALUES>
+                        <ECUC-REFERENCE-VALUE>
+                          <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhDefaultSecurityClassDDDConfig</DEFINITION-REF>
+                          <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig</VALUE-REF>
+                        </ECUC-REFERENCE-VALUE>
+                      </REFERENCE-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE UUID="d5a787d1-3b35-40cc-b3bd-9b59dcbaea43">
+                          <SHORT-NAME>SmhSecurityClassDDDConfig</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhFunctionName</DEFINITION-REF>
+                              <VALUE>SecM_VerifyClass_DDD</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhUpdateLengthOfHashedData</DEFINITION-REF>
+                              <VALUE>false</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhComputationOnly</DEFINITION-REF>
+                              <VALUE>false</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                          <SUB-CONTAINERS>
+                            <ECUC-CONTAINER-VALUE UUID="0e36f08d-dbf5-4592-ab5c-2d1fbe62480e">
+                              <SHORT-NAME>SmhSecurityClassDDDType</SHORT-NAME>
+                              <DEFINITION-REF DEST="ECUC-CHOICE-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhSecurityClassDDDType</DEFINITION-REF>
+                              <SUB-CONTAINERS>
+                                <ECUC-CONTAINER-VALUE UUID="873cfa30-82c3-43d9-9f2b-0339afa94388">
+                                  <SHORT-NAME>SmhHash</SHORT-NAME>
+                                  <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhSecurityClassDDDType/SmhHash</DEFINITION-REF>
+                                  <REFERENCE-VALUES>
+                                    <ECUC-REFERENCE-VALUE>
+                                      <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassDDD/SmhSecurityClassDDDConfig/SmhSecurityClassDDDType/SmhHash/SmhJobRef</DEFINITION-REF>
+                                      <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhJob_Sha1/SmhJob_Sha1</VALUE-REF>
+                                    </ECUC-REFERENCE-VALUE>
+                                  </REFERENCE-VALUES>
+                                </ECUC-CONTAINER-VALUE>
+                              </SUB-CONTAINERS>
+                            </ECUC-CONTAINER-VALUE>
+                          </SUB-CONTAINERS>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                    <ECUC-CONTAINER-VALUE UUID="99302cac-7cfc-4feb-a085-82640b5ab9da">
+                      <SHORT-NAME>SmhSecurityClassCCC</SHORT-NAME>
+                      <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC</DEFINITION-REF>
+                      <REFERENCE-VALUES>
+                        <ECUC-REFERENCE-VALUE>
+                          <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhDefaultSecurityClassCCCConfig</DEFINITION-REF>
+                          <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig</VALUE-REF>
+                        </ECUC-REFERENCE-VALUE>
+                      </REFERENCE-VALUES>
+                      <SUB-CONTAINERS>
+                        <ECUC-CONTAINER-VALUE UUID="eb652c54-dadd-40ea-93fa-434de28e0973">
+                          <SHORT-NAME>SmhSecurityClassCCCConfig</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhFunctionName</DEFINITION-REF>
+                              <VALUE>SecM_VerifyClass_CCC</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhUpdateLengthOfHashedData</DEFINITION-REF>
+                              <VALUE>false</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                          <REFERENCE-VALUES>
+                            <ECUC-REFERENCE-VALUE>
+                              <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhJobRef</DEFINITION-REF>
+                              <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhJob_Verify_ClassCCC/SmhJob_Verify_ClassCCC</VALUE-REF>
+                            </ECUC-REFERENCE-VALUE>
+                          </REFERENCE-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                        <ECUC-CONTAINER-VALUE UUID="5dece948-e625-4a86-bf70-6dfde7056f93">
+                          <SHORT-NAME>SmhSecurityClassCCCConfig_DiagSecH</SHORT-NAME>
+                          <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig</DEFINITION-REF>
+                          <PARAMETER-VALUES>
+                            <ECUC-TEXTUAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-FUNCTION-NAME-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhFunctionName</DEFINITION-REF>
+                              <VALUE>SecM_VerifySigRsaPssSha256</VALUE>
+                            </ECUC-TEXTUAL-PARAM-VALUE>
+                            <ECUC-NUMERICAL-PARAM-VALUE>
+                              <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhUpdateLengthOfHashedData</DEFINITION-REF>
+                              <VALUE>false</VALUE>
+                            </ECUC-NUMERICAL-PARAM-VALUE>
+                          </PARAMETER-VALUES>
+                          <REFERENCE-VALUES>
+                            <ECUC-REFERENCE-VALUE>
+                              <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/Smh/SmhVerification/SmhStreamVerification/SmhSecurityClassCCC/SmhSecurityClassCCCConfig/SmhJobRef</DEFINITION-REF>
+                              <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/ActiveEcuC/Smh/SmhJob_Verify_ClassCCC_DiagSecH/SmhJob_Verify_ClassCCC_DiagSecH</VALUE-REF>
+                            </ECUC-REFERENCE-VALUE>
+                          </REFERENCE-VALUES>
+                        </ECUC-CONTAINER-VALUE>
+                      </SUB-CONTAINERS>
+                    </ECUC-CONTAINER-VALUE>
+                  </SUB-CONTAINERS>
+                </ECUC-CONTAINER-VALUE>
+              </SUB-CONTAINERS>
+            </ECUC-CONTAINER-VALUE>
+          </CONTAINERS>
+        </ECUC-MODULE-CONFIGURATION-VALUES>
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00049.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>ActiveEcuC</SHORT-NAME>
+      <ELEMENTS>
+        <ECUC-MODULE-CONFIGURATION-VALUES UUID="97d12245-1426-45e9-a8fa-b4880c7a1f85">
+          <SHORT-NAME>FblHal</SHORT-NAME>
+          <DEFINITION-REF DEST="ECUC-MODULE-DEF">/MICROSAR/FblHal</DEFINITION-REF>
+          <IMPLEMENTATION-CONFIG-VARIANT>VARIANT-LINK-TIME</IMPLEMENTATION-CONFIG-VARIANT>
+          <MODULE-DESCRIPTION-REF DEST="BSW-IMPLEMENTATION">/MICROSAR/FblHal_Impl</MODULE-DESCRIPTION-REF>
+          <CONTAINERS>
+            <ECUC-CONTAINER-VALUE UUID="829de852-f19c-4c32-a642-f76d813f9345">
+              <SHORT-NAME>FblHalTricore</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/FblHal/FblHalTricore</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/FblHal/FblHalTricore/FblHalFlashBankPF0Size</DEFINITION-REF>
+                  <VALUE>KB_3072</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/FblHal/FblHalTricore/FblHalFlashBankPF1Size</DEFINITION-REF>
+                  <VALUE>KB_3072</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/FblHal/FblHalTricore/FblHalFlashBankPF2Size</DEFINITION-REF>
+                  <VALUE>KB_3072</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/FblHal/FblHalTricore/FblHalFlashBankPF3Size</DEFINITION-REF>
+                  <VALUE>KB_3072</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/FblHal/FblHalTricore/FblHalFlashBankPF4Size</DEFINITION-REF>
+                  <VALUE>KB_3072</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/FblHal/FblHalTricore/FblHalFlashBankPF5Size</DEFINITION-REF>
+                  <VALUE>KB_1024</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+            </ECUC-CONTAINER-VALUE>
+            <ECUC-CONTAINER-VALUE UUID="dc04b4c5-8adc-4dfd-95f2-225cbaee1620">
+              <SHORT-NAME>FblHalGeneral</SHORT-NAME>
+              <DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/FblHal/FblHalGeneral</DEFINITION-REF>
+              <PARAMETER-VALUES>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-BOOLEAN-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalECCSafeRead</DEFINITION-REF>
+                  <VALUE>true</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalFlashCodeBufferSize</DEFINITION-REF>
+                  <VALUE>2048</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define FBL_SFR_BASE_ADRESSES_PRECONFIGURED</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define FBL_PORT_BASE      0xF003A000u       /**&lt; Port handling base address */</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define FBL_PFI_BASE       0xA8080000u       /**&lt; PFI base address */</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define FBL_SCU_BASE       0xF0036000u       /**&lt; System control unit base address */</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define FBL_DMU_BASE       0xF8040000u       /**&lt; Data memory unit base address */</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define FBL_GPT12_BASE     0xF0001800u       /**&lt; GPT12 base address */</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define FBL_CPUSFR_BASE    0xF8800000u       /**&lt; CPU SFR base address */</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define FBL_STM_BASE       0xF0001000u       /**&lt; System timer module base address */</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define C_COMP_GNU_TRICORE_MULTICAN</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define V_COMP_GNU_TRICORE</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define V_CPU_TRICORE</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define C_CPUTYPE_32BIT</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define VGEN_ENABLE_CANFBL</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define V_SUPPRESS_EXTENDED_VERSION_CHECK</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define V_ENABLE_VSTDLIB_ASR_ABSTRACTION</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-TEXTUAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-STRING-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalDerivativeSpecificDefines</DEFINITION-REF>
+                  <VALUE>#define C_CPUTYPE_BITORDER_LSB2MSB</VALUE>
+                </ECUC-TEXTUAL-PARAM-VALUE>
+                <ECUC-NUMERICAL-PARAM-VALUE>
+                  <DEFINITION-REF DEST="ECUC-FLOAT-PARAM-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalTimerClockFreq</DEFINITION-REF>
+                  <VALUE>100000000</VALUE>
+                </ECUC-NUMERICAL-PARAM-VALUE>
+              </PARAMETER-VALUES>
+              <REFERENCE-VALUES>
+                <ECUC-REFERENCE-VALUE>
+                  <DEFINITION-REF DEST="ECUC-REFERENCE-DEF">/MICROSAR/FblHal/FblHalGeneral/FblHalTimerClockRef</DEFINITION-REF>
+                  <VALUE-REF DEST="ECUC-CONTAINER-VALUE">/Mcu/Mcu/McuModuleConfiguration/McuClockSettingConfig_0/McuClockReferencePoint_Timer</VALUE-REF>
+                </ECUC-REFERENCE-VALUE>
+              </REFERENCE-VALUES>
+            </ECUC-CONTAINER-VALUE>
+          </CONTAINERS>
+        </ECUC-MODULE-CONFIGURATION-VALUES>
+      </ELEMENTS>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

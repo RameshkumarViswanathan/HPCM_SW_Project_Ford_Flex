@@ -1,0 +1,73 @@
+# This file contains example configuration items.
+#
+# NOTE: You probably want to automate calculation of some of these values from
+# the readelf output, e.g. the memory sections and the SDA register values.
+
+# The target ECU identifier.
+	HardwareInfo:name,  MM11GV:Default
+
+# The password to use to encrypt the Tier-1 project information added to
+# the A2L file. This is the password that must be given to the OEM user so
+# that they can use the A2L file with EHOOKS-DEV.
+	Password,  test
+
+# A desciption string to go into the Tier-1 project information.
+	Description, Example Tier-1 Project XML File
+
+# External bypass is not (yet) supported
+	Additional_features, <NoExternalBypassSupport/>     # No SBB
+	bypass_attributes, isBypassContainer="true" period="<%= BYPASS %>"
+
+# Flash, for code and constants
+	FlashMemStart,0x0
+	FlashMemSize,65536
+
+# Calibration characteristic memory.
+	CharMemStart,0x0
+	CharMemSize,65536
+
+# RAM. Note this memory MUST be zeroed by the ECU startup code.
+	RamMemStart,0x0
+	RamMemSize,65536
+
+# Memory used for channel/vector (SOURCE/BUFFER_OFFSET) structures when
+# these must be located in RAM - e.g. when a ETK-S is used. Leave these
+# commented out if channel/vector structures should be located in
+# calibration characteristic memory.
+	#ChanVecMemStart,0xdeadbeef
+	#ChanVecMemSize,1234
+
+# The version of SBB, and the maximum number of service points. Leave
+# these commented out if SBB is not supported.
+	#ServiceBasedBypass:version, 3.1
+	#ServiceBasedBypass:maxServicePointNumber, 30
+
+# Additional target options.
+# The NumFindCallContextPasses target option controls how deeply
+# EHOOKS follows function calls. The higher the value the slower
+# EHOOKS will run but the more variable writes will be hooked.
+	TargetOption,NumFindCallContextPasses 3
+	TargetOption,InitAddressReg 0 0x60008000,
+	TargetOption,InitAddressReg 1 0xA0008000,
+	TargetOption,InitAddressReg 8 0xA0008000,
+	TargetOption,InitAddressReg 9 0x90008000
+
+# It's common to see arrays in the code that have been flattened out into
+# multiple scalar measurements (one per element) in the A2L. EHOOKS needs
+# a way of working out which measurements should be grouped and considered
+# as one array when analysing the software. Here we define regular
+# expressions that match such flattened measurements. See the EHOOKS-PREP
+# user manual for more information.
+	SparsePseudoArrayName:pattern,
+# Create an array for xxxx[]
+	# ^([a-zA-Z0-9_\.]+)\[[a-zA-Z0-9_]+\]$
+# Create an array for xxxx[][]
+	# ^([a-zA-Z0-9_\.]+)\[[a-zA-Z0-9_]+\]\[[a-zA-Z0-9_]+\]$
+# Create an array for xxxx[].yyyy
+	# ^([a-zA-Z0-9_\.]+)\[[a-zA-Z0-9_]+\]\.([a-zA-Z0-9_\.]+)$
+# Create an array for xxxx[].yyyy[]
+	# ^([a-zA-Z0-9_\.]+)\[[a-zA-Z0-9_]+\]\.([a-zA-Z0-9_\.]+)\[[a-zA-Z0-9_]+\]$
+# Create an array for xxxx[].yyyy[][]
+	# ^([a-zA-Z0-9_\.]+)\[[a-zA-Z0-9_]+\]\.([a-zA-Z0-9_\.]+)\[[a-zA-Z0-9_]+\]\[[a-zA-Z0-9_]+\]$
+# Create an array for xxxx[].yyyy[].zzzz
+	# ^([a-zA-Z0-9_\.]+)\[[a-zA-Z0-9_]+\]\.([a-zA-Z0-9_\.]+)\[[a-zA-Z0-9_]+\]\.([a-zA-Z0-9_\.]+)$

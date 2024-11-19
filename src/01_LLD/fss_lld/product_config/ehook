@@ -1,0 +1,364 @@
+#!/usr/bin/env perl
+# Description:	produce ehook xml file
+use 5.010001;
+use strict;
+use warnings FATAL => 'all';
+use autodie;
+use English;
+use POSIX;
+use Getopt::Long;
+
+my $version = '%version: 4 %';		# Special string updated by synergy
+$version =~ s/^.*? | %//g;
+our $VERSION = $version;
+use FindBin;
+push (@INC, $FindBin::RealBin);
+require readasam;
+alarm 120;
+require MM_common;
+
+sub node($);
+
+#--- main
+our $opt_config;
+our $opt_elf;
+our $opt_measurements;
+our $opt_processes;
+our $opt_template;
+Getopt::Long::Configure(qw(require_order no_pass_through));
+GetOptions(
+	'config|c=s',		# config csv
+	'elf|e=s',		# elf
+	'measurements|m=s',	# measurements list
+	'output|o=s',		# xml file (default stdout)
+	'processes|p=s',	# processe csv (function)
+	'template|T=s'		# xml template
+) or MM_common::help();
+if ((!defined $opt_config) or (!defined $opt_elf)
+	or (!defined $opt_measurements) or (!defined $opt_processes)
+	or (!defined $opt_template))
+{
+	die "lack of option(s). Try options -vvh$RS"
+}
+				# Get lists of scalar and array measurements
+my $project_ref = Readasam::readasam('PROJECT');
+my %data;
+my %array;
+my %scalar;
+				# Scans all MEASUREMENT of each MODULE
+foreach my $module_ref (@{$project_ref->{MODULE}})
+{
+	foreach my $element (@{$module_ref->{MEASUREMENT}})
+	{
+		my $Name = $element->{Name};
+			       # DISPLAY_IDENTIFIER for MM ASAP2 1.50
+		$Name = $element->{DISPLAY_IDENTIFIER}
+				if defined $element->{DISPLAY_IDENTIFIER};
+			       # SYMBOL_LINK for ASAP2 1.60 is prevalent
+		if (defined $element->{SYMBOL_LINK})
+		{
+			$Name = $element->{SYMBOL_LINK}{SymbolName};
+			die("malformed SYMBOL_LINK into $element->{Name}")
+							unless defined $Name
+		}
+		die("Duplicate $Name in a2l$RS") if (defined $array{$Name}) or
+						(defined $scalar{$Name});
+		if (defined $element->{MATRIX_DIM} or
+						defined $element->{ARRAY_SIZE})
+			{$array{$Name} = ''}
+		else	{$scalar{$Name} = ''}
+	}
+}
+my $input_file;
+				# Extract lists of valid measurements
+open(STDIN, '<', $opt_measurements);
+$input_file = do {local $/; <STDIN>};
+$input_file =~ s/\s*#.*//g;		# Remove comments
+$input_file =~ s{\w+}
+{
+	if (defined $array{$MATCH})
+		{push @{$data{ARRAY}}, $MATCH}
+	elsif (defined $scalar{$MATCH})
+		{push @{$data{SCALAR}}, $MATCH}
+	else	{warn "Measurement $MATCH absent in a2l$RS"}
+}eg;
+				# Extract from config csv file
+close(STDIN);
+open(STDIN, '<', $opt_config);
+while (<STDIN>)
+{
+			# Remove comments and blanks from head and tail
+	$_ =~ s/(\#.*|^\s*|\s*$)//g;
+				# Extract from csv, '\,' is not e separator
+	my ($name, @record) = split /\s*(?<!\\),\s*/;
+	push @{$data{CONFIG}{$name}}, $_ foreach (@record)
+}
+				# Extract lists of valid processes (functions)
+my %process;
+close(STDIN);
+open(STDIN, '<', $opt_processes);
+my $fr_count = 0;
+while (<STDIN>)
+{
+			# Remove comments and blanks from head and tail
+	$_ =~ s/(\#.*|^\s*|\s*$)//g;
+				# Extract from csv, '\,' is not a separator
+	next if $_ eq '';
+	my ($name, $raster, $period) = split /\s*(?<!\\),\s*/;
+	if ((!defined $raster) || ($raster eq ''))
+	{			# Set a raster for each process
+		$raster = "__FakeRaster$fr_count";
+		$fr_count++
+	}
+	$process{$name}{name} = $name;
+	$process{$name}{raster} = $raster;
+	$process{$name}{period} = $period if defined $period
+}
+close(STDIN);
+				# Get processes data from elf
+open(STDIN, "readelf --syms --wide $opt_elf|");
+while (<STDIN>)
+{
+	next if $NR <= 3;
+	chomp;
+	my ($Num, $Value, $Size, $Type, $Bind, $Vis, $Ndx, $Name) = split;
+	next if $Type ne 'FUNC';	#grep NOTYPE ${READ_ELF_FILE}
+	next if ! defined $Name;
+	next if ! defined $process{$Name};	# Not to be hooked
+	$process{$Name}{address} = "0x$Value";
+	$process{$Name}{size} = $Size
+}
+close(STDIN);
+open(STDIN, '<', $opt_template);
+my $xml = do {local $/; <STDIN>};
+$xml =~ s/<% *#(.+?)%>\R?//g;	# Remove comment's nodes
+node (\$xml);			# Substitute CONFIG, SCALAR and ARRAY
+				# Substitute FUNCTION's node
+my $config_field = '(?<attr_name>\w+)="<%=\s*FUNCTION(:(?<id>\w+))?\s*%>"';
+$xml =~ s
+{
+	[[:blank:]]*<(?'tag'\w+)
+	\s$config_field.*?
+	(/> | >.*?</\g{tag}>) \R?
+}
+{
+	my $node = $MATCH;
+	my $template_process_node = $node;
+	my $key = $+{attr_name};
+	$key = $+{id} if defined $+{id};
+	my $list = '';
+	foreach (values %process)	# Iterate on the node for each process
+	{
+		$node = $template_process_node;
+		$node =~ s{$config_field}
+		{
+			my $key = $+{attr_name};
+			$key = $+{id} if defined $+{id};
+			my $attribute = '';
+			$attribute = $+{attr_name} . '="' . $_->{$key} . '"'
+							if defined $_->{$key};
+			$attribute
+		}eg;
+		$list .= $node
+	}
+	$list
+}xseg;
+print $xml;
+
+#--- Manage a single node
+sub node($)
+{
+	my ($xml_ref) = @_;
+	my $tail = '';
+	my $end;
+	my $node;
+				# Substitute a node
+	$$xml_ref =~ s
+	{
+		(?'head'[[:blank:]]*)<
+		(?'tag'\w+)
+		(?'attributes'(\s+\w+=".*?")*\s*)
+		((?'stail'/>) | >(?'text'.*?)?</\g{tag}>)
+		(?'end'\R?)
+	}
+	{
+		my $head = $+{head};
+		my $tag = $+{tag};
+		my $attributes = $+{attributes};
+		my $stail = $+{stail};
+		my $end = $+{end};
+					# Recurse on text's subnode
+		my $text = '';
+		if (defined $+{text})
+		{
+			my $local_text = $+{text};
+			$local_text =~ s
+			{
+				[[:blank:]]*<
+				(?'tag'\w+)
+				(\s+\w+=".*?")*\s*
+				(/> | (>.*?)?</\g{tag}>)\R?
+			}
+			{
+				my $match = $MATCH;
+				node(\$match);
+				$match
+			}xeg;
+			$text = $local_text
+		}
+		$node = "${head}<${tag}${attributes}";
+		if (defined $stail)
+		{
+			$node .= "/>${end}"
+		}
+		else
+		{
+			$node .= ">${text}</${tag}>${end}"
+		}
+		my $defined = 1;
+		my $reference;
+		my @multiple_attribute;
+					# Substitute attributes
+		my $config_field =
+			qr/((?<attr_name>\w+)=(?<attr_del>"))?(?<value><%=\s*(?<selector>(CONFIG|SCALAR|ARRAY))(:(?<id>\w+))?\s*%>)\g{attr_del}?/;
+		$node =~ s{$config_field}
+		{
+			my $match = ${^MATCH};
+			my $selector = $+{selector};
+			my $name = $+{selector};
+			if ($name eq 'CONFIG')
+			{
+				$name = $tag;
+				$name .= ":$+{attr_name}"
+						if defined $+{attr_name};
+				$name = $+{id} if defined $+{id};
+				$reference = undef;
+				$reference = $data{CONFIG}{$name}
+						if defined $data{CONFIG}{$name}
+			}
+			else
+			{		# SCALAR, ARRAY
+				$reference = $data{$name}
+			}
+			my $array_lenght = 0;
+			$array_lenght = scalar @{$reference}
+							if defined $reference;
+			if ($array_lenght == 0)
+			{
+				warn "undefined '$name'. Node '$tag' " .
+						"removed$RS"  if $Carp::Verbose;
+				$defined = 0;
+				''
+			}
+			else
+			{
+				if ($array_lenght > 1)
+				{
+					warn "repeated multiple attribute "
+					. "'$name'. Node '$tag' removed$RS"
+						if defined
+							$multiple_attribute[0];
+					@multiple_attribute = @$reference;
+					$match
+				}
+				else
+				{
+					$match =~ s/$+{value}/@{$reference}[0]/;
+					$match
+				}
+			}
+		}esg;
+		if ($defined)
+		{
+			if (defined $reference and
+						defined $multiple_attribute[0])
+			{		# Multiple substitution of entire node
+				my $list = '';
+				$node =~ s{(?'head'.+?)$config_field(?'tail'.+)}
+				{
+					$list .= "$+{head}${_}$+{tail}"
+						foreach (@multiple_attribute)
+				}es;
+				$node = $list
+			}
+		}
+		else
+		{			# Node removed
+			$node = ''
+		}
+		$node
+	}xseg;
+}
+
+=head1 NAME
+
+ ehook - compose xml for e-hook
+
+=head1 SYNOPSIS
+
+ ehook options [a2l_file] (default is stdin)
+
+=head1 DESCRIPTION
+
+Produce an xml for e-hook file, based on the xml template provided.
+The template is merged with data from config, measurements and processes.
+Measurements and processes listed will be taken in account only if present
+, respectively, in the a2l and elf file.
+The data will be merged with the template based on special pseudo node
+B<<%= selector %>>. Valid selectors are:
+
+ CONFIG   config data
+ SCALAR   scalar measurements
+ ARRAY    array measurements
+ FUNCTION processes
+
+In the template the pseudo node can be an
+attribute value, text, a complete node or a comment node;
+comment node will not trasferred to the output; i.e.:
+
+ <Description name="<%= CONFIG %>"/>
+ <Password><%= CONFIG %></Password>
+ <%= CONFIG:extra %>
+ <% *#...%>
+
+CONFIG and FUNCTION selectors can be followed by B<:id>.
+The optional 'id' is the first field in the config or processes file.
+For text substitution the 'id' defaults to the node's 'tag'.
+For attribute substitution the 'id' defaults to: 'tag:attribute_name'
+with CONFIG, to: 'attribute_name' with FUNCTION.
+A single selector in a node can match an array (i.e. SCALAR will usually
+match multiple values); in this case the entire node will be replicated
+with one item per array element.
+
+FUNCTION selectors are subsituted after the others allowing a CONFIG to
+be substituted with a FUNCTION selectors.
+All FUNCTION selectors will be substituted in a node togheter
+corresponding to every requested value of a single function.
+
+A requested CONFIG value not present in the config file will led to the
+entire node removal.
+A requested FUNCTION attribute value not present in the processes file
+will led to the single attribute removal removal.
+
+Config and processes files have to be csv formatted.
+Spaces around fields are not part of the field.
+The first field is the identifier, following fields are the values.
+Two lines with the same identifier are equivalent to a single line with
+the fields concatenated.
+Processes file can have up to three field: name, raster and period.
+
+=head1 OPTIONS
+
+ -c --config file	config csv
+ -e --elf file		elf
+ -m --measurements file	measurements list
+ -p --processes file	processes csv (function)
+ -T --template file	xml template
+
+=head1 AUTOR
+
+TechM
+
+=head1 COPYRIGHT
+
+(c) Copyright 2022 

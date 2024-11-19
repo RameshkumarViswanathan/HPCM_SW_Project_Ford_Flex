@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RTAOS_Project version="1.0">
+  <Working name="Ford_Traction_Inverter_Configuration_v0000.arxml" />
+  <File name="Ford_Traction_Inverter_Configuration_v0000.arxml" />
+  <Options>
+    <Option name="BuildGui.LastBuildCommand">rtaosgen.exe --build:verbose --debug:assembler --build:clean --output:D:\home\user123\user\Mohan6_VectorSIP\21Dec23\15Dec23_CAN_merge_21stDec\25_Software_2\Release\src\01_LLD\fss_rtos --samples:[Includes]overwrite --include:D:\home\user123\user\Mohan6_VectorSIP\21Dec23\15Dec23_CAN_merge_21stDec\25_Software_2\Release\src\01_LLD\fss_rtos\Samples\Includes --include:D:\home\user123\user\Mohan6_VectorSIP\21Dec23\15Dec23_CAN_merge_21stDec\25_Software_2\Release\src\01_LLD\fss_rtos --include:C:\ETAS\RTA-OS Ford_Traction_Inverter_Configuration.rtaos</Option>
+    <Option name="BuildGui.GenSampleInc">TRUE</Option>
+    <Option name="BuildGui.AddSampleIncPath">TRUE</Option>
+    <Option name="BuildGui.OverwriteSampleInc">TRUE</Option>
+    <Option name="BuildGui.CleanRebuild">TRUE</Option>
+    <Option name="BuildGui.AddWorkingDirInc">TRUE</Option>
+    <Option name="BuildGui.Verbosity">verbose</Option>
+    <Option name="BuildGui.KeepListingFiles">TRUE</Option>
+    <Option name="BuildGui.IncludePaths">C:\ETAS\RTA-OS</Option>
+  </Options>
+</RTAOS_Project>

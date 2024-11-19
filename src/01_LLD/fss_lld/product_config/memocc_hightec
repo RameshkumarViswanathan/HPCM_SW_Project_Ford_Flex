@@ -1,0 +1,479 @@
+#!/usr/bin/perl -anw
+# Description:	MEMory OCCupation computing for hightec's compiler
+# Read local to global maps and NOLOADS from command linker file(s)
+# Read Memory Configuration from map
+# map file of of partial link passed before the final map will help to split
+# the final map data
+use 5.010001;
+use strict;
+use warnings FATAL => 'all';
+use autodie;
+use English;
+use POSIX;
+use Carp;
+use File::Basename;
+
+state %default_region;
+state $displacement;
+state $input_region;
+state $load_address_shift;
+state $max_length_region_name = 0;	# Only active and mirrored names
+state %mem_conf;
+state %mirror;
+state %no_load;
+state %prelink;
+state %region_map;
+state $region_name;
+state $section_out;
+state $stage;	# Analizing stage in the map file. Possible values:
+		# archives, discarded, aliases: unused
+		# mirrors:
+		# memconf: 
+		# maps: 
+		# region: every new memory region
+		# locate: the region description just after a region line
+sub store_all($$$$);
+sub cat_locator($);
+sub read_locator($);
+
+BEGIN
+{
+my $version = '%version: 19 %';		# Special string updated by synergy
+$version =~ s/^.*? | %//g;
+our $VERSION = $version;
+use FindBin;
+push (@INC, $FindBin::RealBin);
+require memocc;
+$stage = '';
+$displacement = 0
+}
+
+#--- Recursively include linker script in a single object
+sub cat_locator($)
+{
+my($locator) = @_;
+my $loc_h;
+open($loc_h, '<', $locator);
+my $content = do {local $RS; <$loc_h>};
+close($loc_h);
+my $rs = $/;				# Convert into local format
+$content =~ s/[\r\n]+/$rs/g;
+$content =~ s{/\*.*?\*/}{}sg;  	 # Remove comments
+$content =~ s{\bINCLUDE\s+(?'filename'[\w\\\/\.]*)}
+{
+	cat_locator($+{filename})
+}egx;
+return $content
+}
+
+#--- Read and decode a command linker file
+sub read_locator($)
+{
+my($locator) = @_;
+my $content = cat_locator($locator);
+			# Resolve CORE_SEC 
+$content =~ s{\bCORE_(?:ID\s*=\s*(?'cpu'\w+)|SEC\((?'section'[\.\w]+)\))}
+{
+	state $cpu;
+	if (defined $+{cpu})
+	{
+		if ($+{cpu} ne 'GLOBAL')
+			{$cpu = ".$+{cpu}"}
+		else	{$cpu = ''}
+	}
+	"${cpu}$+{section}" if defined $+{section}
+}egx;
+$content =~ s{			# Read out local to global maps
+	REGION_MAP.*?
+	ORIGIN\s*\((?'local'\w+)\).*?
+	ORIGIN\s*\((?'global'\w+)\)\s*
+	\)
+}
+{		# Region map association, name based
+	$region_map{$+{local}} = $+{global};
+	''
+}gmsex;
+		# Remove MEMORY to simplify search regular expressions
+$content =~ s/\bMEMORY\b\s*\{[^\}]*\}//;
+		# Remove numbers (at least following output section name)
+		# to simplify search regular expressions;
+		# numbers are sometimes wrongly surronded by parentesis
+$content =~ s/\(?\b(?:0x)?[[:xdigit:]]+\b\)?//g;
+		# Output section with NOLOAD type
+$content =~ s{(?'output_section_name'[.\w]+)\s*\((?'type'\w+)\)[^\{]*:.*?\}}
+{		# Noload sections names
+	my ($output_section_name, $type) = ($+{output_section_name}, $+{type});
+	$no_load{$output_section_name} = '' if $type eq 'NOLOAD';
+#	$no_allocable{$output_section_name} = '' if $type =~ /DSECT|COPY|INFO|OVERLAY/;
+	''
+}gmsex;
+		# Output section without 'AT>'
+$content =~ s{(?'output_section_name'[.\w]+)\s*:[^\{\}]*\{[^\}]*\}(?'load_area'[^\{]*\bAT[\s>])?}
+{		# Noload sections names
+	my ($output_section_name, $load_area) = ($+{output_section_name}, $+{load_area});
+	$no_load{$output_section_name} = '' unless defined $load_area;
+	''
+}gmsex;
+}
+#--- main code
+state $filename = '';		# Will count single file lines
+if ($filename ne $ARGV)
+{
+	$memocc::FNR_base = $NR - 1;
+	$filename = $ARGV
+}
+chomp;
+if ($_ eq '')
+{
+	$stage = 'region' if $stage eq 'locate';	# Section end
+	next
+}
+if ($_ eq 'Archive member included because of file (symbol)')
+{
+	$stage = 'archives';
+	next
+}
+if ($_ eq 'Discarded input sections')
+{
+	$stage = 'discarded';
+	next
+}
+if ($_ eq '----- BEGIN EXTENDED MAP LISTING -----')
+{
+	$stage = 'extended';
+	next
+}
+if ($_ eq 'Memory Configuration')
+{				# Discard next 2 lines, empty and header
+	die "last map file isn't the global one$RS" if %mem_conf;
+	die "$OS_ERROR reading input" unless defined <>;
+	die "$OS_ERROR reading input" unless defined <>;
+	$stage = 'memconf';
+	next
+}
+if ($_ eq 'List of aliases')
+{
+	$stage = 'aliases';
+	next
+}
+if ($_ eq 'Region Mirrors:')
+{
+	$stage = 'mirrors';
+	next
+}
+if ($_ eq 'Memory region maps:')
+{				# Discard next 2 lines, empty and header
+#	die "$OS_ERROR reading input" unless defined <>;
+#	die "$OS_ERROR reading input" unless defined <>;
+	$stage = 'maps';
+	next
+}
+if ($_ eq 'Linker script and memory map')
+{
+	my $new_name;
+	my $new_origin;
+	my $displacement;
+	while (my ($mem_from, $mem_data) = each %mem_conf)
+	{		# Translate data from %mem_conf to %memocc::memory
+		if (defined $region_map{$mem_from})
+		{		# From linker: to be remapped
+			$new_name = $region_map{$mem_from};
+			$new_origin = $mem_conf{$new_name}{Origin};
+			$displacement = $new_origin - $mem_data->{Origin};
+			my $message = "$mem_from relocated to $new_name";
+			if ($Carp::Verbose)
+			{
+				$message .= sprintf ' (0x%x to 0x%x)',
+						$mem_data->{Origin}, $new_origin
+			}
+			print $message
+		}
+		else
+		{
+			$new_name = $mem_from;
+			$new_origin = $mem_data->{Origin};
+			$displacement = 0;
+			my $hex_origin = sprintf '%x', $new_origin;
+			if ($hex_origin =~ /^[cd]00[01]/)
+			{	# Local address
+				print "Unrelocated local $new_name"
+					if defined $MM_common::opt_output;
+				warn "Unrelocated local $new_name"
+			}
+		}
+		$memocc::memory{$new_origin} = $mem_conf{$new_name};
+		$memocc::memory{$new_origin}{name} = $mem_from;
+		$memocc::memory{$new_origin}{displacement} = $displacement;
+		$memocc::memory{$new_origin}{used} = 0
+	}
+	memocc::area_log() if $Carp::Verbose>1;
+	$stage = 'region';
+	next
+}
+if ($stage eq 'discarded')
+{
+	if (m/^                0x/)	# Insert section name
+	{
+		unshift(@F, $input_region)
+	}
+	else
+	{
+		$input_region = $F[0];
+		next if $#F < 3		# Long section name, continue
+	}
+	my $name = fileparse $F[3];
+	delete $prelink{$name}{$input_region} if exists $prelink{$name}
+}
+if ($stage eq 'memconf')
+{
+	my $Name = $F[0];
+	my $Raw_Origin = $F[1];
+	my $Origin = hex($Raw_Origin);
+	my $Length = lc $F[2];
+	if (($Origin == 0) and ($Length =~ /^0xffffffff+$/))
+	{
+		warn "Memory Name '$Name' instead of '*default*'" .
+				" at <> line $NR $RS" if $Name ne '*default*';
+		next
+	}
+	$Length = hex($Length);
+	my $end = $Origin+$Length-1;
+	while (my ($conf_name, $area) = each %mem_conf)
+	{		# Checks for overlaps
+		warn("Memory '$Name' at <> line $NR, overlaps with memory " .
+				"'$conf_name'. Possible data overlaps.$RS")
+		if (($Origin <= $$area{end}) and ($end >= $$area{Origin}));
+	}
+	my $Used =  hex($F[3]);
+	$mem_conf{$Name}{Origin} = $Origin;
+	$mem_conf{$Name}{end} = $Origin+$Length-1;
+	$mem_conf{$Name}{Used} = $Used;
+
+	next
+}
+next if $stage eq 'aliases';
+next if $stage eq 'maps';
+if ($stage eq 'mirrors')
+{
+	my $name = $F[0];
+	die ("undefined $name at <> line ${NR}$RS")
+					if ! defined $mem_conf{$name}{Origin};
+	unless (/:/ or defined $mirror{$name})
+	{
+		$mirror{$name} = $F[1];
+		my $l = length $name;
+		$max_length_region_name = $l if $l > $max_length_region_name
+	}
+	next
+}
+next if $stage eq 'extended';
+if (($stage eq 'region') or ($stage eq 'locate'))
+{
+	if (m/^OUTPUT\((?'name'.+?) /)	# End of a map file
+	{			# Move eventual unlocated data into prelink
+		my $file_name = fileparse $+{name};
+		$prelink{$file_name} = {%default_region};
+		%default_region = ();
+		next
+	}
+}
+
+if ($stage eq 'region')
+{
+	next unless (/ memory region -> /);
+	next if (/^\.(comment|debug_.*|version_info) +/);
+	$section_out = $F[0];
+	$region_name = $F[$#F];
+	$_ = <>;				# Read region's data
+	die "$OS_ERROR reading region's data" unless defined $_;
+	@F = split;
+	my $region_size = hex($F[1]);
+	next if $region_size == 0;		# Skip empty regions
+	foreach (values %memocc::memory)
+	{
+		if ($_->{name} eq $region_name)
+		{
+			$displacement=$_->{displacement};
+			last
+		}
+	}
+	if (/ load address / and (!defined $no_load{$section_out}))
+	{
+		my $address = hex($F[0]);
+		my $load_address = hex($F[$#F]);
+		$load_address_shift = $load_address-$address
+	}
+	else
+	{
+		undef $load_address_shift
+	}
+	$stage = 'locate';
+	next
+}
+if ($stage eq 'locate')
+{
+	if (m/^                0x/)	# Insert section name
+	{
+		unshift(@F, $input_region)
+	}
+	else
+	{
+		$input_region = $F[0];
+		next if $#F < 3	# Long section name, section info or commands
+	}
+	my $size = $F[2];
+	next if ($size !~ /^0x[[:xdigit:]]+$/);	# Commands or variable name
+	$size = hex($size);
+	next if ($size == 0);			# Unused space
+	my $origin = hex($F[1])+$displacement;
+	my $name;
+	my $library;
+	if (($F[0] eq '*fill*') or ($F[3] =~ /(BYTE|SHORT|LONG|S?QUAD)/))
+	{
+		$library = 'FILL'
+	}
+	else				# Split archive and object names
+	{				# Use library only if direct object
+		($library, $name) = split(/[()]/, $F[3], 3);
+		$library = fileparse $library	# Remove eventual path
+	}
+	unless (%mem_conf)
+	{			# Save eventual unlocated (core) data
+		$name //= '';
+		$default_region{$section_out}{$library}{$name} += $size;
+		next
+	}
+	if (exists $prelink{$library}{$input_region})
+	{		# Extract from core data (previous map)
+			# Translate "core.o into 
+		my $block = $prelink{$library}{$input_region};
+		my $new_origin = $origin;
+		while (my ($archive, $data) = each %$block)
+		{
+			$archive = "$library/$archive";
+			while (($name, $size) = each %$data)
+			{
+				store_all($new_origin, $size, $archive, $name);
+				$new_origin += $size
+			}
+		}
+		delete $prelink{$library}{$input_region}
+	}
+	else
+	{
+		store_all($origin, $size, $library, $name)
+	}
+	next
+}
+
+sub store_all($$$$)
+{
+	my ($origin, $size, $library, $name) = @_;
+	if (defined $name)
+	{
+		undef $name if $name eq ''
+	}
+	my $mem_origin = memocc::mem_fill($origin, $size, $library, $name);
+	warn ("region of <> line $NR is '$region_name' but could be " .
+					"'$memocc::memory{$mem_origin}{name}'$RS")
+			if ($region_name ne $memocc::memory{$mem_origin}{name});
+	if (defined $load_address_shift)
+	{
+		$origin += $load_address_shift;
+		$mem_origin = memocc::mem_fill($origin, $size, $library, $name)
+	}
+}
+
+END
+{
+return if (defined $MM_common::die) or (defined $memocc::die);
+while (my ($name_1, $name_2) = each %mirror)
+{				# Print unique mirrored ares
+	if ($memocc::opt_format eq 'j')
+	{
+		my @mirrored = ($name_1, $name_2);
+		push @{$memocc::memory_json{mirrored}}, (\@mirrored)
+	}
+	else
+	{
+		printf "%${max_length_region_name}s", $name_1;
+		print " mirrored with $name_2"
+	}
+}
+my $total_size = 0;				# Eventually unlocated data
+# From each prelinked OUTPUT extract %section_out=>%library=>%object=>$size
+while (my ($file, $section_out) = each %prelink)
+{						# each prelinked OUTPUT file
+	my $file_size = 0;
+	foreach (values %$section_out)		# each %section_out
+	{
+		foreach (values %$_)		# each %library 
+		{
+			foreach my $size (values %$_)
+			{			# each %object 
+				$file_size += $size
+			}
+		}
+	}
+	if ($file_size>0)
+	{
+		$total_size += $file_size;
+		warn "$file_size Byte of unused prelinked data from $file$RS"
+							if $Carp::Verbose
+	}
+}
+warn "$total_size Byte of total unused prelinked data$RS" if $total_size>0;
+while (my ($mem_origin, $data) = each %memocc::memory)
+{				# Unassigned or undefined but reported used
+	$data->{Used} = 0 unless defined $data->{Used};
+	my $size = $data->{Used} - $data->{used};
+	if ($size>0)
+	{		# Defined used but not totally reported how to
+		$data->{used} += $size;
+		$memocc::group{' UNASSIGNED'}{size} += $size;
+		$memocc::group{' UNASSIGNED'}{$mem_origin} += $size;
+		my $l = length(' UNASSIGNED');
+		$memocc::name_width = $l if $l>$memocc::name_width
+		#;$memocc::memory{$mem_origin}{UNASSIGNED} += $size;
+	}
+}
+
+}
+
+=head1 NAME
+
+memocc_arm_elf_gcc memocc_ppc_vle_gcc memocc_tricore_gcc - 
+MEMory OCCupation computing for hightec's compilers
+
+=head1 SYNOPSIS
+
+ memocc_arm_elf_gcc [options] [map_file] (default is stdin)
+ memocc_ppc_vle_gcc [options] [map_file] (default is stdin)
+ memocc_tricore_gcc [options] [map_file] (default is stdin)
+
+=head1 DESCRIPTION
+
+Compute memory occupation from map file.
+In case of multicore with prelink if the last options, before the final map,
+are the single core map, the map split every core into its components.
+
+=head1 NOTES
+
+ output file's suffix is eventually taken-in from format (csv, json or txt)
+
+=head1 OPTIONS
+
+ -d --debug		debug mode, print also bytes used
+ -f --format <format>	output format: "c" csv, "j" json, "t" text
+   default text or taken-in from the output file's suffix
+ -l --locator filename	command linker file(s)
+ -m --modules		Print modules into libraries
+ -p --project <name>	Project name, will be printed out
+
+=head1 AUTOR
+
+TechM
+
+=head1 COPYRIGHT
+
+(c) Copyright 2022 

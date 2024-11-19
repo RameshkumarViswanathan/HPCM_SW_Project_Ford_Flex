@@ -1,0 +1,244 @@
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccN3Lkfc.s 			page 1
+
+
+   1              		.file	"Os_setjmp.c"
+   2              	.section .text,"ax",@progbits
+   3              	.Ltext0:
+   4              	#APP
+   5              		  .file  "Os_setjmp.s"
+   6              	  .section .text.Os,"ax",@progbits
+   7              	
+   8              	  .global Os_setjmp
+   9              	  .type	 Os_setjmp,@function
+  10              	  # Entered with A4 containing the address of the jump buffer
+  11              	Os_setjmp:
+  12 0000 F44B     	  st.a  [%a4]0, %a11  # Save return address
+****  Notice:Optimizing st.a-@wa -> st.a-@a
+  13 0002 0D008004 	  dsync               # This sync is necessary
+  14 0006 4D00E0EF 	  mfcr  %d14, $PCXI   # Get the address of the top CSA into a15
+  15 000a 370E50F0 	  extr  %d15, %d14, 0, 16
+  16 000e 866F     	  sha   %d15, 6
+  17 0010 7BF000D0 	  movh  %d13, 0xf
+  18 0014 26DE     	  and   %d14, %d13
+  19 0016 8FCE20E0 	  sha   %d14, %d14, 12
+  20 001a A6EF     	  or    %d15, %d14
+  21 001c 60FF     	  mov.a %a15, %d15
+  22              	
+  23 001e 09F84009 	  ld.d  %e8, [%a15]0x00   # Clone the context
+  24 0022 89484409 	  st.d  [%a4]0x04, %e8
+  25 0026 09F84809 	  ld.d  %e8, [%a15]0x08
+  26 002a 89484C09 	  st.d  [%a4]0x0c, %e8
+  27 002e 09F85009 	  ld.d  %e8, [%a15]0x10
+  28 0032 89485409 	  st.d  [%a4]0x14, %e8
+  29 0036 09F85809 	  ld.d  %e8, [%a15]0x18
+  30 003a 89485C09 	  st.d  [%a4]0x1c, %e8
+  31 003e 09F86009 	  ld.d  %e8, [%a15]0x20
+  32 0042 89486409 	  st.d  [%a4]0x24, %e8
+  33 0046 09F86809 	  ld.d  %e8, [%a15]0x28
+  34 004a 89486C09 	  st.d  [%a4]0x2c, %e8
+  35 004e 09F87009 	  ld.d  %e8, [%a15]0x30
+  36 0052 89487409 	  st.d  [%a4]0x34, %e8
+  37 0056 09F87809 	  ld.d  %e8, [%a15]0x38
+  38 005a 89487C09 	  st.d  [%a4]0x3c, %e8
+  39 005e 8202     	  mov   %d2, 0
+  40 0060 0090     	  ret
+  41              	
+  42              	
+  43              	  .global Os_longjmp
+  44              	  .type Os_longjmp,@function
+  45              	  # Entered with A4 containing the address of the jump buffer. OS level
+  46              	Os_longjmp:
+  47 0062 0D004003 	  disable                           # [$TgtCore 186]
+  48 0066 19420400 	  ld.w    %d2, [%a4]4               # Read saved PCXI
+  49 006a 91000050 	  movh.a  %a5,hi:Os_longjmp_loop    # Get loop address into a5
+  50 006e D9550000 	  lea     %a5,[%a5]lo:Os_longjmp_loop
+  51              	Os_longjmp_loop:
+  52 0072 4D00E0FF 	  mfcr    %d15, $PCXI               # Read PCXI
+  53 0076 5FF20480 	  jeq     %d2,%d15, Os_longjmp_exit
+****  Notice:Inverting condition code, adding "j" insn
+  53      1D000000 
+  54 007e 405B     	  mov.aa  %a11, %a5                 # 'ret' back to loop, popping a CSA
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccN3Lkfc.s 			page 2
+
+
+  55 0080 0090     	  ret
+  56              	
+  57              	  .global Os_longjmp_exit
+  58              	Os_longjmp_exit:
+  59              	  # set trust if needed
+  60 0082 4D40E02F 	  mfcr    %d2, $psw
+  61 0086 3702E125 	  extr.u  %d2, %d2, 11, 1
+  62 008a 8FB22020 	  sha	%d2, %d2, 11
+  63 008e F623     	  jne	%d2, 0, .L2
+****  Notice:Optimizing jne-d4o -> jnz-dm
+  64 0090 AD008000 	  syscall 0
+  65              	.L2:
+  66              	  # PCXI matches the one recorded at setjmp
+  67 0094 19420800 	  ld.w  %d2, [%a4]8   # Restore PSW
+  68              	
+  69 0098 CD42E00F 	  mtcr  $psw, %d2
+  70 009c 0D008004 	  dsync               # Sync needed
+  71 00a0 094CCC09 	  ld.da   %a12,[%a4]12 # A10/A11 from Os_setjmp's CSA (accounting for TC.081 bug)
+  72 00a4 40CA     	  mov.aa  %a10, %a12
+  73 00a6 40DB     	  mov.aa  %a11, %a13
+  74 00a8 09485409 	  ld.d  %e8,[%a4]0x14
+  75 00ac 094A5C09 	  ld.d  %e10,[%a4]0x1C
+  76 00b0 094CE409 	  ld.da %a12,[%a4]0x24
+  77 00b4 094EEC09 	  ld.da %a14,[%a4]0x2C
+  78 00b8 094C7409 	  ld.d  %e12,[%a4]0x34
+  79 00bc 094E7C09 	  ld.d  %e14,[%a4]0x3C
+  80              	  # Return 1
+  81 00c0 8212     	  mov   %d2, 1
+  82              	
+  83              	  # Indirect jump to saved return address
+  84 00c2 D445     	  ld.a  %a5,[%a4]0
+****  Notice:Optimizing ld.a-a@w -> ld.a-a@
+  85 00c4 0D000003 	  enable  # [$TgtCore 186]
+  86 00c8 0000     	  nop     # CPU_TC.048
+  87 00ca DC05     	  ji    %a5
+  88              	.Letext0:
+  89              	.section .debug_info,"",@progbits
+  90              	.Ldebug_info0:
+  91 0000 0E020000 		.uaword	0x20e
+  92 0004 0200     		.uahalf	0x2
+  93 0006 00000000 		.uaword	.Ldebug_abbrev0
+  94 000a 04       		.byte	0x4
+  95 000b 01       		.uleb128 0x1
+  96 000c 474E5520 		.ascii	"GNU C 4."
+  96      4320342E 
+  97 0014 392E3420 		.string	"9.4 build on 2020-09-01 -mlicense-dir=c:\\hightec\\toolchains\\tricore\\v4.9.4.1\\bin\\..
+  97      6275696C 
+  97      64206F6E 
+  97      20323032 
+  97      302D3039 
+  98 0115 01       		.byte	0x1
+  99 0116 433A5C55 		.string	"C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\Os_setjmp.c
+  99      73657273 
+  99      5C757365 
+  99      72315C41 
+  99      70704461 
+ 100 0169 00000000 		.uaword	.Ldebug_line0
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccN3Lkfc.s 			page 3
+
+
+ 101 016d 02       		.uleb128 0x2
+ 102 016e 01       		.byte	0x1
+ 103 016f 08       		.byte	0x8
+ 104 0170 756E7369 		.string	"unsigned char"
+ 104      676E6564 
+ 104      20636861 
+ 104      7200
+ 105 017e 02       		.uleb128 0x2
+ 106 017f 02       		.byte	0x2
+ 107 0180 07       		.byte	0x7
+ 108 0181 73686F72 		.string	"short unsigned int"
+ 108      7420756E 
+ 108      7369676E 
+ 108      65642069 
+ 108      6E7400
+ 109 0194 02       		.uleb128 0x2
+ 110 0195 04       		.byte	0x4
+ 111 0196 07       		.byte	0x7
+ 112 0197 756E7369 		.string	"unsigned int"
+ 112      676E6564 
+ 112      20696E74 
+ 112      00
+ 113 01a4 02       		.uleb128 0x2
+ 114 01a5 01       		.byte	0x1
+ 115 01a6 06       		.byte	0x6
+ 116 01a7 7369676E 		.string	"signed char"
+ 116      65642063 
+ 116      68617200 
+ 117 01b3 02       		.uleb128 0x2
+ 118 01b4 02       		.byte	0x2
+ 119 01b5 05       		.byte	0x5
+ 120 01b6 73686F72 		.string	"short int"
+ 120      7420696E 
+ 120      7400
+ 121 01c0 02       		.uleb128 0x2
+ 122 01c1 04       		.byte	0x4
+ 123 01c2 05       		.byte	0x5
+ 124 01c3 696E7400 		.string	"int"
+ 125 01c7 02       		.uleb128 0x2
+ 126 01c8 04       		.byte	0x4
+ 127 01c9 04       		.byte	0x4
+ 128 01ca 666C6F61 		.string	"float"
+ 128      7400
+ 129 01d0 02       		.uleb128 0x2
+ 130 01d1 08       		.byte	0x8
+ 131 01d2 04       		.byte	0x4
+ 132 01d3 646F7562 		.string	"double"
+ 132      6C6500
+ 133 01da 02       		.uleb128 0x2
+ 134 01db 08       		.byte	0x8
+ 135 01dc 05       		.byte	0x5
+ 136 01dd 6C6F6E67 		.string	"long long int"
+ 136      206C6F6E 
+ 136      6720696E 
+ 136      7400
+ 137 01eb 02       		.uleb128 0x2
+ 138 01ec 08       		.byte	0x8
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccN3Lkfc.s 			page 4
+
+
+ 139 01ed 07       		.byte	0x7
+ 140 01ee 6C6F6E67 		.string	"long long unsigned int"
+ 140      206C6F6E 
+ 140      6720756E 
+ 140      7369676E 
+ 140      65642069 
+ 141 0205 02       		.uleb128 0x2
+ 142 0206 04       		.byte	0x4
+ 143 0207 07       		.byte	0x7
+ 144 0208 73697A65 		.string	"sizetype"
+ 144      74797065 
+ 144      00
+ 145 0211 00       		.byte	0
+ 146              	.section .debug_abbrev,"",@progbits
+ 147              	.Ldebug_abbrev0:
+ 148 0000 01       		.uleb128 0x1
+ 149 0001 11       		.uleb128 0x11
+ 150 0002 01       		.byte	0x1
+ 151 0003 25       		.uleb128 0x25
+ 152 0004 08       		.uleb128 0x8
+ 153 0005 13       		.uleb128 0x13
+ 154 0006 0B       		.uleb128 0xb
+ 155 0007 03       		.uleb128 0x3
+ 156 0008 08       		.uleb128 0x8
+ 157 0009 10       		.uleb128 0x10
+ 158 000a 06       		.uleb128 0x6
+ 159 000b 00       		.byte	0
+ 160 000c 00       		.byte	0
+ 161 000d 02       		.uleb128 0x2
+ 162 000e 24       		.uleb128 0x24
+ 163 000f 00       		.byte	0
+ 164 0010 0B       		.uleb128 0xb
+ 165 0011 0B       		.uleb128 0xb
+ 166 0012 3E       		.uleb128 0x3e
+ 167 0013 0B       		.uleb128 0xb
+ 168 0014 03       		.uleb128 0x3
+ 169 0015 08       		.uleb128 0x8
+ 170 0016 00       		.byte	0
+ 171 0017 00       		.byte	0
+ 172 0018 00       		.byte	0
+ 173              	.section .debug_aranges,"",@progbits
+ 174 0000 14000000 		.uaword	0x14
+ 175 0004 0200     		.uahalf	0x2
+ 176 0006 00000000 		.uaword	.Ldebug_info0
+ 177 000a 04       		.byte	0x4
+ 178 000b 00       		.byte	0
+ 179 000c 0000     		.uahalf	0
+ 180 000e 0000     		.uahalf	0
+ 181 0010 00000000 		.uaword	0
+ 182 0014 00000000 		.uaword	0
+ 183              	.section .debug_line,"",@progbits
+ 184              	.Ldebug_line0:
+ 185 0000 19000000 	.section .debug_str,"",@progbits
+ 185      02001300 
+ 185      00000201 
+ 185      FB0E0D00 
+ 185      01010101 
+GAS Infineon TriCore Little Endian C:\\Users\\user1\\AppData\\Local\\Temp\\rta_RTAOS_638388406317960277_1736001\\ccN3Lkfc.s 			page 5
+
+
+ 186              		.ident	"GCC: (HighTec Release HDP-v4.9.4.1-11fcedf) 4.9.4 build on 2020-09-01"

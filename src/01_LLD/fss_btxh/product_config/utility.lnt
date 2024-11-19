@@ -1,0 +1,46 @@
+-A(C99)
+			/* implicitly defined by the -ansi gcc flag */
++d__STRICT_ANSI__=1
+			/* compatibility with gcc headers */
++linebuf
+-elibmacro(4??, 5??, 6??, 7??, 8??, 9??)
+-emacro({613}, errno, isalnum, isdigit, isprint)
+--emacro({613}, assert)
+-estring(960, __builtin_va_arg)
+-elibsym(4??, 5??, 6??, 7??, 8??, 9??)
+-esym(4??, _*)
+-esym(5??, _*)
+-esym(6??, _*)
+-esym(7??, _*)
+-esym(8??, _*)
+-esym(9??, _*)
+			/* compatibility with standard C functions */
+-esym(586, free, malloc)
+-esym(829, assert.h, ctype.h, stdio.h, string.h)
+-esym(970, char, short, long, unsigned, "unsigned long")
+	/* false positive and deviation acceptable on hosted environment */
++fai
+-strong(B,bool)
+-efunc(715, implementation_defined_function)
+-emacro(919, false, true)
+-efunc(920, Exit_error, Reporting_errors)
+-emacro(970, bool)
+-esym(14, main)
+-esym(613, argv)
+-e592
+-e641
+-e656
+-e905
+-e920
+-e930
+-e958
+-e964
+			/* compliance to misra 2011 */
+-e919 /* -etype(919, "int to bool") */
+	/* stack worst case: full S3 (4GB) and 16KB blocks = 262144 calls */
++stack(Free_blocks(2097152), look_for_block(4194304), search_block(4194304))
+-e974
+			/* function semantic description */
+-function(exit, Exit_error)
+-sem(search_block, @p!=0)
+//-sem(search_block, 1p!=0)

@@ -1,0 +1,190 @@
+/******************************************************************************/
+/*  Copyright (C)  FORD Motor             */
+/*  All rights reserved.                                                      */
+/******************************************************************************/
+/*  MODULE  memmap.loc                                                        */
+/******************************************************************************/
+/*  BASE MODULE  memmap.loc                                                   */
+/******************************************************************************/
+/*  VERSION  4.2.0          | PROJECT                                         */
+/******************************************************************************/
+/*  PURPOSE                                                                   */
+/*    Memory Map for Linkage                                                  */
+/******************************************************************************/
+/*  FUNCTIONS                                                                 */
+/*                                                                            */
+/******************************************************************************/
+/*  REMARKS                                                                   */
+/*                                                                            */
+/******************************************************************************/
+/*  CHANGES                                                                   */
+/* ID     dd.mm.yyyy   name          description                              */
+/* ---    ----------   -----------   ---------------------------------------- */
+/* [1]    01.05.2023   Sivaprasath   Initial version                          */
+/******************************************************************************/
+
+/* ----------------------------------------------------------------------------
+ * example/powerpc/bubble.dld: Linker Command File for Bubble Sort example.
+ *
+ * Target: PowerPC.
+ *
+ * This sample linker command file is specific to the Bubble Sort example. It
+ * and linker command files in the conf directory are a guide to building a
+ * file for your own system.
+ *
+ * CAUTION: The .text2 section referred to in this file is defined explicitly
+ *          in bubble.c. See default.dld in the conf directory for a general
+ *          guide to building a linker command file.
+ *
+ * For a description of the different statements in this file, please refer
+ * to the D-LD Linker User's Manual.
+ * ------------------------------------------------------------------------- */
+
+MEMORY
+{
+/*******************************************************************************************/
+/****************************************  ROM  ********************************************/
+/*******************************************************************************************/
+/********************************** BOOT ***************************************************/
+/*** Program Flash Bank 0 ***/
+   BMHD0:                org = 0xA0000000, len = 0x000020  /* BMHD_0                PF0-S0 */
+   PMU_PF0_PATTERNS:	 org = 0xA0000100, len = 0x000F00  /* PF0 ECC Base pattern  PF0-S0 */
+   no_overlay_pf0_s0:    org = 0xA0001000, len = 0x003000  /* 12KB                  PF0-S0 */
+   h_boot_rst:           org = 0xA0004000, len = 0x000010  /* hwio boot reset  16B  PF0-S1 */
+   h_boot_cnst:          org = 0xA0004010, len = 0x001BF0  /* hwio boot const 6KB  PF0-S1 */
+   h_boot_code:          org = 0xA0005C00, len = 0x0123E0  /* hwio boot code 73KB   PF0-S1-S5 */
+   HWIOBOOT_Version:	 org = 0xA0017FE0, len = 0x000020  /* HWIOBOOT Version const  */
+   HSM0:                 org = 0xA0018000, len = 0x004000  /* HSM0 16KB             PF0-S6 */
+   h_boot_trp0:          org = 0xA001C000, len = 0x000100  /* hwio boot core0trap 256B PF0-S7 */
+   h_boot_trp1:          org = 0xA001C100, len = 0x000100  /* hwio boot core1trap 256B PF0-S7 */
+   h_boot_trp2:          org = 0xA001C200, len = 0x000100  /* hwio boot core1trap 256B PF0-S7 */   
+   h_boot_trphdl:        org = 0xA001C300, len = 0x000D00  /* hwio boot trap handler 3.25KB  PF0-S7 */
+   h_boot_dmy:           org = 0xA001D000, len = 0x000FE0  /* dummy hwio boot intTBL  PF0-S7 */
+   h_boot_intentry:      org = 0xA001DFE0, len = 0x000020  /* hwio boot int ENTRY 32B    PF0-S7 */
+   hsm_boot_rom:         org = 0xA001E000, len = 0x001FE0  /* hsm boot code and cnst 8KB PF0-S7 */
+   BMHD3:                org = 0xA001FFE0, len = 0x000020  /* BMHD_3                PF0-S7 */
+   RMTS:                 org = 0xA0020000, len = 0x008000  /* RMTS  32KB            PF0-S8 */
+   boot_mfpn:            org = 0xA0028000, len = 0x0001F0  /* gm_boot_mfpn          PF0-S9 */
+   Boot_Harm_ID:         org = 0xA00281F0, len = 0x000010  /* gm_boot_harm_ID       PF0-S9 */
+   gm_app_to_boot_table: org = 0xA0028200, len = 0x000100  /* gm_app_to_boot_table  PF0-S9 */
+   gm_boot_code:         org = 0xA0028300, len = 0x012D00  /* gm_boot_code 75KB     PF0-S9-S11 */
+   rpgm_rom_copy:        org = 0xA003B000, len = 0x005000  /* gm_rpgm_rom_copy 20KB PF0-S11 */
+   spare0:               org = 0xA0040000, len = 0x008000  /* spare0    32KB        PF0-S12 */
+   spare1:               org = 0xA0048000, len = 0x008000  /* spare1    32KB        PF0-S13 */
+   spare2:               org = 0xA0050000, len = 0x008000  /* spare2    32KB        PF0-S14 */
+   spare3:               org = 0xA0058000, len = 0x008000  /* spare3    32KB        PF0-S15 */
+   HSM1:                 org = 0xA0060000, len = 0x020000  /* HSM1 128KB            PF0-S16-S17 */
+/********************************** APPL ***************************************************/
+   h_appl_entry:         org = 0x80080000, len = 0x000040  /* hwio appl entries core1 and core 0 PF0-S18 */
+   h_os_appl:            org = 0x80080040, len = 0x001FC0  /* hwio os application code PF0-S18 */        
+   h_os_intbl0:          org = 0x80082000, len = 0x002000  /* hwio os core0 int table 8KB PF0-S18 */
+   h_os_intbl1:          org = 0x80084000, len = 0x002000  /* hwio os core1 int table 8KB PF0-S18 */
+   h_os_intbl2:          org = 0x80086000, len = 0x002000  /* hwio os core2 int table 8KB PF0-S18 */
+   h_os:                 org = 0x80088000, len = 0x004200  /* hwio os cnst and code  17KB PF0-S18 */  /*[31]*/
+   h_appl_regtest_const: org = 0x8008C200, len = 0x000600  /* hwio application cnst  18KB PF0-S18-S19 */ /*[31]*/
+   h_appl_code:          org = 0x8008C800, len = 0x0337E0  /* hwio application code  190KB PF0-S19-S20 */
+   HWIOAPPL_Version:     org = 0x800BFFE0, len = 0x000020  /* hwio application version cnst PF0-S19 */
+   code_pres_ptrn:       org = 0x800C0000, len = 0x000010  /* gm_code_pres_ptrn     PF0-S21 */
+   elec_arch_cal_ptr:    org = 0x800C0010, len = 0x000010  /* gm_elec_arch_cal_ptr  PF0-S21 */
+   appl_mfpn:            org = 0x800C0020, len = 0x000100  /* gm_appl_mfpn          PF0-S21 */
+   appl_amfpn:           org = 0x800C0120, len = 0x000080  /* gm_appl_amfpn         PF0-S21 */
+   appl_cid:             org = 0x800C01A0, len = 0x000080  /* gm_appl_cid           PF0-S21 */
+   appl_harmid:          org = 0x800C0220, len = 0x000010  /* gm_appl_Harm_ID       PF0-S21 */
+   gm_boot_to_app_table: org = 0x800C0230, len = 0x0000F0  /* gm_boot_to_app_table  PF0-S21 */
+   gmpt_appl0:           org = 0x800C0320, len = 0x137CE0  /* gmpt_appl  1.247MB    PF0-S21-S26 */
+/**** HAP HSM H_Appl ****/
+   h_appl_cnst:          org = 0x801F8000, len = 0x005000  /* hap reserved 14KB     PF0-S15 */
+   hsm_appl:             org = 0x801FD000, len = 0x002000  /* hsm appl code and cnst 16KB PF0-S15 */
+/**** Program Flash Bank 1 ****/      
+   PMU_PF1_PATTERNS:     org = 0xA0200000, len = 0x004000  /* PF1 ECC Base pattern  PF1-S0 */
+   gmpt_appl1:           org = 0x80204000, len = 0x1FBDE0  /* gmpt_appl1  2031KB    PF1-S1-S26 */
+   code_vald_ptr:        org = 0x803FFDE0, len = 0x000010  /* gm_code_vald_ptr      PF1-S26 */
+   key_nbid:             org = 0x803FFDF0, len = 0x000010  /* gm_key_nbid           PF1-S26 DO NOT MOVE */
+   app_psi:              org = 0x803FFE00, len = 0x000200  /* gm_app_psi            PF1-S26 DO NOT MOVE */
+/************************************ CAL ***************************************************/
+/**** Program Flash Bank 2 ****/
+   PMU_PF2_PATTERNS:     org = 0xA0400000, len = 0x001000  /* PF2 ECC Base pattern  PF2-S0 */
+   MSCAL:                org = 0xA0401000, len = 0x003000  /* MSCAL    12KB         PF2-S0 */
+   no_overlay:           org = 0xA0404000, len = 0x00C000  /* 48KB                  PF2-S1-S3 */
+   all_cals_mfpn:        org = 0xA0410000, len = 0x000030  /* gm_all_cals_mfpn      PF2-S4 */
+   all_cals_cid:         org = 0xA0410030, len = 0x000008  /* gm_all_cals_cid       PF2-S4 */
+   cal_pres_ptrn:        org = 0xA0410038, len = 0x000008  /* gm_cal_pres_ptrn      PF2-S4 */
+   all_cals:             org = 0xA0410040, len = 0x1EEB80  /* gm_all_cals  1.932MB  PF2-S4-S26 */
+   ufunc_req_ETK:        org = 0xA05FEBC0, len = 0x000020  /* ETAS User Function    PF2-S26 */
+   slews:                org = 0xA05FEBE0, len = 0x001000  /* slews   4KB           PF2-S26 */
+   cal_vald_ptrn:        org = 0xA05FFBE0, len = 0x000020  /* cal_vald_ptrn         PF2-S26 */
+   cal_psi:              org = 0xA05FFC00, len = 0x000400  /* cal_psi  1KB          PF2-S26 */
+/************************************ BINVDM ***************************************************/
+/***** Data Flash Bank 0 - EEPROM *****/
+   BINVDM0:              org = 0xAF000000, len = 0x060000  /* 384 KB GM BINVDM0 Segment DF0 EEPROM */
+   BINVDM1:              org = 0xAF060000, len = 0x060000  /* 384 KB GM BINVDM1 Segment DF0 EEPROM */
+/***** Data Flash Bank 0 - UCB ********/
+   UCB0:                 org = 0xAF100000, len = 0x000400  /* UCB_PFlash     1KB   DF0 */
+   UCB1:                 org = 0xAF100400, len = 0x000400  /* UCB_DFlash     1KB   DF0 */
+   UCB2:                 org = 0xAF100800, len = 0x000400  /* UCB_HSMCOTP    1KB   DF0 */
+   UCB3:                 org = 0xAF100C00, len = 0x000400  /* UCB_OTP        1KB   DF0 */   
+   UCB4:                 org = 0xAF101000, len = 0x000400  /* UCB_IFX        1KB   DF0 */
+   UCB5:                 org = 0xAF101400, len = 0x000400  /* UCB_DBG        1KB   DF0 */
+   UCB6:                 org = 0xAF101800, len = 0x000400  /* UCB_HSM        1KB   DF0 */
+   UCB7:                 org = 0xAF101C00, len = 0x000400  /* UCB_HSMCFG     1KB   DF0 */      
+   UCB8_15:              org = 0xAF102000, len = 0x002000  /* UCB8 to UCB15  8KB   DF0 */
+/***** Data Flash Bank 1 - HSM *********/
+   HSMD:                 org = 0xAF110000, len = 0x010000  /* HSM data flash 64KB  DF1 */
+/*******************************************************************************************/
+/****************************************  RAM  ********************************************/
+/*******************************************************************************************/
+/***************** Core 2 RAM  ***************/
+/********************************   boot & appl ram   **************************************/
+   h_appl_bss_ram2:      org = 0x50007110, len = 0x005F80  /* hwio ram 24KB */ 
+   h_ram2:               org = 0x5000D090, len = 0x006F70  /* hwio ram 27KB */    
+   gm_ram2:              org = 0x50014000, len = 0x024000  /* gm ram 144KB  */     
+   csa2:                 org = 0x50038000, len = 0x002000  /* Core2 CSA 8KB */
+   heap:                 org = 0x5003A000, len = 0x002000  /* Core2 stack 8KB */
+   dcache2:              org = 0x5003C000, len = 0x002000  /* Core2 Data Cache 8KB */
+   reserve0:             org = 0x5003E000, len = 0x0C2000  /* Core2 RESERVED RAM 776KB */
+   pspr2:                org = 0x50100000, len = 0x008000  /* Core2 PSPR 32KB */
+   pcache2:              org = 0x50108000, len = 0x008000  /* Core2 Program Cache 32KB */
+   reserve1:             org = 0x50110000, len = 0xFEF0000 /* Core2 RESERVED RAM 254MB */
+/*****************  Core 1 RAM  **************/ 
+   h_cboot_ram1:         org = 0x60000000, len = 0x000800  /* HWIOBOOT_HWIOAPPL common RAM 2KB */
+   h_boot_data_ram1:     org = 0x60000800, len = 0x000800  /* hwio boot init data 2KB */
+   h_boot_bss_ram1:      org = 0x60001000, len = 0x007000  /* hwio boot bss 28KB */
+   hsm_boot_ram1:        org = 0x60008000, len = 0x000400  /* hsm boot RAM 1KB */
+   h_os_ram1:            org = 0x60008400, len = 0x002C00  /* hwio os RAM 11KB */
+   h_appl_data_ram1:     org = 0x6000B000, len = 0x000800  /* hwio appl data 2KB */
+   h_appl_bss_ram1:      org = 0x6000B800, len = 0x004400  /* hwio appl RAM 17KB */
+   hsm_appl_ram1:        org = 0x6000FC00, len = 0x000400  /* hsm appl RAM 1KB */
+   gm_raml:              org = 0x60010000, len = 0x028000  /* GM RAM 160KB */
+   csa1:                 org = 0x60038000, len = 0x002000  /* Core1 CSA 8KB */
+   stack1:               org = 0x6003A000, len = 0x002000  /* Core1 stack 8KB */
+   dcache1:              org = 0x6003C000, len = 0x002000  /* Core1 Data Cache 8KB */
+   reserve2:             org = 0x6003E000, len = 0x0C2000  /* Core1 RESERVED RAM 776KB */
+   pspr1:                org = 0x60100000, len = 0x008000  /* Core1 PSPR 32KB */
+   pcache1:              org = 0x60108000, len = 0x008000  /* Core1 Program Cache 32KB */
+   reserve3:             org = 0x60110000, len = 0xFEF0000 /* Core1 RESERVED RAM 254MB */
+/*****************  Core 0 RAM  **************/ 
+   h_cboot_ram0:         org = 0x70000000, len = 0x000800  /* HWIOBOOT_HWIOAPPL common RAM 2KB */  
+   h_boot_ram0:          org = 0x70000800, len = 0x002800  /* hwio boot RAM 10KB */
+   gm_boot_ram0:         org = 0x70003000, len = 0x005000  /* gm boot RAM 20KB */  
+   h_appl_bss_ram0:      org = 0x70008000, len = 0x005000  /* hwio appl RAM 20KB */
+   gm_appl_ram0:   	     org = 0x7000D000, len = 0x00D000  /* gm appl RAM 52KB */
+   csa0:                 org = 0x7001A000, len = 0x002000  /* Core0 CSA 8KB */
+   stack0:               org = 0x7001C000, len = 0x002000  /* Core0 stack 8KB */
+   dcache0:              org = 0x7001E000, len = 0x002000  /* Core0 Data Cache 8KB */
+   reserve4:             org = 0x70020000, len = 0x0E0000  /* Core0 RESERVED RAM 896KB */
+   pspr0:                org = 0x70100000, len = 0x008000  /* Core0 PSPR 32KB */
+   pcache0:              org = 0x70108000, len = 0x002000  /* Core0 Program Cache 8KB */
+   reserve5:             org = 0x7010A000, len = 0xFEF6000 /* Core0 RESERVED RAM 254MB */
+/*****************  LMU RAM  *****************/
+   protected_ram:        org = 0xB0000000, len = 0x001000  /* write protect RAM 4KB */
+   gm_ram:               org = 0xB0001000, len = 0x007000  /* gm RAM 28KB */
+   reserve6:             org = 0xB0008000, len = 0xEFF8000 /* LMU RESERVED RAM 240MB */
+/* Emulation Memory EMEM */
+   inst_ram:             org = 0xBF000000, len = 0x1F0000  /* 2000KB Calibration WP Overlay RAM */
+   etkpage:              org = 0xBF1F0000, len = 0x005000  /* Distab Tables 20KB */
+   etk_chnl:             org = 0xBF1F5000, len = 0x003840  /* Distab CHNLs 8KB */
+   etk_coldstart_mbox:   org = 0xBF1F8840, len = 0x000008  /* INCA Coldstart mailbox 8B */
+   etk_pageswitch_mbox:  org = 0xBF1F8848, len = 0x0000ac  /* ETK Page Switch mailbox and Start page 8B */
+}
+
+/*EOF*/

@@ -1,0 +1,102 @@
+#!/usr/bin/env perl
+# Description:	Print of the document table
+use 5.010001;
+use strict;
+use warnings FATAL => 'all';
+require autodie;	# 'use' produce false warnings on files handlers
+use English;
+use POSIX;
+use Getopt::Long;
+use File::Basename;
+use File::Spec::Functions 'abs2rel';
+sub print_row($$$);
+
+alarm 10;
+my $version = '%version: 11 %';	# Special string updated by synergy
+$version =~ s/^.*? | %//g;
+our $VERSION = $version;
+use FindBin;
+push (@INC, $FindBin::RealBin);
+require MM_common;
+
+our $opt_func = 15;		# Columns widths
+our $opt_doc = 21;
+our $opt_description = 40;
+Getopt::Long::Configure(qw(require_order no_pass_through));
+Getopt::Long::GetOptions(
+	'func|f=i',		# function's column width
+	'doc|d=i',		# document's (title) column width
+	'description|D=i',	# description's column width
+) or MM_common::help();
+$OUTPUT_RECORD_SEPARATOR=$INPUT_RECORD_SEPARATOR;
+`ccm status` =~ m/(?<=^Current project)(?::\s+)?(?'project'.*)$/m;
+my $project = $+{project};
+die "ccm project${project}$RS" if $project =~ /could not be identified/;
+my $delimiter = `ccm delim`;
+chomp $delimiter;
+my $dcm_delimiter = `ccm query -n dcm -t admin -u -f %delimiter`;
+chomp $dcm_delimiter;
+$project =~ m/(?'name'\w+)(?:${dcm_delimiter}.*?)?${delimiter}(?'version'.+?)(:|$)/;
+my $data = `ccm query -type project -name $+{name} -version $+{version} -no_sort -nf -u -f "%name${SUBSEP}%doclink${SUBSEP}%prj_title"`;
+	# Check subproject only if killed, ccm set errno for no subproject
+$data .= `ccm query -type project "recursive_is_member_of('$project',none) and name != 'Lauterbach'" -no_sort -nf -u -f "%name${SUBSEP}%doclink${SUBSEP}%prj_title"`;
+my @list = split(/$RS/, $data);
+my $header_left_spaces = ($opt_func+$opt_doc+$opt_description+4 - 23) / 2;
+$header_left_spaces = ' ' x $header_left_spaces;
+print "$header_left_spaces" . ('=' x 23);
+print "$header_left_spaces== BILL-OF-MATERIALS ==";
+print "$header_left_spaces" . ('=' x 23);
+my $separator =  '+' . ('-' x $opt_func) .'+' . ('-' x $opt_doc) . '+' . 
+						('-' x $opt_description) . '+';
+print $separator;
+$opt_func -= 2;		# Left space around fields
+$opt_doc -= 2;
+$opt_description -= 2;
+print_row('Function name', 'Doc. identification', 'Description');
+print $separator;
+foreach (@list)
+{
+	m/(?'name'.+?)$SUBSEP(?'doclink'.+?)$SUBSEP(?'prj_title'.*)/;
+	print_row($+{name}, $+{doclink}, $+{prj_title})
+}
+print $separator;
+# Print a logical row, 3 fields, each column can be splitted on more lines
+sub print_row($$$)
+{
+	my ($full_name, $full_doclink, $full_prj_title) = @_;
+	my $name = substr $full_name, 0, $opt_func, '';
+	my $doclink = substr $full_doclink, 0, $opt_doc, '';
+	my $prj_title = substr $full_prj_title, 0, $opt_description, '';
+	printf "| %-${opt_func}s | %-${opt_doc}s | %-${opt_description}s |$RS",
+						$name, $doclink, $prj_title;
+	print_row($full_name, $full_doclink, $full_prj_title)
+			if $full_name . $full_doclink .$full_prj_title ne ''
+}
+
+=head1 NAME
+
+doc_table - print document table
+
+=head1 SYNOPSIS
+
+doc_table [options]
+
+=head1 DESCRIPTION
+
+Print document table of a cmsynergy project hierarchy.
+The projects' attribute 'doc_link' is the documents references
+The projects' attribute 'prj_title' is the description
+
+=head1 OPTIONS
+
+ -d --doc #		document's column width, default 15
+ -D --description #	description's (title) column width, default 21
+ -f --func #		function's column width, default 40
+
+=head1 AUTOR
+
+TechM
+
+=head1 COPYRIGHT
+
+(c) Copyright 2022 

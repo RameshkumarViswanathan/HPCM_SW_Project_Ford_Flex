@@ -1,0 +1,369 @@
+#!/usr/bin/env perl
+# Description:	create a report for the project release
+use 5.010001;
+use strict;
+use warnings FATAL => 'all';
+use autodie;
+use English;
+use POSIX;
+use Getopt::Long;
+
+alarm 400;
+my $version = '%version: 33 %';		# Special string updated by synergy
+$version =~ s/^.*? | %//g;
+our $VERSION = $version;
+use FindBin;
+push (@INC, $FindBin::RealBin);
+require MM_common;
+		# Additional partial timeout, if not already 0 (removed)
+$MM_common::opt_timeout=20
+	if (!defined $MM_common::opt_timeout) or ($MM_common::opt_timeout>0);
+#--- main
+my %all_tasks;
+my $indent = '';
+my $doclink;
+my $mod_stat;
+my @pre_proj_list;
+my $project;
+my %proj_list;
+my $query;
+my $release;
+my $status_log;
+my $title;
+our $opt_cdm;
+our $opt_compiler;
+our $opt_ecu_hw;
+our $opt_ecu_sw;
+sub proj_data($$);
+sub proj_details($);
+Getopt::Long::Configure(qw(require_order no_pass_through));
+GetOptions(
+	'compiler|c=s',		# compiler
+	'cdm|d=s',		# cdm version
+	'ecu_hw|e=s',		# ecu_hw code
+	'ecu_sw|s=s'		# ecu_sw code
+) or MM_common::help();
+unless (defined $opt_compiler and defined $opt_cdm and defined $opt_ecu_hw and
+							defined $opt_ecu_sw)
+{
+	die "lack of option(s)$RS"
+}
+$OUTPUT_RECORD_SEPARATOR=$INPUT_RECORD_SEPARATOR;
+$OUTPUT_FIELD_SEPARATOR = ' ';
+my $GROUP_SEPARATOR = "\035";
+$project = `ccm status`;
+$project =~ s/.*Current project:\s+//s;
+chomp $project;
+die("not in a cmsynergy project$RS") if $project =~ /not be identified./;
+if ($project !~ /.*:.*/)
+{
+	my $subsystem = `ccm attribute -show subsystem -project $project`;
+	chomp $subsystem;
+	$project .= ":project:$subsystem"
+}
+my $delimiter = `ccm delim`;
+chomp $delimiter;
+my $dcm_delimiter = `ccm dcm -show -delimiter`;
+chomp $dcm_delimiter;
+my $prj_name = $project;
+$prj_name =~ s/:.*$//;
+my $prj_vers = $prj_name;
+$prj_name =~ s/[${dcm_delimiter}${delimiter}].*$//;
+$prj_vers =~ s/^${prj_name}[${dcm_delimiter}${delimiter}]//;
+#--- Set of local variables for the report
+#--- Get data about released project and verify the project being
+#--- Print report header
+print ' ' x 20, '=' x 37;
+print ' ' x 20, "== DELIVERY REPORT FOR PROJECT $prj_name ==";
+print ' ' x 20, '=' x 37;
+my $username = $ENV{LOGNAME} || $ENV{USER} || getpwuid($REAL_USER_ID);
+print "${RS}Report created by $username, FORD";
+use Net::Domain qw(hostfqdn);
+print 'Report created on host', Net::Domain::hostfqdn(), 'on',
+				strftime('%a %d %b %Y week %V', localtime());
+#--- Getting code letter for destination filename
+print "${RS}DELIVERY CODES";
+print '-' x 14;
+print "Hardware compatibility: $opt_ecu_hw";
+open(STDIN, "<", 'other_files/product_config/CODE_EXTENSION');
+my @codes = grep /$opt_ecu_hw/, <STDIN>;
+chomp @codes;
+map
+{
+	my $dest = $_;
+	$dest =~ s/.* //;
+	s/ .*//;
+	print "VERSION_SW_$dest = ${prj_name}${_}${opt_ecu_sw}"
+} @codes;
+warn "ECU code '$opt_ecu_hw' not provided into other_files/product_config/CODE_EXTENSION$RS"
+						unless defined $codes[0];
+close(STDIN);
+print "${RS}SYSTEM INFORMATION";
+print '-' x 18;
+my ($sysname, $nodename, $sysrelease, $os_version, $machine) = POSIX::uname();
+print "Host model:\t$machine";
+print "OS:\t\t$sysname release $sysrelease";
+# Test and print compiler
+my @version;
+my $stderr_off;
+if ($opt_compiler =~ /^((vx-)?c166|ctc|dcc)$/)
+{
+	$opt_compiler =~ s/^.*-//;
+	@version = `$opt_compiler -V 2>&1`
+}
+elsif ($opt_compiler =~ /^(?:ccppc|ccrh850)$/)
+{
+	if ($OSNAME =~ 'MSWin32')
+		{$stderr_off = '2>nul'}
+	else	{$stderr_off = '2>&-'}
+	@version = `$opt_compiler -V /output/null $stderr_off`
+}
+elsif ($opt_compiler eq 'cxstm8')
+	{@version = `$opt_compiler -vers 2>&1`}
+elsif ($opt_compiler =~ /^(?:g?cc|(?:arm-elf|ppc-vle|tricore)-gcc)$/)
+	{@version = `$opt_compiler --version`}
+die "Unknown compiler $opt_compiler$RS" unless defined $version[0];
+chomp $version[0];
+print "Compiler suite:\t$version[0]";
+print "cdm version:\t$opt_cdm";
+print "${RS}CONFIGURATION ENVIRONMENT INFORMATION";
+print '-' x 37;
+$sysname = lc $sysname;
+@version = grep /$sysname/, `ccm version`;
+chomp $version[$#version];
+print "SYNERGY/CM version:\t$version[$#version]";
+$version[0] = `ccm query -name other_files/product_config -type project "is_member_of('$project')" -unnumbered -format %version`;
+print "other_files/product_config version:\t$version[0]";
+$SIG{CHLD} = sub	# Discard exit code 6: query without result
+{
+	MM_common::check_child_error($query, $CHILD_ERROR)
+		if (($CHILD_ERROR>>8) != 0) and (($CHILD_ERROR>>8) != 6);
+};
+$query = "ccm query \"recursive_is_member_of('$project',none) ";
+$query .= "and (status='working' or status='visible' or status='shared' ";
+$query .= "or status='public' or status='checkpoint' or status='rejected'";
+$query .= ")\" -no_sort -f '%objectname %status'";
+$query = `$query`;
+if ($CHILD_ERROR == 0)
+{
+	print 'OBJECTS IN ANOMALOUS STATE FOR INTEGRATION';
+	print '-' x 42;
+	print "$query"
+}
+print "$RS", ' ' x 19, '=' x 37;
+print ' ' x 20, '== DOCUMENTATION BILL-OF-MATERIALS ==';
+print ' ' x 20, '=' x 37;
+print '';
+#--- Get data about (one) predecessor of released project, if any
+$query = "ccm query \"is_predecessor_of('$project')\" -no_sort -u -nf";
+$query .= " -format '%objectname${SUBSEP}%status'";
+{local $SIG{'CHLD'}; $query = `$query`};
+chomp $query;
+$mod_stat = $query;
+$mod_stat =~ s/.*$SUBSEP//;
+my $pre_project = $project;	# default if no predecessor found
+if ($query)
+{
+	$pre_project = $query;
+	$pre_project =~ s/$SUBSEP.*//;
+	print "Predecessor:	$pre_project";
+	if ($mod_stat eq 'prep')
+		{printf 'Prepared'}
+	elsif ($mod_stat =~ /(checkpoint|working|visible|public|shared)/)
+		{printf 'Still working'}
+	else	{printf 'Frozen'}
+	my @pre_prj_log = grep /$mod_stat/,
+				`ccm attribute -show status_log $pre_project`;
+	my $prj_date = $pre_prj_log[0];
+	chomp $prj_date;
+	$prj_date =~ s/:.*//;
+	printf " on: $prj_date by: ";
+	$pre_prj_log[0] =~ s/^.*by //;
+	print $pre_prj_log[0]
+}
+#--- Hierarchy of predecessor project
+$query = 'ccm query -type project "recursive_is_member_of';
+$query .= "('$pre_project', none)\" -no_sort -u -nf ";
+$query .= "-format '%objectname${SUBSEP}%status'";
+@pre_proj_list = `$query`;
+chomp @pre_proj_list;
+unshift @pre_proj_list, "$pre_project${SUBSEP}$mod_stat";
+#--- Loop for printing low level project delivery information
+$mod_stat = `ccm attribute -show status $project`;
+chomp $mod_stat;
+{local $SIG{'CHLD'}; $doclink = `ccm attribute -show doclink $project`};
+$doclink //= '';
+chomp $doclink;
+{local $SIG{'CHLD'}; $title = `ccm attribute -show prj_title $project`};
+$title //= '';
+chomp $title;
+$release = `ccm attribute -show release $project`;
+chomp $release;
+my @prj_log = grep /$mod_stat/,
+			`ccm attribute -show status_log -project $project`;
+chomp $prj_log[0];
+$proj_list{'-root-'}[0] = "$project${SUBSEP}$mod_stat${SUBSEP}$prj_name";
+$proj_list{'-root-'}[0] .= "${SUBSEP}$doclink${SUBSEP}$title${SUBSEP}$release";
+$proj_list{'-root-'}[0] .= "${SUBSEP}$prj_vers${SUBSEP}$prj_log[0]";
+$project = '-root-';
+proj_data($project, '');
+my @tasks = keys %all_tasks;
+if (defined $tasks[0])
+{
+	print "$RS$RS", ' ' x 20, '=' x 36;
+	print ' ' x 21, '== TASKS SYNOPSIS AND DESCRIPTION ==';
+	print ' ' x 21, '=' x 36;
+	print '';
+	while (my ($name, $description) = each %all_tasks)
+	{
+		print "    $name $description" if $all_tasks{$name} ne ''
+	}
+}
+
+#--- Recursively compare projects with the predecessor hierarchy
+sub proj_data($$)
+{
+my ($local_name, $indent) = @_;
+foreach (@{$proj_list{$local_name}})
+{
+	($project, $mod_stat, $prj_name, $doclink, $title, $release, $version,
+					$status_log) = split /$SUBSEP/;
+	$project =~ s/$RS//;
+	print $indent . '-' x (78 - length($indent));
+	print "${indent}FUNCTION:      $prj_name";
+	print "${indent}Doc. Identif.: $doclink";
+	print "${indent}Title:         $title";
+	print "${indent}Release:       $release";
+	print "${indent}Version:       $version";
+	if ($mod_stat eq 'prep')
+		{printf "${indent}Prepared"}
+	elsif ($mod_stat =~ /(checkpoint|working|visible|public|shared)/)
+		{printf "${indent}Still working"}
+	else	{printf "${indent}Frozen"}
+	$status_log =~ s/${GROUP_SEPARATOR}//;
+	@prj_log = grep /$mod_stat/, split(/$RS/, $status_log);
+	my $prj_date = $prj_log[0];
+	chomp $prj_date;
+	$prj_date =~ s/:.*//;
+	printf " on:   $prj_date by: ";
+	$prj_log[0] =~ s/^.*by //;
+	chomp $prj_log[0];
+	print $prj_log[0];
+		# Look for previous project
+	($pre_project) = grep /^${prj_name}${delimiter}/, @pre_proj_list;
+	unless ($pre_project)
+	{
+		print "${indent}New Function:";
+		$query = '';
+		proj_details($indent)
+	}
+	else
+	{
+		($pre_project, $mod_stat) = split /$SUBSEP/, $pre_project;
+		if ($project eq $pre_project)
+			{print "$indent             Unchanged."}
+		else
+		{		# Look of new objects non-projects
+			$query = "not is_member_of('$pre_project') and ";
+			proj_details($indent)
+		}
+	}
+		# Look for sub-projects
+	$query = "ccm query \"is_member_of('$project')\" -type project ";
+	$query .= "-nf -u -format '%objectname${SUBSEP}%status";
+	$query .= "${SUBSEP}%name${SUBSEP}%doclink${SUBSEP}%prj_title";
+	$query .= "${SUBSEP}%release${SUBSEP}%version${SUBSEP}%status_log";
+	$query .= "$GROUP_SEPARATOR'";
+	{		# Split into array elements by $GROUP_SEPARATOR
+		local $RS=$GROUP_SEPARATOR;
+		local $SIG{'CHLD'};
+		alarm $MM_common::opt_timeout;
+		$proj_list{$project} = [`$query`]
+	}
+	pop @{$proj_list{$project}};	# Remove after the last $RS (null)
+	proj_data($project, "$indent ") if defined $proj_list{$project}[0]
+}
+}
+
+sub proj_details($)
+{
+my ($indent) = @_;
+$query = "ccm query \"is_member_of('$project') and $query";
+$query .= "not type='project'\" -no_sort -nf -u -format '%task %task_release'";
+my @query = `$query`;
+chomp @query;
+my %project_tasks;
+foreach (@query)
+{
+	my @tasks = split;
+	my @task_relase = split /,/, $tasks[1];
+	my $i=0;
+	foreach (split /,/, $tasks[0])
+	{
+		if ($task_relase[$i++] eq $release)
+		{
+			if (exists $all_tasks{$_})
+			{
+				$project_tasks{$_} = '' if $all_tasks{$_} ne ''
+			}
+			else
+			{
+				alarm $MM_common::opt_timeout;
+				my $info = "ccm task -show information " .
+							"-noformat -format ";
+				$info .= "'%task_synopsis${RS}";
+				$info .= "%task_description' $_";
+				$info = `$info`;
+				if ($info =~
+					/Integration Testing products for release /)
+				{		# Won't consider products
+					$all_tasks{$_} = ''
+				}
+				else
+				{
+					$all_tasks{$_} = $info;
+					$project_tasks{$_} = ''
+				}
+			}
+		}
+	}
+}
+printf "${indent}Task(s):       ";
+print keys %project_tasks;
+my @comment = `ccm attribute -la $project`;
+if (grep /^comment\W/, @comment)
+{		# Print eventual comment
+	print "${indent}Description:";
+	@comment = `ccm attribute -show comment $project`;
+	print @comment
+}
+}
+
+=head1 NAME
+
+reldoc - create a report for the project release
+
+=head1 SYNOPSIS
+
+reldoc [options]
+
+=head1 DESCRIPTION
+
+ - identification of released version 
+ - identification of released version predecessor
+ - software components of released version with infos
+
+=head1 OPTIONS
+
+ -c --compiler name	compiler name
+ -d --cdm cdm		cdm version
+ -e --ecu_hw id		ecu hardware id
+ -s --ecu_sw code	software version code
+
+=head1 AUTOR
+
+TechM
+
+=head1 COPYRIGHT
+
+(c) Copyright 2022 

@@ -1,0 +1,15 @@
+/* Define the following macro conform to compiler options used: */
+-D__STDC_HOSTED__=1
+-D__OPTIMIZE__=1
+-D__TC29XX__=1;__TC161__=1;__TRICORE_CORE__=0x161;__TRICORE_NAME__=0x2900
+-DX_AE 
+-DI_KNOW_THAT_THIS_CODE_IS_NOT_FOR_PRODUCTION
+-DAUTOSAR_IS_PRESENT 
+-DSBC_EXT_WDG_FORD
+-width(0,4)
+-e793
+-e18
++linebuf
++linebuf
++linebuf
++linebuf

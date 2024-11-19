@@ -1,0 +1,12 @@
+-Imcal/Dio/inc
+-Imcal/McalLib/inc
+-Imcal/Mcu/inc
+-Imcal/Fee/inc
+-Imcal/Fls_17_Dmu/inc
+-Icommon
+-Ibsw/Det
+-Ibsw/Can
+-Ibsw/Mcal_Tc3xx
+-Ibsw/FblAsrStubs
+-Igendata
+-Ipbl_appl_inc
