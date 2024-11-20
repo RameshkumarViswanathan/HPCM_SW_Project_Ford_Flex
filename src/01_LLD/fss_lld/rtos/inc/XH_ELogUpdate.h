@@ -1,1 +1,0 @@
-void XH_ELogUpdate(void);

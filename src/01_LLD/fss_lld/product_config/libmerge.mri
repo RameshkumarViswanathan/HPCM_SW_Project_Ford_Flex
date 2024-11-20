@@ -1,5 +1,0 @@
-create lldio.a
-addlib outputs/Output/app.a
-addlib outputs/Output/hwio.a
-save
-end

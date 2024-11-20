@@ -1,8 +1,0 @@
-OLD FBL
-     Time         Chn     ID    Name   Event Type   Dir   DLC   Data                      
-     423.179020   CAN 1   456          CAN Frame    Rx    8     54 45 43 4D 50 42 4C 30  [TECMPBL0] 
-
-
-NEW FBL
-     Time         Chn     ID    Name   Event Type   Dir   DLC   Data                      
-     265.793186   CAN 1   456          CAN Frame    Rx    8     4A 45 4C 4C 4F 53 42 4C  [JELLOSBL]	 
